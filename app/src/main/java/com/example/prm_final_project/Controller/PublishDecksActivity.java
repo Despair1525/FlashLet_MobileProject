@@ -2,6 +2,7 @@ package com.example.prm_final_project.Controller;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PublishDecksActivity extends AppCompatActivity {
+public class PublishDecksActivity extends AppCompatActivity implements View.OnClickListener {
 
     ArrayList<Deck> allDecks = new ArrayList<>();
     ArrayList<String> myDeckKeys = new ArrayList<>();
@@ -53,6 +54,8 @@ public class PublishDecksActivity extends AppCompatActivity {
         addDeck = (ImageView)findViewById(R.id.abPlusPublic);
         lvDecks = (ListView) findViewById(R.id.lvDecksPublic);
 
+        logout.setOnClickListener(this);
+
 
 
 
@@ -63,5 +66,14 @@ public class PublishDecksActivity extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == logout) {
+            Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(i);
+            
+        };
     }
 }
