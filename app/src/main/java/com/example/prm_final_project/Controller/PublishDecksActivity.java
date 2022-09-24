@@ -33,9 +33,7 @@ public class PublishDecksActivity extends AppCompatActivity implements View.OnCl
     private ImageView addDeck;
     private TextView myDecks, publicDecks, logout;
     private SearchView svDecks;
-
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +54,7 @@ public class PublishDecksActivity extends AppCompatActivity implements View.OnCl
 
         logout.setOnClickListener(this);
 
-
-
-
 ///////////////////////
-
-
-
-
-
 
     }
 
@@ -73,7 +63,7 @@ public class PublishDecksActivity extends AppCompatActivity implements View.OnCl
         if(view == logout) {
             Intent i = new Intent(getApplicationContext(),LoginActivity.class);
             startActivity(i);
-            
+
         };
     }
 }
