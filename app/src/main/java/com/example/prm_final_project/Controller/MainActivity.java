@@ -22,29 +22,17 @@ public class MainActivity extends AppCompatActivity {
         pbMain = findViewById(R.id.pbLoadDecks);
         pbMain.setVisibility(View.VISIBLE);
         Intent i ;
-
+        //Hàm Load Database
+////    Sau khi load xong thì chuyển trang
         i = new Intent(MainActivity.this, LoginActivity.class);
-//        else {
-//            /// Chuyển đến Public Desk
-//        };
-
-//        i.putExtra("allDecks", allDecks); // Chuyển dữ liệu sang
         startActivity(i);
 
     }
-    //////  Hàm Load Database
 
-//    public FirebaseAuth getmAuth(){
-//        mAuth = FirebaseAuth.getInstance();
-//        return mAuth;
-//    }
-//    public FirebaseUser getCurrUser(){
-//        mAuth = getmAuth();
-//        FirebaseUser user = mAuth.getCurrentUser();
-//        return user;
-//    }
 
-//// Sau khi load xong thì chuyển trang
+
+
+
 
 
 
