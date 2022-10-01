@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.prm_final_project"
-        minSdk 21
+        minSdk 29
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -28,6 +28,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.6.1'
@@ -43,4 +44,13 @@ dependencies {
 //    testImplementation 'junit:junit:4.13.2'
 //    androidTestImplementation 'com.android.support.test:runner:1.0.2'
 //    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // View Pager2
+    implementation'androidx.viewpager2:viewpager2:1.0.0'
+
+    // RoundedImageView
+
+    implementation 'com.makeramen:roundedimageview:2.3.0'
+    // Easy flip view
+    implementation 'com.wajahatkarim:EasyFlipView:3.0.3'
 }

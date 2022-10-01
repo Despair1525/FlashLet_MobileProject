@@ -33,7 +33,7 @@ public class PublishDecksActivity extends AppCompatActivity implements View.OnCl
     private ImageView addDeck;
     private TextView myDecks, publicDecks, logout;
     private SearchView svDecks;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
