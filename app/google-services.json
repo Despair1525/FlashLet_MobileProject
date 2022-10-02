@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "755683785632",
+    "project_id": "flashlet-25aye",
+    "storage_bucket": "flashlet-25aye.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755683785632:android:8d5ed7f36ebba6d9e6c2c5",
+        "android_client_info": {
+          "package_name": "com.example.prm_final_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "755683785632-q5idsmrjme4qfdo4986tpmmm89bjumiu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prm_final_project",
+            "certificate_hash": "d8ac61d4dafee19d204d7d4e7a14f3df7c604464"
+          }
+        },
+        {
+          "client_id": "755683785632-46k1lk4rkgbt8m87cjgpm4b6v52ejj47.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8nFJp_80lCdRcTKVSqbwUWq6FkaYW6Kk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "755683785632-46k1lk4rkgbt8m87cjgpm4b6v52ejj47.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
