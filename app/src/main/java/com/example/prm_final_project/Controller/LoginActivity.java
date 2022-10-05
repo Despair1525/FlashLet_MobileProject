@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
     private TextInputEditText edtEmail,edtPassword;
@@ -34,14 +32,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initUi();
 //        mAuth = FirebaseAuth.getInstance();
-//
 //        allDecks = (ArrayList<Deck>) getIntent().getSerializableExtra("allDecks")
 
-        // Set Event cho Guest và signUp
 
-        btnGuest.setClickable(true);
-        btnSignup.setClickable(true);
-//        btnLogin  Truy cap vao database check authentication
+
+//      Truy cap vao database check authentication
         btnLogin.setOnClickListener(view -> onLogin());
         btnGuest.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +79,12 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                             // Sign in success, update UI with the signed-in user's information
 //                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(LoginActivity.this,ViewCard.class);
+                            Intent intent = new Intent(LoginActivity.this, ViewCardActivity.class);
                             startActivity(intent);
                             finishAffinity();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, "Your email or password not valid !.",
+                            Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

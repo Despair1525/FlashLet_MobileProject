@@ -16,7 +16,7 @@ import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 
-public class activity_learn_card extends AppCompatActivity {
+public class LearnCardActivity extends AppCompatActivity {
     private Deck deck;
     private ViewPager2 viewPager2;
     @Override

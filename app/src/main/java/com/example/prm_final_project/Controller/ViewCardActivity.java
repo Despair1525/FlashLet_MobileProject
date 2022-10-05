@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
@@ -22,7 +21,7 @@ import com.example.prm_final_project.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewCard extends AppCompatActivity  {
+public class ViewCardActivity extends AppCompatActivity  {
     private Deck deck;
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
@@ -93,7 +92,7 @@ public class ViewCard extends AppCompatActivity  {
 
    public void onLearn(View view){
         Bundle b = new Bundle();
-       Intent i = new Intent(this,activity_learn_card.class);
+       Intent i = new Intent(this, LearnCardActivity.class);
        i.putExtra("currentDeck",deck);
        startActivity(i);
    };
