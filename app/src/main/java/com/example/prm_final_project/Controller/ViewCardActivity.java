@@ -10,13 +10,21 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,17 +33,21 @@ public class ViewCardActivity extends AppCompatActivity  {
     private Deck deck;
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
+    private TextView tvTitile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Take all View in layout
-        imageViewLearn = findViewById(R.id.imageViewLearn);
         setContentView(R.layout.activity_view_card);
+        imageViewLearn = findViewById(R.id.imageViewLearn);
+        tvTitile = findViewById(R.id.tvTitle);
         RecyclerView recyclerViewList = findViewById(R.id.RcCardList);
-        initDeck();
+
+        if ( getIntent().getSerializableExtra("viewDeck") != null){
+            deck = (Deck) getIntent().getSerializableExtra("viewDeck");
+        }
+        tvTitile.setText(deck.getTitle());
         initSlideCard(); // Set Slide Flash card
-
-
         cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
         recyclerViewList.setAdapter(cardViewAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
@@ -61,34 +73,7 @@ public class ViewCardActivity extends AppCompatActivity  {
         viewPager2.setPageTransformer(compositePageTransformer);
     };
 
-    private void initDeck() {
-        List<List<String>> cards = new ArrayList<>();
-        List<String> card1 = new ArrayList<>();
-        card1.add("Manh");
-        card1.add("Dep trai");
-        cards.add(card1);
 
-        List<String> card2 = new ArrayList<>();
-        card2.add("Minh");
-        card2.add("Gay");
-        cards.add(card2);
-
-        List<String> card3 = new ArrayList<>();
-        card3.add("Mai");
-        card3.add("Luoi");
-        cards.add(card3);
-
-        List<String> card4 = new ArrayList<>();
-        card4.add("Khoa");
-        card4.add("Sang tao");
-        cards.add(card4);
-
-        List<String> card5 = new ArrayList<>();
-        card5.add("Thanh");
-        card5.add("cham chi");
-        cards.add(card5);
-        deck = new Deck("01","admin","First Flashcard","manh dep trai",cards);
-        }
 
    public void onLearn(View view){
         Bundle b = new Bundle();
@@ -97,5 +82,4 @@ public class ViewCardActivity extends AppCompatActivity  {
        startActivity(i);
    };
 
-    ;
     }

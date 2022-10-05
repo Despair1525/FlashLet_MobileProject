@@ -47,7 +47,7 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="36dp"
         android:foregroundGravity="center_vertical|center|center_horizontal"
-        android:text="The Flashcard App"
+        android:text="Enjoy FlashLet"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
