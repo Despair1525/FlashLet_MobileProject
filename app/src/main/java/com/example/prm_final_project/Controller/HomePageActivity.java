@@ -145,7 +145,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                     public void onClick(DialogInterface dialog, int which) {
                         m_Text = input.getText().toString();
                         Intent i =  new Intent(HomePageActivity.this,EditDeckActivity.class);
-                        i.putExtra("editDeck",allDecks.get(1));
                         i.putExtra("editTitle",m_Text);
                         startActivity(i);
                     }
