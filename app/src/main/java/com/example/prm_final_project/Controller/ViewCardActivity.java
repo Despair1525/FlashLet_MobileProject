@@ -34,6 +34,8 @@ public class ViewCardActivity extends AppCompatActivity  {
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
     private TextView tvTitile;
+    private ImageView imageReload;
+    private RecyclerView recyclerViewList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,17 +43,28 @@ public class ViewCardActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_view_card);
         imageViewLearn = findViewById(R.id.imageViewLearn);
         tvTitile = findViewById(R.id.tvTitle);
-        RecyclerView recyclerViewList = findViewById(R.id.RcCardList);
+        imageReload = findViewById(R.id.vc_Reload);
+        imageReload.setOnClickListener(view -> onReload());
+
 
         if ( getIntent().getSerializableExtra("viewDeck") != null){
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
         tvTitile.setText(deck.getTitle());
+        loadSlideFlash();
+    }
+
+    private void onReload() {
+        loadSlideFlash();
+    }
+    private void loadSlideFlash(){
+        recyclerViewList = findViewById(R.id.RcCardList);
         initSlideCard(); // Set Slide Flash card
         cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
         recyclerViewList.setAdapter(cardViewAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
-    }
+
+    };
 
     public void initSlideCard(){
         viewPager2 = findViewById(R.id.viewPagerImageSlider);
@@ -71,6 +84,9 @@ public class ViewCardActivity extends AppCompatActivity  {
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
+
+
+
     };
 
 

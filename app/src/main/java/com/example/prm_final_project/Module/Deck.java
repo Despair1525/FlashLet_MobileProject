@@ -10,18 +10,20 @@ import java.util.Map;
 
 public class Deck implements Serializable {
     String title, author, Uid, deckId;
+    boolean isPublic;
     List<List<String>> cards = new ArrayList<>();
 
     public Deck(){
 
     }
 
-    public Deck (String deckId, String Uid, String title, String author, List<List<String>> cards){
+    public Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards){
         this.deckId = deckId;
         this.title = title;
         this.author = author;
         this.cards = cards;
         this.Uid = Uid;
+        this.isPublic =isPublic;
     }
 
     public String getTitle() {
@@ -36,5 +38,13 @@ public class Deck implements Serializable {
     }
     public List<List<String>> getCards(){
         return cards;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
     }
 }

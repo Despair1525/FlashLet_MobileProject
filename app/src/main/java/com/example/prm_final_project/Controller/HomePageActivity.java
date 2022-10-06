@@ -1,13 +1,17 @@
 package com.example.prm_final_project.Controller;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -47,7 +51,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private ImageView addDeck;
     private TextView myDecks, publicDecks, logout;
     private SearchView svDecks;
-
+    private String m_Text = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +78,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         logout =  findViewById(R.id.tvLogout);
         addDeck = findViewById(R.id.abPlusPublic);
         lvDecks = findViewById(R.id.lvDecksPublic);
+        addDeck.setOnClickListener(this);
         logout.setOnClickListener(this);
 
 /////////////////////// Set style For ListView (Adjust )
@@ -122,6 +127,40 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         if(view == logout) {
             logout();
+        }
+        if(view == addDeck) {
+            if(isGuest) {
+                Toast.makeText(HomePageActivity.this,"You have to login !",Toast.LENGTH_SHORT).show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Title");
+// Set up the input
+                final EditText input = new EditText(this);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT );
+                builder.setView(input);
+// Set up the buttons
+                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        m_Text = input.getText().toString();
+                        Intent i =  new Intent(HomePageActivity.this,EditDeckActivity.class);
+                        i.putExtra("editDeck",allDecks.get(1));
+                        i.putExtra("editTitle",m_Text);
+                        startActivity(i);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+
+            };
+
         };
 
     }

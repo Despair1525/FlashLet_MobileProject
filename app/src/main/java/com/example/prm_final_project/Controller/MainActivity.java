@@ -64,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
                     String title = ds.child("title").getValue(String.class);
                     List<List<String>> cards = (List<List<String>>) ds.child("cards").getValue();
                     String did = ds.child("deckid").getValue(String.class);
-                    Deck thisDeck = new Deck(did, uid, title, author, cards);
+                    boolean isPublic = ds.child("public").getValue(Boolean.class);
+                    Deck thisDeck = new Deck(did, uid, title, author,isPublic ,cards);
                     allDecks.add(thisDeck);
                 }
                 listener.onSuccess(dataSnapshot);
