@@ -18,7 +18,15 @@ public class cardViewAdapter1 extends RecyclerView.Adapter<cardViewAdapter1.Addr
     private Context context;
     private Deck cards;
 
-    public cardViewAdapter1(Context context,Deck cards) {
+    public Deck getCards() {
+        return cards;
+    }
+
+    public void setCards(Deck cards) {
+        this.cards = cards;
+    }
+
+    public cardViewAdapter1(Context context, Deck cards) {
         this.context = context;
         this.cards = cards;
     };

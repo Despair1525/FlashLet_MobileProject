@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 private EditText edUserName;
@@ -55,7 +57,19 @@ private void initUi(){
 //                            FirebaseUser user = mAuth.getCurrentUser();
 //                            updateUI(user);
                             progressDialog.dismiss();
-                            Toast.makeText(RegisterActivity.this, "Register Succsess", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = mAuth.getInstance().getCurrentUser();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(edUserName.getText().toString()).build();;
+
+                            user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(RegisterActivity.this, "Register Succsess", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                             Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
                             startActivity(intent);
                             finishAffinity();

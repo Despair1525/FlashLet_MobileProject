@@ -22,6 +22,14 @@
         android:layout_height="wrap_content"
         android:hint="Title"
         android:textSize="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public"/>
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/SwitchCompatIsPublic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 
 
@@ -42,5 +50,12 @@
         android:layout_gravity="center"
         android:src="@drawable/ic_baseline_control_point_24"
         />
+    <ImageButton
+        android:id="@+id/ImgaeButtonSaveEdit"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_save_24"
+        />
+
 
 </androidx.appcompat.widget.LinearLayoutCompat>

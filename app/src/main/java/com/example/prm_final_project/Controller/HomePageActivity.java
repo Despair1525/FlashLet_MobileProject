@@ -106,13 +106,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-
     public boolean checkGuest(){
         FirebaseUser user = mAuth.getCurrentUser();
         if (user==null){
             return true;
         }
-        Toast.makeText(HomePageActivity.this, "Hello"+user.getEmail(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(HomePageActivity.this, "Hello"+user.getDisplayName(), Toast.LENGTH_SHORT).show();
         return false;
     }
 
