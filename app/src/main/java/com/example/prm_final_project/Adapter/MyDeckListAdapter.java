@@ -69,11 +69,12 @@ public class MyDeckListAdapter extends ArrayAdapter<Deck> {
                                 Intent i = new Intent(getContext(), HomePageActivity.class);
                                 String deckId = deck.get(position).getDeckId();
                                 deck.remove(position);
-                                ArrayList<Deck> allDecks = (ArrayList<Deck>) deck;
-                                i.putExtra("personalDecks", allDecks);
-                                i.putExtra("deckId", deckId);
-                                i.putExtra("isPublic", false);
-                                ctx.startActivity(i);
+                                notifyDataSetChanged();
+//                                ArrayList<Deck> allDecks = (ArrayList<Deck>) deck;
+//                                i.putExtra("personalDecks", allDecks);
+//                                i.putExtra("deckId", deckId);
+//                                i.putExtra("isPublic", false);
+//                                ctx.startActivity(i);
                                 //1. reload intent with inPublic = false
                                 //2. send position to public decks
 

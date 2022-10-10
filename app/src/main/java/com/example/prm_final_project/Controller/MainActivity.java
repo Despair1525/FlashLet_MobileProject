@@ -1,6 +1,9 @@
 package com.example.prm_final_project.Controller;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.time.Duration;
+
 // Khởi động ban đầu sẽ vào loading screen để load Database
 
 public class MainActivity extends AppCompatActivity {
@@ -36,60 +41,41 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        rootRef = FirebaseDatabase.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-        isGuest = checkGuest();
-        readAllDecks(rootRef.getReference("Decks"), new OnGetDataListener()  {
-            @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
-                Toast.makeText(MainActivity.this, "Load Database Success", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onFailure() {
-                Toast.makeText(MainActivity.this, "Load Database Fail", Toast.LENGTH_SHORT).show();
+        // Check Connection
+        if (isConnectedToInternet()) {
+            //
 
-            }
-        });
-
-    }
-
-    public void readAllDecks(DatabaseReference rr, final OnGetDataListener listener){
-
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String uid = ds.child("uid").getValue(String.class);
-                    String author = ds.child("author").getValue(String.class);
-                    String title = ds.child("title").getValue(String.class);
-                    List<List<String>> cards = (List<List<String>>) ds.child("cards").getValue();
-                    String did = ds.child("deckid").getValue(String.class);
-                    String date = ds.child("date").getValue(String.class);
-                    boolean isPublic = ds.child("public").getValue(Boolean.class);
-                    Deck thisDeck = new Deck(did, uid, title, author,date,isPublic ,cards);
-                    allDecks.add(thisDeck);
-                }
-                listener.onSuccess(dataSnapshot);
-                Intent i;
-                if(isGuest){
-                    i = new Intent(MainActivity.this, LoginActivity.class);
-                }
-                else{
-                    i = new Intent(MainActivity.this, HomePageActivity.class);
-
-                }
-                i.putExtra("allDecks", allDecks);
+            rootRef = FirebaseDatabase.getInstance();
+            mAuth = FirebaseAuth.getInstance();
+            isGuest = checkGuest();
+            if(isGuest) {
+                Intent i = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(i);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.d("HomePageActivity:", "Can't fetch all decks");
-            }
+            }else{
+                Intent i = new Intent(MainActivity.this,HomePageActivity.class);
+                startActivity(i);
+            };
+
+            finish();
+
+//            readAllDecks(rootRef.getReference("Decks"), new OnGetDataListener() {
+//                @Override
+//                public void onSuccess(DataSnapshot dataSnapshot) {
+//                    Toast.makeText(MainActivity.this, "Load Database Success", Toast.LENGTH_SHORT).show();
+//                }
+//                @Override
+//                public void onFailure() {
+//                    Toast.makeText(MainActivity.this, "Load Database Fail", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+        }
+        else {
+            Toast.makeText(MainActivity.this,"Not connect to internet",Toast.LENGTH_SHORT).show();
+            // Gửi sang trang Lỗi kết nối
         };
-        rr.addListenerForSingleValueEvent(eventListener);
-    }
 
+    }
     public FirebaseAuth getmAuth(){
         mAuth = FirebaseAuth.getInstance();
         return mAuth;
@@ -112,6 +98,22 @@ public class MainActivity extends AppCompatActivity {
         //this is for callbacks
         void onSuccess(DataSnapshot dataSnapshot);
         void onFailure();
+    }
+
+
+    public boolean isConnectedToInternet(){
+        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null)
+        {
+            NetworkInfo[] info = connectivity.getAllNetworkInfo();
+            if (info != null)
+                for (int i = 0; i < info.length; i++)
+                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
+                    {
+                        return true;
+                    }
+        }
+        return false;
     }
 
 

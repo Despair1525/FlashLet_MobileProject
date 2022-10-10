@@ -34,7 +34,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
     private TextView tvTitile;
-    private ImageView imageReload;
+    private ImageView imageReload,imageTest;
     private RecyclerView recyclerViewList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +46,21 @@ public class ViewCardActivity extends AppCompatActivity  {
         imageReload = findViewById(R.id.vc_Reload);
         imageReload.setOnClickListener(view -> onReload());
 
+        imageTest = findViewById(R.id.vc_Test);
+        imageTest.setOnClickListener(view -> onTest());
+
 
         if ( getIntent().getSerializableExtra("viewDeck") != null){
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
         tvTitile.setText(deck.getTitle());
         loadSlideFlash();
+    }
+
+    private void onTest() {
+        Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
+        i.putExtra("TestDeck",deck);
+        startActivity(i);
     }
 
     private void onReload() {

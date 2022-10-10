@@ -1,6 +1,7 @@
 package com.example.prm_final_project.Controller;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,11 +25,13 @@ import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import android.app.ProgressDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,7 +40,7 @@ import java.util.Map;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayList<Deck> allDecks = new ArrayList<>();
+    private ArrayList<Deck> allDecks = new ArrayList<>();
     ArrayList<String> myDeckKeys = new ArrayList<>();
     Map<String,Deck> keyedDecks = new HashMap<>();
     ArrayList<Deck> personalDecks = new ArrayList<>();
@@ -47,11 +50,18 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
-
+    MyDeckListAdapter DeckListAdapter;
+    ProgressDialog loading;
     private ImageView addDeck;
     private TextView myDecks, publicDecks, logout;
     private SearchView svDecks;
     private String m_Text = "";
+
+//
+//public Deck findDeck(String id ) {
+//
+//
+//}
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,11 +75,19 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         // Authentication
         isGuest = checkGuest();
-
-        if ((ArrayList<Deck>) getIntent().getSerializableExtra("allDecks") != null){
-            allDecks = (ArrayList<Deck>) getIntent().getSerializableExtra("allDecks");
-        }
-        Log.i("HMData",allDecks.size()+"");
+//  Read Databae
+        readAllDecks(rootRef.getReference("Decks"), new MainActivity.OnGetDataListener() {
+            @Override
+            public void onSuccess(DataSnapshot dataSnapshot) {
+            }
+            @Override
+            public void onFailure() {
+                Log.i("HomeActivity_readData:","fail ");
+            }
+        });
+//        if ((ArrayList<Deck>) getIntent().getSerializableExtra("allDecks") != null){
+//            allDecks = (ArrayList<Deck>) getIntent().getSerializableExtra("allDecks");
+//        }
 
 /////////////////////////////
         svDecks = findViewById(R.id.svSearchPublic);
@@ -82,16 +100,16 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         logout.setOnClickListener(this);
 
 /////////////////////// Set style For ListView (Adjust )
-        if (inPublic){
-            DeckListAdapter adapter = new DeckListAdapter(isGuest,this, R.layout.deck_lv_item, allDecks);
-            lvDecks.setAdapter(adapter);
-        }
-        else {
-            MyDeckListAdapter adapter = new MyDeckListAdapter(isGuest,this, R.layout.deck_lv_item, personalDecks);
-            publicDecks.setTextAppearance(this, android.R.style.TextAppearance_Material_Body1);
-            myDecks.setTextAppearance(this, android.R.style.TextAppearance_Large);
-            lvDecks.setAdapter(adapter);
-        };
+
+            DeckListAdapter = new MyDeckListAdapter(isGuest,this, R.layout.deck_lv_item, allDecks);
+            lvDecks.setAdapter( DeckListAdapter);
+
+//        else {
+//            MyDeckListAdapter adapter = new MyDeckListAdapter(isGuest,this, R.layout.deck_lv_item, personalDecks);
+//            publicDecks.setTextAppearance(this, android.R.style.TextAppearance_Material_Body1);
+//            myDecks.setTextAppearance(this, android.R.style.TextAppearance_Large);
+//            lvDecks.setAdapter(adapter);
+//        };
 
 
 //         Click vao 1 deck bat ky
@@ -105,6 +123,50 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         });
 
     }
+
+    public void readAllDecks(DatabaseReference rr, final MainActivity.OnGetDataListener listener){
+        loading = new ProgressDialog(HomePageActivity.this);
+
+        ChildEventListener childEventListener = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
+                loading.show();
+                String uid = ds.child("uid").getValue(String.class);
+                String author = ds.child("author").getValue(String.class);
+                String title = ds.child("title").getValue(String.class);
+                List<List<String>> cards = (List<List<String>>) ds.child("cards").getValue();
+                String did = ds.child("deckid").getValue(String.class);
+                String date = ds.child("date").getValue(String.class);
+                boolean isPublic = ds.child("public").getValue(Boolean.class);
+                Deck thisDeck = new Deck(did, uid, title, author,date,isPublic ,cards);
+                allDecks.add(thisDeck);
+                DeckListAdapter.notifyDataSetChanged();
+                loading.dismiss();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        rr.addChildEventListener(childEventListener);
+    }
+
 
     public boolean checkGuest(){
         FirebaseUser user = mAuth.getCurrentUser();
