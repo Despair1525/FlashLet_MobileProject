@@ -16,13 +16,25 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".TestActivity"
+            android:name=".Controller.TestActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Controller.ResultWrittenChoiceActivity"
             android:exported="false" />
         <activity
-            android:name=".UserActivity"
+            android:name=".Controller.WrittenQuizActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".Controller.ResultMultipleChoiceActivity"
+            android:exported="false" />
+
+
+        <activity
+            android:name=".Controller.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Controller.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".Controller.SplashActivity"
@@ -38,9 +50,7 @@
         <activity
             android:name=".Controller.LearnCardActivity"
             android:exported="false" />
-        <activity
-            android:name=".Controller.User.AddCards"
-            android:exported="false" />
+
         <activity
             android:name=".Controller.EditDeckActivity"
             android:exported="false" />

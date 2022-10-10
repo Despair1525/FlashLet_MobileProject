@@ -1,6 +1,7 @@
 package com.example.prm_final_project.Controller;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,11 +9,18 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,9 +66,62 @@ public class ViewCardActivity extends AppCompatActivity  {
     }
 
     private void onTest() {
-        Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
-        i.putExtra("TestDeck",deck);
-        startActivity(i);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Setting");
+
+        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
+        builder.setView(layout);
+        TextView totalNum =  layout.findViewById(R.id.numques_total);
+        EditText quesNum = layout.findViewById(R.id.numques_num);
+        totalNum.setText("/"+deck.getCards().size());
+        RadioGroup radio_g = layout.findViewById(R.id.QuestionType);
+        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if(radio_g.getCheckedRadioButtonId()==-1)
+                {
+                    Toast.makeText(getApplicationContext(), "Please select one choice", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                RadioButton uans = (RadioButton) layout.findViewById(radio_g.getCheckedRadioButtonId());
+                String ansText = uans.getText().toString();
+                int numQues = Integer.parseInt(quesNum.getText().toString() );
+                if(numQues >  deck.getCards().size() ) {
+                    Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
+                    return;
+                };
+                if(ansText.equalsIgnoreCase("Multiple Choice")){
+                    Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
+                    i.putExtra("numQues",numQues);
+                    i.putExtra("TestDeck",deck);
+                    startActivity(i);
+                }
+                else {
+                    Intent i = new Intent(ViewCardActivity.this,WrittenQuizActivity.class);
+                    i.putExtra("numQues",numQues);
+                    i.putExtra("TestDeck",deck);
+                    startActivity(i);
+
+                };
+
+
+//                Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
+//                i.putExtra("TestDeck",deck);
+//                startActivity(i);
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+
+
     }
 
     private void onReload() {

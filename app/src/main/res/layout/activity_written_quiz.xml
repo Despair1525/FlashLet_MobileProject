@@ -4,13 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Controller.TestActivity"
+    tools:context=".Controller.WrittenQuizActivity"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     >
-
 
     <TextView
         android:id="@+id/Question"
@@ -24,42 +23,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <RadioGroup
-        android:id="@+id/Options"
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/Answer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/Question">
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A"
-            android:id="@+id/radioButtonA"
-            android:checked="false"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="B"
-            android:id="@+id/radioButtonB"
-            android:checked="false"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="C"
-            android:id="@+id/radioButtonC"
-            android:checked="false"
-            />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="D"
-            android:id="@+id/radioButtonD"
-            android:checked="false"
-            />
-    </RadioGroup>
+    </EditText>
 
     <Button
         android:id="@+id/NextQues"
@@ -67,7 +38,7 @@
         android:layout_height="wrap_content"
         android:text="SubmitQuestion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Options" />
+        app:layout_constraintTop_toBottomOf="@id/Answer" />
 
     <Button
         android:id="@+id/Quit"
