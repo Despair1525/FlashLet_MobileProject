@@ -21,8 +21,8 @@ import java.util.List;
 
 public class WrittenQuizActivity extends AppCompatActivity {
     private TextView Question;
-    public ArrayList<Quiz> questionSet;
-    public ArrayList<String> AnswerSet;
+    public ArrayList<Quiz> questionSet = new ArrayList<>();
+    public ArrayList<String> AnswerSet = new ArrayList<>();
 
     private Button SubmitQuestion, Quit;
     private EditText Answer;
@@ -43,7 +43,6 @@ public class WrittenQuizActivity extends AppCompatActivity {
         SubmitQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(Answer.getText().toString().trim().equals(null))
                 {
                     Toast.makeText(getApplicationContext(), "Please enter answer", Toast.LENGTH_SHORT).show();
@@ -79,6 +78,7 @@ public class WrittenQuizActivity extends AppCompatActivity {
     }
 
     public void init(){
+        Answer = findViewById(R.id.Answer);
         Question = findViewById(R.id.Question);
         SubmitQuestion = findViewById(R.id.NextQues);
     }

@@ -2,18 +2,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <EditText
+    <LinearLayout
         android:id="@+id/numques"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal" >
+
+    <EditText
+        android:id="@+id/numques_num"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
         android:ems="10"
         android:hint="Enter number of question"
         android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
+
+        <TextView
+            android:id="@+id/numques_total"
+            android:textSize="20dp"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="/"
+            />
+    </LinearLayout>
+
     <RadioGroup
         android:id="@+id/QuestionType"
         android:layout_width="wrap_content"
@@ -35,13 +53,5 @@
             android:checked="false"
             />
     </RadioGroup>
-
-    <Button
-        android:id="@+id/start"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Start a quiz"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/QuestionType" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
