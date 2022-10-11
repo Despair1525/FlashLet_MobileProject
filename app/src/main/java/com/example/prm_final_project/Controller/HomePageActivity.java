@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,7 +13,6 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -19,8 +20,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.prm_final_project.Adapter.DeckListAdapter;
-import com.example.prm_final_project.Adapter.MyDeckListAdapter;
+import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +30,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 import android.app.ProgressDialog;
 
 import java.util.ArrayList;
@@ -47,12 +47,13 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private ListView lvDecks;
     private boolean isGuest = true;
     private boolean inPublic = true;
+    HomeDeckListAdapter homeDeckAdap;
 
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
-    MyDeckListAdapter DeckListAdapter;
     ProgressDialog loading;
     private ImageView addDeck;
+    private RecyclerView RcListDeck, RcListDeckLike, RcListDeckReco;
     private TextView myDecks, publicDecks, logout;
     private SearchView svDecks;
     private String m_Text = "";
@@ -65,7 +66,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_publish_decks);
+        setContentView(R.layout.homepage_activity);
 
 
 /////// Connect with Database
@@ -91,36 +92,29 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
 /////////////////////////////
         svDecks = findViewById(R.id.svSearchPublic);
-        myDecks =  findViewById(R.id.tvMyDecks);
-        publicDecks =  findViewById(R.id.tvPublicDecks);
         logout =  findViewById(R.id.tvLogout);
         addDeck = findViewById(R.id.abPlusPublic);
-        lvDecks = findViewById(R.id.lvDecksPublic);
+        RcListDeck = findViewById(R.id.RvDecksPublic);
+        RcListDeckLike = findViewById(R.id.RvDecksPublicPopular);
+        RcListDeckReco = findViewById(R.id.RvDecksPublicReco);
         addDeck.setOnClickListener(this);
         logout.setOnClickListener(this);
 
 /////////////////////// Set style For ListView (Adjust )
+        homeDeckAdap = new HomeDeckListAdapter(this,allDecks);
+        RcListDeck.setAdapter(homeDeckAdap);
+        LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(HomePageActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManagaer2 = new LinearLayoutManager(HomePageActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager horizontalLayoutManagaer3 = new LinearLayoutManager(HomePageActivity.this, LinearLayoutManager.HORIZONTAL, false);
+        RcListDeck.setLayoutManager(horizontalLayoutManagaer);
 
-            DeckListAdapter = new MyDeckListAdapter(isGuest,this, R.layout.deck_lv_item, allDecks);
-            lvDecks.setAdapter( DeckListAdapter);
-
-//        else {
-//            MyDeckListAdapter adapter = new MyDeckListAdapter(isGuest,this, R.layout.deck_lv_item, personalDecks);
-//            publicDecks.setTextAppearance(this, android.R.style.TextAppearance_Material_Body1);
-//            myDecks.setTextAppearance(this, android.R.style.TextAppearance_Large);
-//            lvDecks.setAdapter(adapter);
-//        };
-
-
+        //// Set for list Liked
+        RcListDeckLike.setAdapter(homeDeckAdap);
+        RcListDeckLike.setLayoutManager(horizontalLayoutManagaer2);
+        /// Set for list Recomend
+        RcListDeckReco.setAdapter(homeDeckAdap);
+        RcListDeckReco.setLayoutManager(horizontalLayoutManagaer3);
 //         Click vao 1 deck bat ky
-        lvDecks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                Intent i = new Intent(HomePageActivity.this, ViewCardActivity.class);
-                i.putExtra("viewDeck", allDecks.get(position));
-                startActivity(i);
-            }
-        });
 
     }
 
@@ -140,7 +134,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                 boolean isPublic = ds.child("public").getValue(Boolean.class);
                 Deck thisDeck = new Deck(did, uid, title, author,date,isPublic ,cards);
                 allDecks.add(thisDeck);
-                DeckListAdapter.notifyDataSetChanged();
+                homeDeckAdap.notifyDataSetChanged();
+//                DeckListAdapter.notifyDataSetChanged();
+
                 loading.dismiss();
             }
 

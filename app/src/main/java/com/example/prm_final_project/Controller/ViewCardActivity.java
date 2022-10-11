@@ -106,7 +106,6 @@ public class ViewCardActivity extends AppCompatActivity  {
 
                 };
 
-
 //                Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
 //                i.putExtra("TestDeck",deck);
 //                startActivity(i);
