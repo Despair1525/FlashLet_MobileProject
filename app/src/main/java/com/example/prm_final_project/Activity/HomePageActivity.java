@@ -1,7 +1,5 @@
-package com.example.prm_final_project.Controller;
+package com.example.prm_final_project.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,21 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
+import com.example.prm_final_project.Dao.DeckDao;
+import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import android.app.ProgressDialog;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HomePageActivity extends AppCompatActivity implements View.OnClickListener {
@@ -66,7 +60,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.homepage_activity);
+        setContentView(R.layout.activity_homepage);
 
 
 /////// Connect with Database
@@ -76,19 +70,12 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 
         // Authentication
         isGuest = checkGuest();
-//  Read Databae
-        readAllDecks(rootRef.getReference("Decks"), new MainActivity.OnGetDataListener() {
+        DeckDao.readAllDecks(new FirebaseCallback() {
             @Override
-            public void onSuccess(DataSnapshot dataSnapshot) {
+            public void onResponse(ArrayList<Deck> allDecks) {
+                homeDeckAdap.notifyDataSetChanged();
             }
-            @Override
-            public void onFailure() {
-                Log.i("HomeActivity_readData:","fail ");
-            }
-        });
-//        if ((ArrayList<Deck>) getIntent().getSerializableExtra("allDecks") != null){
-//            allDecks = (ArrayList<Deck>) getIntent().getSerializableExtra("allDecks");
-//        }
+        },allDecks);
 
 /////////////////////////////
         svDecks = findViewById(R.id.svSearchPublic);
@@ -117,53 +104,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
 //         Click vao 1 deck bat ky
 
     }
-
-    public void readAllDecks(DatabaseReference rr, final MainActivity.OnGetDataListener listener){
-        loading = new ProgressDialog(HomePageActivity.this);
-
-        ChildEventListener childEventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
-                loading.show();
-                String uid = ds.child("uid").getValue(String.class);
-                String author = ds.child("author").getValue(String.class);
-                String title = ds.child("title").getValue(String.class);
-                List<List<String>> cards = (List<List<String>>) ds.child("cards").getValue();
-                String did = ds.child("deckid").getValue(String.class);
-                String date = ds.child("date").getValue(String.class);
-                boolean isPublic = ds.child("public").getValue(Boolean.class);
-                Deck thisDeck = new Deck(did, uid, title, author,date,isPublic ,cards);
-                allDecks.add(thisDeck);
-                homeDeckAdap.notifyDataSetChanged();
-//                DeckListAdapter.notifyDataSetChanged();
-
-                loading.dismiss();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        rr.addChildEventListener(childEventListener);
-    }
-
-
     public boolean checkGuest(){
         FirebaseUser user = mAuth.getCurrentUser();
         if (user==null){
@@ -172,8 +112,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         Toast.makeText(HomePageActivity.this, "Hello"+user.getDisplayName(), Toast.LENGTH_SHORT).show();
         return false;
     }
-
-
     public void logout(){
         mAuth.signOut();
         Intent i = new Intent(HomePageActivity.this, LoginActivity.class);
@@ -191,12 +129,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             } else {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Title");
-// Set up the input
                 final EditText input = new EditText(this);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
                 input.setInputType(InputType.TYPE_CLASS_TEXT );
                 builder.setView(input);
-// Set up the buttons
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

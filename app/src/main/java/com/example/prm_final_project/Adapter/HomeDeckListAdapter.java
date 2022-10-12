@@ -5,20 +5,17 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm_final_project.Controller.HomePageActivity;
-import com.example.prm_final_project.Controller.ViewCardActivity;
+import com.example.prm_final_project.Activity.ViewCardActivity;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapter.AddressViewHolder>{
 
@@ -36,7 +33,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
     @Override
     public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.deck_lv_item,parent,false);
+        View view = layoutInflater.inflate(R.layout.item_deck_view,parent,false);
         return new AddressViewHolder(view,HomeDeckListAdapter.this);
     }
 

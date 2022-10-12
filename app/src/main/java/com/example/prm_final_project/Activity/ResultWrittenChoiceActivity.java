@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Controller;
+package com.example.prm_final_project.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.prm_final_project.R;
 
-public class ResultMultipleChoiceActivity extends AppCompatActivity {
+public class ResultWrittenChoiceActivity extends AppCompatActivity {
     private TextView Correct, Wrong;
     private Button RestartButton;
 
@@ -20,18 +20,18 @@ public class ResultMultipleChoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_result_multiple_choice);
         init();
         StringBuffer sb = new StringBuffer();
-        sb.append("Correct answers: " + TestActivity.correct + "\n");
+        sb.append("Correct answers: " + WrittenQuizActivity.correct + "\n");
         StringBuffer sb2 = new StringBuffer();
-        sb2.append("Wrong Answers: " + TestActivity.wrong + "\n");
+        sb2.append("Wrong Answers: " + WrittenQuizActivity.wrong + "\n");
         Correct.setText(sb);
         Wrong.setText(sb2);
 
-        TestActivity.correct=0;
-        TestActivity.wrong=0;
+        WrittenQuizActivity.correct=0;
+        WrittenQuizActivity.wrong=0;
         RestartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
+                Intent in = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(in);
             }
         });

@@ -16,28 +16,28 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".Controller.TestActivity"
+            android:name=".Activity.TestActivity"
             android:exported="false" />
 
         <activity
-            android:name=".Controller.ResultWrittenChoiceActivity"
+            android:name=".Activity.ResultWrittenChoiceActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.WrittenQuizActivity"
+            android:name=".Activity.WrittenQuizActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.ResultMultipleChoiceActivity"
+            android:name=".Activity.ResultMultipleChoiceActivity"
             android:exported="false" />
 
 
         <activity
-            android:name=".Controller.UserActivity"
+            android:name=".Activity.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.SearchActivity"
+            android:name=".Activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.SplashActivity"
+            android:name=".Activity.SplashActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -48,26 +48,26 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".Controller.LearnCardActivity"
+            android:name=".Activity.LearnCardActivity"
             android:exported="false" />
 
         <activity
-            android:name=".Controller.EditDeckActivity"
+            android:name=".Activity.EditDeckActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.ViewCardActivity"
+            android:name=".Activity.ViewCardActivity"
             android:exported="true" />
         <activity
-            android:name=".Controller.RegisterActivity"
+            android:name=".Activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.HomePageActivity"
+            android:name=".Activity.HomePageActivity"
             android:exported="false" />
         <activity
-            android:name=".Controller.LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".Controller.MainActivity"
+            android:name=".Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

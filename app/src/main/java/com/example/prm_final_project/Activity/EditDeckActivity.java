@@ -1,10 +1,9 @@
-package com.example.prm_final_project.Controller;
+package com.example.prm_final_project.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import com.example.prm_final_project.Controller.HomePageActivity;
 
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Module.Deck;
