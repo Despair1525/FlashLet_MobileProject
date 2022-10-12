@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Controller;
+package com.example.prm_final_project.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

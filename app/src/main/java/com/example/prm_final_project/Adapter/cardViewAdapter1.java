@@ -34,7 +34,7 @@ public class cardViewAdapter1 extends RecyclerView.Adapter<cardViewAdapter1.Addr
     @Override
     public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.card_item_1,parent,false);
+        View view = layoutInflater.inflate(R.layout.item_cardview2,parent,false);
         return  new AddressViewHolder(view,this);
     }
 

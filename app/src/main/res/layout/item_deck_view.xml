@@ -2,15 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:descendantFocusability="blocksDescendants">
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_margin="20dp"
+    android:id="@+id/deckViewItem"
+    android:background="@drawable/shaddown_layout"
 
+    >
     <TextView
         android:id="@+id/tvDeckName"
         android:layout_width="277dp"
         android:layout_height="34dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
         android:text="Title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textSize="20sp"
@@ -18,24 +23,29 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvDeckAuthor"
+        android:id="@+id/tvDeckTotal"
         android:layout_width="276dp"
         android:layout_height="26dp"
         android:layout_marginStart="4dp"
-        android:text="Name"
+        android:text="Total Number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDeckName" />
 
-    <ImageButton
-        android:id="@+id/btnDelete"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_delete"
-        tools:ignore="SpeakableTextPresentCheck" />
+    <TextView
+        android:id="@+id/tvDeckAuthor"
+        android:layout_width="276dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+
+        android:text="Name"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDeckTotal" />
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

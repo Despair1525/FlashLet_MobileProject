@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Controller;
+package com.example.prm_final_project.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -9,12 +9,9 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -28,14 +25,6 @@ import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ViewCardActivity extends AppCompatActivity  {
     private Deck deck;
@@ -105,7 +94,6 @@ public class ViewCardActivity extends AppCompatActivity  {
                     startActivity(i);
 
                 };
-
 
 //                Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
 //                i.putExtra("TestDeck",deck);

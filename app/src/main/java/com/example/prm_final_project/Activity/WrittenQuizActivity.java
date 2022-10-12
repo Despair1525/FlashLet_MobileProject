@@ -1,10 +1,9 @@
-package com.example.prm_final_project.Controller;
+package com.example.prm_final_project.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
