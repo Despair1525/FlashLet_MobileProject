@@ -31,6 +31,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
     private TextView tvTitile;
+    private TextView tvView;
     private ImageView imageReload,imageTest;
     private RecyclerView recyclerViewList;
     @Override
@@ -38,6 +39,7 @@ public class ViewCardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         // Take all View in layout
         setContentView(R.layout.activity_view_card);
+        tvView = findViewById(R.id.textViewView);
         imageViewLearn = findViewById(R.id.imageViewLearn);
         tvTitile = findViewById(R.id.tvTitle);
         imageReload = findViewById(R.id.vc_Reload);
@@ -51,6 +53,7 @@ public class ViewCardActivity extends AppCompatActivity  {
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
         tvTitile.setText(deck.getTitle());
+        tvView.setText(deck.getView()+"");
         loadSlideFlash();
     }
 
@@ -142,9 +145,6 @@ public class ViewCardActivity extends AppCompatActivity  {
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
-
-
-
     };
 
 

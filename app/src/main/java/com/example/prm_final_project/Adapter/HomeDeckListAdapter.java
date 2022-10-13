@@ -12,6 +12,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm_final_project.Activity.ViewCardActivity;
+import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 
@@ -50,6 +51,8 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
     private void onItem(Deck currentDeck) {
         Intent i = new Intent(context, ViewCardActivity.class);
         i.putExtra("viewDeck",currentDeck);
+        // add view each time click
+        DeckDao.addView(currentDeck);
         context.startActivity(i);
     }
 

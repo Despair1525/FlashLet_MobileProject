@@ -94,8 +94,17 @@
         android:layout_marginEnd="116dp"
         app:layout_constraintStart_toEndOf="@+id/vc_Test"
         app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"
-        android:src="@drawable/ic_baseline_info_24"
+        android:src="@drawable/ic_baseline_remove_red_eye_24"
         />
+    <TextView
+        android:id="@+id/textViewTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="20dp"
+        android:text="Test"
+        app:layout_constraintStart_toEndOf="@id/textViewReload"
+        app:layout_constraintTop_toBottomOf="@+id/vc_Test" />
 
 <!--    <ImageView-->
 <!--        android:id="@+id/imageView3"-->
@@ -153,14 +162,14 @@
 <!--        app:layout_constraintTop_toBottomOf="@+id/imageView3" />-->
 
     <TextView
-        android:id="@+id/textViewCheckList"
+        android:id="@+id/textViewView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
-        android:text="Test"
-        app:layout_constraintStart_toEndOf="@id/textViewReload"
-        app:layout_constraintTop_toBottomOf="@+id/vc_Test" />
+        android:text="View"
+        app:layout_constraintStart_toEndOf="@id/textViewTest"
+        app:layout_constraintTop_toBottomOf="@+id/vc_Infor" />
 
     <TextView
         android:layout_width="wrap_content"

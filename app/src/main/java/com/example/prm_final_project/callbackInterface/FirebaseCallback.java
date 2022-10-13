@@ -5,7 +5,7 @@ import com.example.prm_final_project.Module.Deck;
 import java.util.ArrayList;
 
 public interface FirebaseCallback {
-        void onResponse(ArrayList<Deck> allDecks);
+        void onResponse(ArrayList<Deck> allDecks,Deck changeDeck, int type);
 
     }
 

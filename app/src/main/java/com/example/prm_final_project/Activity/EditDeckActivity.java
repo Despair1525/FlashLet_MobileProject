@@ -17,9 +17,11 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
+import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -77,10 +79,20 @@ private SwitchCompat isPublic;
                 String uid = user.getUid();
                 String author = user.getDisplayName();
                 Boolean Public = isPublic.isChecked();
+                int view =1;
 //                Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards)
 
-                Deck newDeck = new Deck(deckid,uid,title,author,date,Public,cards);
-                addDeck(newDeck);
+                Deck newDeck = new Deck(deckid,uid,title,author,date,Public,view,cards);
+                DeckDao.addDeck(newDeck, new FirebaseCallback() {
+                    @Override
+                    public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
+                        Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
+                        i.putExtra("viewDeck", changeDeck);
+                        startActivity(i);
+                        Toast.makeText(EditDeckActivity.this, "Upload flashcard success !", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
 
 //                Toast.makeText(EditDeckActivity.this, editDeck.getCards().size()+"|"+ Methods.generateFlashCardId()
 //                        +"|"+Methods.getTime()+"|"+userName+"|"+Public, Toast.LENGTH_SHORT).show();
@@ -150,27 +162,26 @@ private SwitchCompat isPublic;
         return user;
     }
 
-    private void addDeck(Deck deck){
-        FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId())
-                .setValue(deck).addOnCompleteListener(new OnCompleteListener<Void>() {
+//    private void addDeck(Deck deck, FirebaseCallback callback){
+//        FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId()).setValue(deck);
+//                .setValue(deck).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete( @NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+//
+//                            Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
+//                            i.putExtra("viewDeck", deck);
+//                            startActivity(i);
+//                            Toast.makeText(EditDeckActivity.this, "Upload flashcard success !", Toast.LENGTH_LONG).show();
+//                            finish();
+//                        }
+//                        else{
+//                            Toast.makeText(EditDeckActivity.this, "Failed to upload new deck.", Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
 
-                    @Override
-                    public void onComplete( @NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-
-                            Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
-                            i.putExtra("viewDeck", deck);
-                            startActivity(i);
-                            Toast.makeText(EditDeckActivity.this, "Upload flashcard success !", Toast.LENGTH_LONG).show();
-                            finish();
-                        }
-                        else{
-                            Toast.makeText(EditDeckActivity.this, "Failed to upload new deck.", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-
-    };
+//    };
 
 };
 

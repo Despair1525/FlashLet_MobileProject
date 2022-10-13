@@ -51,14 +51,12 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
 
     class SliderViewHolder extends RecyclerView.ViewHolder {
 
-        private RoundedImageView cardView;
         TextView front;
         TextView back;
 
 
         public SliderViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView = itemView.findViewById(R.id.viewPagerImageSlider);
             front = itemView.findViewById(R.id.SliderCardFront);
             back = itemView.findViewById(R.id.SliderCardBack);
 

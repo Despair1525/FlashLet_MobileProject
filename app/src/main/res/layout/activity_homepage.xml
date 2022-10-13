@@ -52,10 +52,15 @@
         android:textStyle="bold"
        />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/RvDecksPublic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="100dp"
         />
 
     <TextView
@@ -67,12 +72,23 @@
         android:textStyle="bold"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RvDecksPublicPopular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/RvDecksPublicPopular"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
 
+<!--        />-->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/RvDecksPublicPopular"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="100dp"
         />
 
     <TextView
@@ -84,15 +100,23 @@
         android:textStyle="bold"
         />
 
-    <androidx.recyclerview.widget.RecyclerView
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/RvDecksPublicReco"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+
+<!--        />-->
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/RvDecksPublicReco"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:paddingStart="10dp"
+        android:paddingEnd="100dp"
         />
-
-
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
