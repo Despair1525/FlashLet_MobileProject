@@ -1,15 +1,19 @@
 package com.example.prm_final_project.Ui.Activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -32,8 +36,8 @@ import java.util.ArrayList;
 // Khởi động ban đầu sẽ vào loading screen để load Database
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+    private String m_Text;
     BottomNavigationView bottomNavigationView;
-    Toolbar toolbar;
     private boolean isGuest = false;
     private ArrayList<Deck> allDecks = new ArrayList<>();
     private FirebaseAuth mAuth;
@@ -97,11 +101,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
                 return true;
             case R.id.nav_create:
-                fragment = new CreateDeckFragment();
-                if(CURRENT_FRAGMENT != CREATE_FRAGMENT){
-                    loadFragment(fragment);
-                    CURRENT_FRAGMENT = CREATE_FRAGMENT;
-                }
+//                fragment = new CreateDeckFragment();
+//                if(CURRENT_FRAGMENT != CREATE_FRAGMENT){
+//                    loadFragment(fragment);
+//                    CURRENT_FRAGMENT = CREATE_FRAGMENT;
+//                }
+                creatDeck();
                 return true;
             case R.id.nav_profile:
                 fragment = new ProfileFragment();
@@ -127,6 +132,35 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return mAuth;
     }
 //
+// create Deck
+    public void creatDeck(){
+        if(checkGuest()) {
+            Toast.makeText(MainActivity.this,"You have to login !",Toast.LENGTH_SHORT).show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Title");
+            final EditText input = new EditText(this);
+            input.setInputType(InputType.TYPE_CLASS_TEXT );
+            builder.setView(input);
+            builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    m_Text = input.getText().toString();
+                    Intent i =  new Intent(MainActivity.this,EditDeckActivity.class);
+                    i.putExtra("editTitle",m_Text);
+                    startActivity(i);
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            builder.show();
+        };
+
+    };
     public boolean checkGuest(){
         FirebaseUser user = mAuth.getInstance().getCurrentUser();
         if (user==null){

@@ -9,17 +9,6 @@
     android:orientation="vertical">
 
 
-    <SearchView
-        android:id="@+id/svSearchPublic"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="13dp"
-        android:queryHint="Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMyDecks" />
     <TextView
         android:id="@+id/tvLogout"
         android:layout_width="wrap_content"

@@ -46,7 +46,6 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<Deck> allDecks = new ArrayList<>();
     private ArrayList<Deck> newestDecks = new ArrayList<>();
-
     ArrayList<String> myDeckKeys = new ArrayList<>();
     Map<String,Deck> keyedDecks = new HashMap<>();
     ArrayList<Deck> personalDecks = new ArrayList<>();
@@ -60,7 +59,6 @@ public class HomeFragment extends Fragment {
     ProgressDialog loading;
     private ImageView addDeck;
     private TextView myDecks, publicDecks, logout;
-    private SearchView svDecks;
     private String m_Text = "";
 
     Context thiscontext;
@@ -75,7 +73,6 @@ public class HomeFragment extends Fragment {
             ViewGroup container, Bundle savedInstanceState) {
         thiscontext = container.getContext();
         View view =  inflater.inflate(R.layout.activity_homepage, container, false);
-
 //      Get data
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -110,8 +107,6 @@ public class HomeFragment extends Fragment {
             }
         },allDecks);
 
-/////////////////////////////
-        svDecks = view.findViewById(R.id.svSearchPublic);
         logout =  view.findViewById(R.id.tvLogout);
         addDeck = view.findViewById(R.id.abPlusPublic);
         addDeck.setOnClickListener(this::onClick);
@@ -121,10 +116,10 @@ public class HomeFragment extends Fragment {
         viewPager2Popular = view.findViewById(R.id.RvDecksPublicPopular);
         viewPager2Reco = view.findViewById(R.id.RvDecksPublicReco);
 
-/////////////////////// Set style For ListView (Adjust )
+// Set style For ListView (Adjust )
         homeDeckAdap = new HomeDeckListAdapter(thiscontext,allDecks);
         homeDeckAdapNew = new HomeDeckListAdapter(thiscontext,newestDecks);
-//      Set For List Newest
+// Set For List Newest
 
 
         viewPager2New.setAdapter(homeDeckAdapNew);

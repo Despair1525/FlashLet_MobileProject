@@ -106,7 +106,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         },allDecks);
 
 /////////////////////////////
-        svDecks = findViewById(R.id.svSearchPublic);
         logout =  findViewById(R.id.tvLogout);
         addDeck = findViewById(R.id.abPlusPublic);
         addDeck.setOnClickListener(this);
