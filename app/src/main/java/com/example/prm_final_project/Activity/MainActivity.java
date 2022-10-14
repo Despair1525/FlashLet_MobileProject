@@ -21,10 +21,9 @@ import java.util.ArrayList;
 // Khởi động ban đầu sẽ vào loading screen để load Database
 
 public class MainActivity extends AppCompatActivity {
-    private boolean isGuest = false;
+
     private ArrayList<Deck> allDecks = new ArrayList<>();
-    private FirebaseAuth mAuth;
-    FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,31 +33,10 @@ public class MainActivity extends AppCompatActivity {
         // Check Connection
         if (isConnectedToInternet()) {
             //
+             Intent i = new Intent(MainActivity.this,HomePageActivity.class);
+             startActivity(i);
+              finish();
 
-            rootRef = FirebaseDatabase.getInstance();
-            mAuth = FirebaseAuth.getInstance();
-            isGuest = checkGuest();
-            if(isGuest) {
-                Intent i = new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(i);
-
-            }else{
-                Intent i = new Intent(MainActivity.this,HomePageActivity.class);
-                startActivity(i);
-            };
-
-            finish();
-
-//            readAllDecks(rootRef.getReference("Decks"), new OnGetDataListener() {
-//                @Override
-//                public void onSuccess(DataSnapshot dataSnapshot) {
-//                    Toast.makeText(MainActivity.this, "Load Database Success", Toast.LENGTH_SHORT).show();
-//                }
-//                @Override
-//                public void onFailure() {
-//                    Toast.makeText(MainActivity.this, "Load Database Fail", Toast.LENGTH_SHORT).show();
-//                }
-//            });
         }
         else {
             Toast.makeText(MainActivity.this,"Not connect to internet",Toast.LENGTH_SHORT).show();
@@ -66,23 +44,10 @@ public class MainActivity extends AppCompatActivity {
         };
 
     }
-    public FirebaseAuth getmAuth(){
-        mAuth = FirebaseAuth.getInstance();
-        return mAuth;
-    }
 
-    public boolean checkGuest(){
-        FirebaseUser user = mAuth.getInstance().getCurrentUser();
-        if (user==null){
-            return true;
-        }
-        return false;
-    }
-    public FirebaseUser getCurrUser(){
-        mAuth = getmAuth();
-        FirebaseUser user = mAuth.getCurrentUser();
-        return user;
-    }
+
+
+
 
     public interface OnGetDataListener {
         //this is for callbacks

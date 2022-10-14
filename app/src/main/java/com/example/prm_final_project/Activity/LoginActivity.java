@@ -36,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         initUi();
         // Access Firebase
 
@@ -46,7 +45,6 @@ public class LoginActivity extends AppCompatActivity {
 //        mAuth.signOut();
 //      Set Su kien cho nut
         btnLogin.setOnClickListener(view -> onLogin());
-        btnGuest.setOnClickListener(view -> onGuest());
         btnSignup.setOnClickListener(view -> onSignUp());
 
 
@@ -62,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         edtEmail = (TextInputEditText) findViewById(R.id.edtLoginEmail);
         edtPassword = (TextInputEditText) findViewById(R.id.edtPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnGuest = (TextView) findViewById(R.id.tvGuest);
         btnSignup = (TextView)findViewById(R.id.tvSignup);
 
         progressDialog = new ProgressDialog(this);
@@ -104,12 +101,13 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     };
-    private void onGuest(){
-        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
-        i.putExtra("allDecks", allDecks); // Send cac Decks Public sang
-        startActivity(i);
 
-    };
+//    private void onGuest(){
+//        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
+//        i.putExtra("allDecks", allDecks); // Send cac Decks Public sang
+//        startActivity(i);
+//
+//    };
 
     private void onSignUp(){
     Intent i = new Intent(this,RegisterActivity.class);

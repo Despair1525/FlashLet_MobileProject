@@ -55,16 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvGuest"
-        android:layout_width="59dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="30dp"
-        android:text="Guest"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
 
     <TextView
         android:id="@+id/tvSignup"
