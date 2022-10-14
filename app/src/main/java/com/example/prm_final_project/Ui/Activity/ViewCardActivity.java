@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Activity;
+package com.example.prm_final_project.Ui.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;

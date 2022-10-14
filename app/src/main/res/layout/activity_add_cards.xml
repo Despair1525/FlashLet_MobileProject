@@ -5,7 +5,7 @@
     android:id="@+id/ConstraintLayoutAdd"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.User.AddCards">
+    tools:context=".Ui.Activity.User.AddCards">
 
     <EditText
         android:id="@+id/edtBack"

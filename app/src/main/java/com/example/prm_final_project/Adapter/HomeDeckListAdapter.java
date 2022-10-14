@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm_final_project.Activity.ViewCardActivity;
+import com.example.prm_final_project.Ui.Activity.ViewCardActivity;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;

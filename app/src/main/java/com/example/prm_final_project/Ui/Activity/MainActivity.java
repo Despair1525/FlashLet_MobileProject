@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Activity;
+package com.example.prm_final_project.Ui.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,19 +10,17 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentFactory;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.fragment.CreateDeckFragment;
-import com.example.prm_final_project.fragment.HomeFragment;
-import com.example.prm_final_project.fragment.ProfileFragment;
-import com.example.prm_final_project.fragment.SearchFragment;
+import com.example.prm_final_project.Ui.Fragment.CreateDeckFragment;
+import com.example.prm_final_project.Ui.Fragment.HomeFragment;
+import com.example.prm_final_project.Ui.Fragment.ProfileFragment;
+import com.example.prm_final_project.Ui.Fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

@@ -16,28 +16,28 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".Activity.TestActivity"
+            android:name=".Ui.Activity.TestActivity"
             android:exported="false" />
 
         <activity
-            android:name=".Activity.ResultWrittenChoiceActivity"
+            android:name=".Ui.Activity.ResultWrittenChoiceActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.WrittenQuizActivity"
+            android:name=".Ui.Activity.WrittenQuizActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ResultMultipleChoiceActivity"
+            android:name=".Ui.Activity.ResultMultipleChoiceActivity"
             android:exported="false" />
 
 
         <activity
-            android:name=".Activity.UserActivity"
+            android:name=".Ui.Activity.UserActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.SearchActivity"
+            android:name=".Ui.Activity.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.SplashActivity"
+            android:name=".Ui.Activity.SplashActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->
@@ -48,26 +48,26 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".Activity.LearnCardActivity"
+            android:name=".Ui.Activity.LearnCardActivity"
             android:exported="false" />
 
         <activity
-            android:name=".Activity.EditDeckActivity"
+            android:name=".Ui.Activity.EditDeckActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.ViewCardActivity"
+            android:name=".Ui.Activity.ViewCardActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.RegisterActivity"
+            android:name=".Ui.Activity.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.HomePageActivity"
+            android:name=".Ui.Activity.HomePageActivity"
             android:exported="false" />
         <activity
-            android:name=".Activity.LoginActivity"
+            android:name=".Ui.Activity.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".Activity.MainActivity"
+            android:name=".Ui.Activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

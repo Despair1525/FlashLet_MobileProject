@@ -1,6 +1,5 @@
-package com.example.prm_final_project.Activity;
+package com.example.prm_final_project.Ui.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -22,11 +21,8 @@ import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

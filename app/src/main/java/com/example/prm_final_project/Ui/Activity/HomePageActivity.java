@@ -1,9 +1,8 @@
-package com.example.prm_final_project.Activity;
+package com.example.prm_final_project.Ui.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -13,7 +12,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
-import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
@@ -35,9 +32,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import android.app.ProgressDialog;
 
-import java.util.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -141,7 +136,6 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     }
 
     public void initSlideCardNewEst(ViewPager2 viewPager2){
-
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(3);
@@ -202,13 +196,9 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
                         dialog.cancel();
                     }
                 });
-
                 builder.show();
-
             };
-
         };
-
     }
 
 

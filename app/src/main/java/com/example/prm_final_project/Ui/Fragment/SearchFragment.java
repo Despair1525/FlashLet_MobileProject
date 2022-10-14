@@ -1,4 +1,4 @@
-package com.example.prm_final_project.fragment;
+package com.example.prm_final_project.Ui.Fragment;
 
 import android.os.Bundle;
 

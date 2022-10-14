@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Activity;
+package com.example.prm_final_project.Ui.Activity;
 
 //import android.support.v7.app.AppCompatActivity;
 import android.app.ProgressDialog;
@@ -11,13 +11,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.fragment.HomeFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -50,23 +46,19 @@ public class LoginActivity extends AppCompatActivity {
 //        mAuth.signOut();
 //      Set Su kien cho nut
         btnLogin.setOnClickListener(view -> onLogin());
-        btnGuest.setOnClickListener(view -> onGuest());
         btnSignup.setOnClickListener(view -> onSignUp());
 
 
     };
 
-
     private void connectDatabase() {
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     private void initUi(){
         edtEmail = (TextInputEditText) findViewById(R.id.edtLoginEmail);
         edtPassword = (TextInputEditText) findViewById(R.id.edtPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnGuest = (TextView) findViewById(R.id.tvGuest);
         btnSignup = (TextView)findViewById(R.id.tvSignup);
 
         progressDialog = new ProgressDialog(this);
@@ -108,19 +100,24 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
     };
-    private void onGuest(){
-//        Intent i = new Intent(getApplicationContext(), HomeFragment.class);
-//        i.putExtra("allDecks", allDecks); // Send cac Decks Public sang
-//        startActivity(i);
+//<<<<<<< Updated upstream
+//    private void onGuest(){
+////        Intent i = new Intent(getApplicationContext(), HomeFragment.class);
+//=======
+////    private void onGuest(){
+////        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
+//>>>>>>> Stashed changes
+////        i.putExtra("allDecks", allDecks); // Send cac Decks Public sang
+////        startActivity(i);
 
-        Fragment fragment = new HomeFragment();
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-
-    };
+//        Fragment fragment = new HomeFragment();
+//
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.frame_container, fragment);
+//        transaction.addToBackStack(null);
+//        transaction.commit();
+//
+//    };
 
     private void onSignUp(){
     Intent i = new Intent(this,RegisterActivity.class);

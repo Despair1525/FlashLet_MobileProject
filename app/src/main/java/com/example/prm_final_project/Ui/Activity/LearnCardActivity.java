@@ -1,14 +1,9 @@
-package com.example.prm_final_project.Activity;
+package com.example.prm_final_project.Ui.Activity;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,14 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
-import com.wajahatkarim3.easyflipview.EasyFlipView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LearnCardActivity extends AppCompatActivity implements View.OnClickListener {

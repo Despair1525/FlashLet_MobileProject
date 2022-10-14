@@ -1,4 +1,4 @@
-package com.example.prm_final_project.fragment;
+package com.example.prm_final_project.Ui.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,10 +24,8 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.prm_final_project.Activity.EditDeckActivity;
-import com.example.prm_final_project.Activity.HomePageActivity;
-import com.example.prm_final_project.Activity.LoginActivity;
-import com.example.prm_final_project.Activity.MainActivity;
+import com.example.prm_final_project.Ui.Activity.EditDeckActivity;
+import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Module.Deck;
