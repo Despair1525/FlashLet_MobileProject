@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:textAlignment="center"
-    tools:context=".Ui.Activity.HomePageActivity"
+    tools:context=".Ui.Activity.MainActivity"
     android:orientation="vertical">
 
 
@@ -22,15 +22,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         />
 
-    <ImageView
-        android:id="@+id/abPlusPublic"
-        android:layout_width="41dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
 
     <TextView
         android:id="@+id/newList"

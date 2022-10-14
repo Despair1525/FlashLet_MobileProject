@@ -57,7 +57,6 @@ public class HomeFragment extends Fragment {
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
     ProgressDialog loading;
-    private ImageView addDeck;
     private TextView myDecks, publicDecks, logout;
     private String m_Text = "";
 
@@ -108,8 +107,6 @@ public class HomeFragment extends Fragment {
         },allDecks);
 
         logout =  view.findViewById(R.id.tvLogout);
-        addDeck = view.findViewById(R.id.abPlusPublic);
-        addDeck.setOnClickListener(this::onClick);
         logout.setOnClickListener(this::onClick);
 //        RcListDeck = findViewById(R.id.RvDecksPublic);
         viewPager2New = view.findViewById(R.id.RvDecksPublic);
@@ -174,36 +171,7 @@ public class HomeFragment extends Fragment {
         if(view == logout) {
             logout();
         }
-        if(view == addDeck) {
-            if(isGuest) {
-                Toast.makeText(thiscontext,"You have to login !",Toast.LENGTH_SHORT).show();
-            } else {
-                AlertDialog.Builder builder = new AlertDialog.Builder(thiscontext);
-                builder.setTitle("Title");
-                final EditText input = new EditText(thiscontext);
-                input.setInputType(InputType.TYPE_CLASS_TEXT );
-                builder.setView(input);
-                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        m_Text = input.getText().toString();
-                        Intent i =  new Intent(getActivity(), EditDeckActivity.class);
-                        i.putExtra("editTitle",m_Text);
-                        startActivity(i);
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
 
-                builder.show();
-
-            };
-
-        };
 
     }
 }

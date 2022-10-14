@@ -47,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private final static int PROFILE_FRAGMENT = 3;
     private int CURRENT_FRAGMENT;
 
+    Fragment fragmentHome = new HomeFragment();;
+    Fragment fragmentSearch = new SearchFragment();
+    Fragment fragmentProfile = new ProfileFragment() ;
     FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
 
     @Override
@@ -84,19 +87,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        Fragment fragment = null;
         switch (item.getItemId()) {
             case R.id.nav_home:
-                fragment = new HomeFragment();
                 if(CURRENT_FRAGMENT != HOME_FRAGMENT){
-                    loadFragment(fragment);
+                    loadFragment(fragmentHome);
                     CURRENT_FRAGMENT = HOME_FRAGMENT;
                 }
                 return true;
             case R.id.nav_search:
-                fragment = new SearchFragment();
                 if(CURRENT_FRAGMENT != SEARCH_FRAGMENT){
-                    loadFragment(fragment);
+                    loadFragment(fragmentSearch);
                     CURRENT_FRAGMENT = SEARCH_FRAGMENT;
                 }
                 return true;
@@ -109,9 +109,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 creatDeck();
                 return true;
             case R.id.nav_profile:
-                fragment = new ProfileFragment();
                 if(CURRENT_FRAGMENT != PROFILE_FRAGMENT){
-                    loadFragment(fragment);
+                    loadFragment(fragmentProfile);
                     CURRENT_FRAGMENT = PROFILE_FRAGMENT;
                 }
                 return true;

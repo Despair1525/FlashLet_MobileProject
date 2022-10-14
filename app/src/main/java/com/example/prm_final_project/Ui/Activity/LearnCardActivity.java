@@ -77,8 +77,7 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
 
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
-                                        Intent in = new Intent(getApplicationContext(),HomePageActivity.class);
-                                        startActivity(in);
+                                        finish();
                                     }
                                 });
                         AlertDialog alert = builder.create();

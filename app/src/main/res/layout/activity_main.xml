@@ -17,8 +17,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/colorPrimary"
+        android:background="#64A36B"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/navigation_menu" />
+        app:menu="@menu/navigation_menu"
+        />
 
 </RelativeLayout>
