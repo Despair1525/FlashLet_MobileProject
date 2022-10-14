@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private TextView tvView;
     private ImageView imageReload,imageTest;
     private RecyclerView recyclerViewList;
+    private RelativeLayout learnRelativeLayout, fullScreenRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +45,17 @@ public class ViewCardActivity extends AppCompatActivity  {
         imageViewLearn = findViewById(R.id.imageViewLearn);
         tvTitile = findViewById(R.id.tvTitle);
         imageReload = findViewById(R.id.vc_Reload);
-        imageReload.setOnClickListener(view -> onReload());
-
         imageTest = findViewById(R.id.vc_Test);
-        imageTest.setOnClickListener(view -> onTest());
+        learnRelativeLayout = findViewById(R.id.learnItem);
+        fullScreenRelativeLayout = findViewById(R.id.fullScreenItem);
+        reloadRelativeLayout = findViewById(R.id.reloadItem);
+        testRelativeLayout = findViewById(R.id.testItem);
+        viewRelativeLayout = findViewById(R.id.viewItem);
+
+        reloadRelativeLayout.setOnClickListener(view -> onReload());
+        testRelativeLayout.setOnClickListener(view -> onTest());
+        learnRelativeLayout.setOnClickListener(view -> onLearn());
+
 
 
         if ( getIntent().getSerializableExtra("viewDeck") != null){
@@ -149,8 +158,8 @@ public class ViewCardActivity extends AppCompatActivity  {
 
 
 
-   public void onLearn(View view){
-        Bundle b = new Bundle();
+   public void onLearn(){
+       Bundle b = new Bundle();
        Intent i = new Intent(this, LearnCardActivity.class);
        i.putExtra("currentDeck",deck);
        startActivity(i);

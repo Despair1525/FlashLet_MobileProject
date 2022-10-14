@@ -1,10 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
     tools:context=".Activity.ViewCardActivity">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Title"
+        android:textSize="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerImageSlider"
@@ -22,179 +36,316 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.171"
-
         />
 
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Title"
-        android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageViewLearn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        android:onClick="onLearn"
-        android:src="@drawable/img"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider" />
-
-    <ImageView
-        android:id="@+id/vc_deckMode"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        app:layout_constraintStart_toEndOf="@+id/imageViewLearn"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"
-        android:src="@drawable/ic_baseline_fullscreen_24"
-        android:onClick="onLearn"/>
-
-    <ImageView
-        android:id="@+id/vc_Reload"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        app:layout_constraintStart_toEndOf="@+id/vc_deckMode"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"
-        android:src="@drawable/ic_baseline_autorenew_24"
-       />
-
-    <ImageView
-        android:id="@+id/vc_Test"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        app:layout_constraintStart_toEndOf="@+id/vc_Reload"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"
-        android:src="@drawable/ic_baseline_checklist_24"
-        />
-    <ImageView
-        android:id="@+id/vc_Infor"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:layout_marginEnd="116dp"
-        app:layout_constraintStart_toEndOf="@+id/vc_Test"
-        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"
-        android:src="@drawable/ic_baseline_remove_red_eye_24"
-        />
-    <TextView
-        android:id="@+id/textViewTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
-        android:text="Test"
-        app:layout_constraintStart_toEndOf="@id/textViewReload"
-        app:layout_constraintTop_toBottomOf="@+id/vc_Test" />
-
-<!--    <ImageView-->
-<!--        android:id="@+id/imageView3"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="33dp"-->
-<!--        android:layout_marginEnd="35dp"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/imageView7"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/viewPagerImageSlider"-->
-<!--        app:srcCompat="@android:drawable/ic_menu_info_details" />-->
 
 
 
-
-
-
-    <TextView
-        android:id="@+id/textViewFullScreen"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:text="Full Screen"
-        app:layout_constraintStart_toEndOf= "@+id/textViewLearn"
-        app:layout_constraintTop_toBottomOf="@+id/vc_deckMode" />
-
-    <TextView
-        android:id="@+id/textViewLearn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:text="Learn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLearn" />
-    <TextView
-        android:id="@+id/textViewReload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:text="Reload"
-        app:layout_constraintStart_toEndOf="@id/textViewFullScreen"
-        app:layout_constraintTop_toBottomOf="@+id/vc_Reload" />
-
-
-    <!--    <TextView-->
-<!--        android:id="@+id/tvInfo"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="19dp"-->
-<!--        android:text="Info"-->
-<!--        app:layout_constraintEnd_toEndOf="@+id/imageView3"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/imageView3" />-->
-
-    <TextView
-        android:id="@+id/textViewView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
-        android:text="View"
-        app:layout_constraintStart_toEndOf="@id/textViewTest"
-        app:layout_constraintTop_toBottomOf="@+id/vc_Infor" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:text="Cards"
-        android:textSize="20dp"
-        android:id="@+id/Tv_cardsList"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageViewLearn" />
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Tv_cardsList">
-    <androidx.recyclerview.widget.RecyclerView
-        android:background="@xml/textview_border"
-        android:id="@+id/RcCardList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/linear_options"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewPagerImageSlider"
+            >
 
-        android:layout_marginTop="10dp"
-        android:clipToPadding="false"
-        android:paddingBottom="10000dp"
-        />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/learnItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/learnCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardMaxElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+                        <ImageView
+                            android:id="@+id/imageViewLearn"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/img"
+                            />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textViewLearn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginStart="30dp"
+                                android:text="Learn"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@id/textViewLearn"
+                                android:layout_marginStart="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:text="Learn flash cards mode to remember all"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/fullScreenItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/fullScreenCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardMaxElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+                        <ImageView
+                            android:id="@+id/vc_deckMode"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_baseline_fullscreen_24"
+                            />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textViewFullScreen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginStart="30dp"
+                                android:text="FullScreen"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewFullScreen"
+                                android:layout_marginStart="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:text="Full screen mode for those with glasses"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/reloadItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/reloadCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardMaxElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+                        <ImageView
+                            android:id="@+id/vc_Reload"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_baseline_autorenew_24"
+                            />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textViewReload"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginStart="30dp"
+                                android:text="Reload"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewReload"
+                                android:layout_marginStart="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:text="Reload to update new flashcard"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/testItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/testCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardMaxElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+                        <ImageView
+                            android:id="@+id/vc_Test"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+
+                            android:src="@drawable/ic_baseline_checklist_24"
+                            />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textViewTest"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginStart="30dp"
+                                android:text="Test"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewTest"
+                                android:layout_marginStart="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:text="Test to check your knowledge"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/viewItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/numViewCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardMaxElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+                        <ImageView
+                            android:id="@+id/vc_Infor"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/ic_baseline_remove_red_eye_24"
+                            />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textViewView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginStart="30dp"
+                                android:text="Views"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewView"
+                                android:layout_marginStart="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:text="Number of user learn"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:text="Cards"
+                android:textSize="20dp"
+                android:id="@+id/Tv_cardsList"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:background="@xml/textview_border"
+                android:id="@+id/RcCardList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingBottom="250dp"
+                android:clipToPadding="false"
+                />
+        </LinearLayout>
     </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+</LinearLayout>
