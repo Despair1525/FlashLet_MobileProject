@@ -74,13 +74,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 //                Intent i = new Intent(MainActivity.this, HomePageActivity.class);
 //                startActivity(i);
             }
-
         } else {
             Toast.makeText(MainActivity.this, "Not connect to internet", Toast.LENGTH_SHORT).show();
             // Gửi sang trang Lỗi kết nối
         }
-
-
     }
 
     @Override

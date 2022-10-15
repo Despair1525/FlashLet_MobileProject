@@ -85,9 +85,10 @@ public class DeckDao {
         List<List<String>> cards = (List<List<String>>) ds.child("cards").getValue();
         String did = ds.child("deckId").getValue(String.class);
         String date = ds.child("date").getValue(String.class);
+        String descriptions = ds.child("descriptions").getValue(String.class);
         int view = ds.child("view").getValue(Integer.class);
         boolean isPublic = ds.child("public").getValue(Boolean.class);
-        Deck thisDeck = new Deck(did, uid, title, author,date,isPublic ,view,cards);
+        Deck thisDeck = new Deck(did, uid, title,descriptions, author,date,isPublic ,view,cards);
         return thisDeck;
     };
 

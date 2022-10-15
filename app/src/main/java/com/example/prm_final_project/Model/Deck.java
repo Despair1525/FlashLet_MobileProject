@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Deck implements Serializable {
-    String title, author, Uid, deckId,date;
+    String title,descriptions ,author, Uid, deckId,date;
     boolean isPublic;
     int view;
     List<List<String>> cards = new ArrayList<>();
 
     public Deck(){
+        this.cards = new ArrayList<>();
 
     }
 
-    public Deck (String deckId, String Uid, String title, String author,String date ,boolean isPublic ,int view,List<List<String>> cards){
+    public Deck (String deckId, String Uid, String title, String descriptions ,String author,String date ,boolean isPublic ,int view,List<List<String>> cards){
         this.deckId = deckId;
         this.title = title;
         this.author = author;
@@ -23,6 +24,7 @@ public class Deck implements Serializable {
         this.isPublic =isPublic;
         this.date = date;
         this.view = view;
+        this.descriptions = descriptions;
     }
     public Deck (String deckId, String Uid, String title, String author,String date ,boolean isPublic ,List<List<String>> cards){
         this.deckId = deckId;
@@ -92,4 +94,11 @@ public class Deck implements Serializable {
         this.title = title;
     }
 
+    public String getDescriptions() {
+        return descriptions;
+    }
+
+    public void setDescriptions(String descriptions) {
+        this.descriptions = descriptions;
+    }
 }

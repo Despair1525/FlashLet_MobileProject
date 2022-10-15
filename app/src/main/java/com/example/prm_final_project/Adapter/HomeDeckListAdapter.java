@@ -73,7 +73,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
             this.homeDeckListAdapter = homeDeckListAdapter;
             layoutItem = itemView.findViewById(R.id.deckViewItem);
             author = itemView.findViewById(R.id.tvDeckAuthor);
-            totalNum = itemView.findViewById(R.id.tvDeckTotal);
+            totalNum = (TextView) itemView.findViewById(R.id.tvDeckTotal);
             title = itemView.findViewById(R.id.tvDeckName);
         }
     }

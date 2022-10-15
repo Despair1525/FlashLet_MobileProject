@@ -3,16 +3,20 @@
 
         <item
             android:id="@+id/copySet"
-            android:title="Copy this set" />
+            android:title="Copy this set"
+            android:icon="@drawable/ic_baseline_content_copy_24"/>
         <item
             android:id="@+id/shareSet"
-            android:title="Share this set" />
+            android:title="Share this set"
+            android:icon="@drawable/ic_baseline_share_24"/>
 
         <item
             android:id="@+id/editSet"
-            android:title="Edit this set" />
+            android:title="Edit this set"
+            android:icon="@drawable/ic_baseline_edit_24"/>
         <item
             android:id="@+id/deleteSet"
-            android:title="Delete this set"/>
+            android:title="Delete this set"
+            android:icon="@drawable/ic_baseline_delete_24"/>
 
 </menu>

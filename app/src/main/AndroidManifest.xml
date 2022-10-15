@@ -31,9 +31,6 @@
 
 
         <activity
-            android:name=".Ui.Activity.UserActivity"
-            android:exported="false" />
-        <activity
             android:name=".Ui.Activity.SearchActivity"
             android:exported="false" />
         <activity

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,7 +75,8 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
                     if (type == 0) {
-                        newestDecks.add(changeDeck);
+                        if(changeDeck != null)  newestDecks.add(changeDeck);
+
                     }
                     ;
                     if (type == 1) {
@@ -111,8 +113,9 @@ public class HomeFragment extends Fragment {
         viewPager2Reco = view.findViewById(R.id.RvDecksPublicReco);
 
 // Set style For ListView (Adjust )
-        homeDeckAdap = new HomeDeckListAdapter(thiscontext,allDecks);
         homeDeckAdapNew = new HomeDeckListAdapter(thiscontext,newestDecks);
+
+        homeDeckAdap = new HomeDeckListAdapter(thiscontext,allDecks);
 // Set For List Newest
 
 

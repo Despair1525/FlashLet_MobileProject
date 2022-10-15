@@ -30,7 +30,7 @@ import java.util.List;
 
 public class EditDeckActivity extends AppCompatActivity {
 private String title;
-private EditText EdTitle;
+private EditText EdTitle, EdDes;
 private Deck editDeck;
 private RecyclerView   recyclerViewList;
 private ImageButton IbAdd,IbSave;
@@ -47,12 +47,24 @@ private ProgressDialog dialog;
            editDeck = (Deck) getIntent().getSerializableExtra("editDeck");
            title= editDeck.getTitle();
         }else{
-            editDeck = new Deck();
+            FirebaseUser user = UserDao.getUser();
+            String date = Methods.getTime();
+            String deckid = Methods.generateFlashCardId();
+            List<List<String>> cards = new ArrayList<>();
+            String description = "";
+            String uid = user.getUid();
+            String author = user.getDisplayName();
+            Boolean Public = true;
+            int view =1;
+//                Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards)
+
+            editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);;
         };
         // Set UI
         IbAdd = findViewById(R.id.imageButtonAdd);
         IbSave = findViewById(R.id.ImgaeButtonSaveEdit);
         EdTitle = findViewById(R.id.editTitle);
+        EdDes = findViewById(R.id.editDes);
         EdTitle.setText(title);
         isPublic = findViewById(R.id.SwitchCompatIsPublic);
         // Set RV
@@ -65,6 +77,17 @@ private ProgressDialog dialog;
     }
 
     private void onSave() {
+
+        if(editDeck.getCards().size() <2){
+            Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 2 !",Toast.LENGTH_SHORT).show();
+            return;
+        };
+        String title = EdTitle.getText().toString();
+        if(title.trim().isEmpty()) {
+
+            Toast.makeText(EditDeckActivity.this,"Title can not be empty !",Toast.LENGTH_SHORT).show();
+            return;
+        };
         dialog = new ProgressDialog(EditDeckActivity.this);
         dialog.setMessage("Loading");
         dialog.show();
@@ -75,18 +98,23 @@ private ProgressDialog dialog;
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 FirebaseUser user = UserDao.getUser();
-                String date = Methods.getTime();
-                String deckid = Methods.generateFlashCardId();
-                List<List<String>> cards = editDeck.getCards();
-                String title = EdTitle.getText().toString();
-                String uid = user.getUid();
-                String author = user.getDisplayName();
-                Boolean Public = isPublic.isChecked();
-                int view =1;
-//                Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards)
-
-                Deck newDeck = new Deck(deckid,uid,title,author,date,Public,view,cards);
-                DeckDao.addDeck(newDeck, new FirebaseCallback() {
+                editDeck.setAuthor(user.getDisplayName());
+                editDeck.setTitle(EdTitle.getText().toString());
+                editDeck.setDescriptions(EdDes.getText().toString());
+                editDeck.setPublic(isPublic.isChecked());
+//                String date = Methods.getTime();
+//                String deckid = Methods.generateFlashCardId();
+//                List<List<String>> cards = editDeck.getCards();
+//                String title = EdTitle.getText().toString();
+//                String description = EdDes.getText().toString();
+//                String uid = user.getUid();
+//                String author = user.getDisplayName();
+//                Boolean Public = isPublic.isChecked();
+//                int view =1;
+////                Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards)
+//
+//                Deck newDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);
+                DeckDao.addDeck(editDeck, new FirebaseCallback() {
                     @Override
                     public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
                         Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
