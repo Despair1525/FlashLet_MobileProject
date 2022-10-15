@@ -12,10 +12,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;

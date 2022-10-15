@@ -1,12 +1,8 @@
-package com.example.prm_final_project.Module;
-
-import android.util.Pair;
+package com.example.prm_final_project.Model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Deck implements Serializable {
     String title, author, Uid, deckId,date;

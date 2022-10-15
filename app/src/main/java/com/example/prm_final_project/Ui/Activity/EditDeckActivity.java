@@ -19,11 +19,10 @@ import android.widget.Toast;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 
 import java.util.List;

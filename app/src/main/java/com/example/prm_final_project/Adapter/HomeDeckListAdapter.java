@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm_final_project.Ui.Activity.ViewCardActivity;
 import com.example.prm_final_project.Dao.DeckDao;
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;

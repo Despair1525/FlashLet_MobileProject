@@ -1,4 +1,4 @@
-package com.example.prm_final_project.Module;
+package com.example.prm_final_project.Model;
 
 public class Quiz {
     private String Question;

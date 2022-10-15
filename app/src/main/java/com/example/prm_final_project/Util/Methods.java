@@ -1,6 +1,6 @@
 package com.example.prm_final_project.Util;
 
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

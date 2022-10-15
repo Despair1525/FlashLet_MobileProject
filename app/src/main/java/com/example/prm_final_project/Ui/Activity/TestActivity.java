@@ -12,8 +12,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.prm_final_project.Module.Deck;
-import com.example.prm_final_project.Module.Quiz;
+import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.Quiz;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;

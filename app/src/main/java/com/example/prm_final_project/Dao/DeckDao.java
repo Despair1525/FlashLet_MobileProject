@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -19,12 +19,14 @@ import java.util.List;
 
 public class DeckDao {
 
-
+    public static FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
+    public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    public static DatabaseReference rr ;
 
     public static void readAllDecks( FirebaseCallback callback  , ArrayList<Deck> allDecks){
-        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        DatabaseReference rr = rootRef.getReference("Decks");
+//        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        rr = rootRef.getReference("Decks");
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {

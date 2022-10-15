@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 
 public class ViewCardActivity extends AppCompatActivity  {

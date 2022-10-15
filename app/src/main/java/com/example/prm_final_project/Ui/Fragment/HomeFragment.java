@@ -2,33 +2,26 @@ package com.example.prm_final_project.Ui.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.prm_final_project.Ui.Activity.EditDeckActivity;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
-import com.example.prm_final_project.Module.Deck;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
@@ -60,6 +53,7 @@ public class HomeFragment extends Fragment {
     private TextView myDecks, publicDecks, logout;
     private String m_Text = "";
     Context thiscontext;
+    private boolean firstTime = true;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -75,34 +69,40 @@ public class HomeFragment extends Fragment {
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         // Authentication
-        DeckDao.readAllDecks(new FirebaseCallback() {
-            @Override
-            public void onResponse(ArrayList<Deck> allDecks,Deck changeDeck, int type) {
-                if(type == 0) {
-                    newestDecks.add(changeDeck);
-                };
-                if(type == 1) {
-                    int changeDeckIndex = Methods.indexDeck(newestDecks,changeDeck);
-                    if(changeDeckIndex != -1) {
-                        newestDecks.set(changeDeckIndex,changeDeck);
-                    };
-                };
-                if(type == 2) {
-                    newestDecks.remove(changeDeck);
-                };
-                Collections.sort( newestDecks, (o1, o2) -> {
-                    try {
-                        return (Methods.compareStringDate(o1.getDate(),o2.getDate()));
-                    } catch (ParseException e) {
-                        e.printStackTrace();
+        if(firstTime) {
+            DeckDao.readAllDecks(new FirebaseCallback() {
+                @Override
+                public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
+                    if (type == 0) {
+                        newestDecks.add(changeDeck);
                     }
-                    return 0;
-                });
-                homeDeckAdap.notifyDataSetChanged();
-                homeDeckAdapNew.notifyDataSetChanged();
-            }
-        },allDecks);
-
+                    ;
+                    if (type == 1) {
+                        int changeDeckIndex = Methods.indexDeck(newestDecks, changeDeck);
+                        if (changeDeckIndex != -1) {
+                            newestDecks.set(changeDeckIndex, changeDeck);
+                        }
+                        ;
+                    }
+                    ;
+                    if (type == 2) {
+                        newestDecks.remove(changeDeck);
+                    }
+                    ;
+                    Collections.sort(newestDecks, (o1, o2) -> {
+                        try {
+                            return (Methods.compareStringDate(o1.getDate(), o2.getDate()));
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        return 0;
+                    });
+                    homeDeckAdap.notifyDataSetChanged();
+                    homeDeckAdapNew.notifyDataSetChanged();
+                }
+            }, allDecks);
+        firstTime = false;
+        };
         logout =  view.findViewById(R.id.tvLogout);
         logout.setOnClickListener(this::onClick);
 //        RcListDeck = findViewById(R.id.RvDecksPublic);
