@@ -58,6 +58,7 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/slide_card_container.xml" value="0.23854166666666668" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.124" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
+        <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/activity_edit_deck.xml" value="0.24003623188405798" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/activity_learn_card.xml" value="0.2" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/activity_test.xml" value="0.12360688956433637" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.13269927536231885" />
@@ -66,8 +67,11 @@
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/item_deck_view.xml" value="0.1947463768115942" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/item_edit_card.xml" value="0.1947463768115942" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/item_learn_deck.xml" value="0.1947463768115942" />
+        <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/layout_header_menu_view_card.xml" value="0.24003623188405798" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/slide_card_container.xml" value="0.1947463768115942" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/test_file.xml" value="0.1947463768115942" />
+        <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/menu/navigation_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/menu/viewcard_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

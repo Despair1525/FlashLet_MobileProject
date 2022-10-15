@@ -13,6 +13,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -164,5 +166,33 @@ public class ViewCardActivity extends AppCompatActivity  {
        i.putExtra("currentDeck",deck);
        startActivity(i);
    };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.viewcard_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.copySet:
+                Toast.makeText(this, "CopySet", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.shareSet:
+                Toast.makeText(this, "ShareSet", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.editSet:
+                Intent i = new Intent(this, EditDeckActivity.class);
+                i.putExtra("editDeck",deck);
+                startActivity(i);
+                break;
+            case R.id.deleteSet:
+                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     }
