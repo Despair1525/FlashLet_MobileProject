@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     Map<String,Deck> keyedDecks = new HashMap<>();
     ArrayList<Deck> personalDecks = new ArrayList<>();
     private ListView lvDecks;
-    private boolean isGuest = true;
+    private boolean isGuest =  true;
     private boolean inPublic = true;
     HomeDeckListAdapter homeDeckAdap,homeDeckAdapNew ;
     private ViewPager2 viewPager2New, viewPager2Popular, viewPager2Reco;
@@ -59,7 +59,6 @@ public class HomeFragment extends Fragment {
     ProgressDialog loading;
     private TextView myDecks, publicDecks, logout;
     private String m_Text = "";
-
     Context thiscontext;
 
     @Override
@@ -75,9 +74,7 @@ public class HomeFragment extends Fragment {
 //      Get data
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
         // Authentication
-        isGuest = checkGuest();
         DeckDao.readAllDecks(new FirebaseCallback() {
             @Override
             public void onResponse(ArrayList<Deck> allDecks,Deck changeDeck, int type) {

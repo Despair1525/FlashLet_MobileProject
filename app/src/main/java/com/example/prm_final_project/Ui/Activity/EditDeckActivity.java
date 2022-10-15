@@ -6,6 +6,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Dao.DeckDao;
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Module.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
@@ -33,8 +35,10 @@ private EditText EdTitle;
 private Deck editDeck;
 private RecyclerView   recyclerViewList;
 private ImageButton IbAdd,IbSave;
-private cardViewAdapter1 cardViewAdapter;
+public cardViewAdapter1 cardViewAdapter;
 private SwitchCompat isPublic;
+
+private ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,12 +66,16 @@ private SwitchCompat isPublic;
     }
 
     private void onSave() {
+        dialog = new ProgressDialog(EditDeckActivity.this);
+        dialog.setMessage("Loading");
+        dialog.show();
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Are you want to save Flashcard ?");
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                FirebaseUser user = getUser();
+                FirebaseUser user = UserDao.getUser();
                 String date = Methods.getTime();
                 String deckid = Methods.generateFlashCardId();
                 List<List<String>> cards = editDeck.getCards();
@@ -84,6 +92,7 @@ private SwitchCompat isPublic;
                     public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
                         Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
                         i.putExtra("viewDeck", changeDeck);
+                        dialog.dismiss();
                         startActivity(i);
                         Toast.makeText(EditDeckActivity.this, "Upload flashcard success !", Toast.LENGTH_LONG).show();
                         finish();
@@ -110,10 +119,8 @@ private SwitchCompat isPublic;
         // Set up the input
         final EditText inputFront = new EditText(this);
         inputFront.setHint("Enter Front Card");
-
         final EditText inputBack = new EditText(this);
         inputBack.setHint("Enter Back Card");
-
         LinearLayout lay = new LinearLayout(this);
         lay.setOrientation(LinearLayout.HORIZONTAL);
         lay.addView(inputFront);
@@ -135,7 +142,6 @@ private SwitchCompat isPublic;
                 newCard.add(back);
                 editDeck.getCards().add(newCard);
                 cardViewAdapter.notifyDataSetChanged();
-
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -147,16 +153,23 @@ private SwitchCompat isPublic;
 
         builder.show();
       }
-    public FirebaseUser getUser(){
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user==null){
-            return null;
-        }
 
-        return user;
+    public Deck getEditDeck() {
+        return editDeck;
     }
+
+    public void setEditDeck(Deck editDeck) {
+        this.editDeck = editDeck;
+    }
+
+    public cardViewAdapter1 getCardViewAdapter() {
+        return cardViewAdapter;
+    }
+
+    public void setCardViewAdapter(cardViewAdapter1 cardViewAdapter) {
+        this.cardViewAdapter = cardViewAdapter;
+    }
+
 
 //    private void addDeck(Deck deck, FirebaseCallback callback){
 //        FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId()).setValue(deck);
