@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <item
+            android:id="@+id/copySet"
+            android:title="Copy this set" />
+        <item
+            android:id="@+id/shareSet"
+            android:title="Share this set" />
+
+        <item
+            android:id="@+id/editSet"
+            android:title="Edit this set" />
+        <item
+            android:id="@+id/deleteSet"
+            android:title="Delete this set"/>
+
+</menu>
