@@ -132,6 +132,7 @@ public class ViewCardActivity extends AppCompatActivity  {
         loadSlideFlash();
     }
     private void loadSlideFlash(){
+
         recyclerViewList = findViewById(R.id.RcCardList);
         initSlideCard(); // Set Slide Flash card
         cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
@@ -168,6 +169,7 @@ public class ViewCardActivity extends AppCompatActivity  {
        i.putExtra("currentDeck",deck);
        startActivity(i);
    };
+
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

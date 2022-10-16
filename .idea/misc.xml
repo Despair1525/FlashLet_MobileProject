@@ -21,6 +21,7 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1305" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/deck_shape.xml" value="0.201" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.1815" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_checklist_24.xml" value="0.1305" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_control_point_24.xml" value="0.175" />
@@ -53,6 +54,7 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/edit_card_item.xml" value="0.2375" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/homepage_activity.xml" value="0.25" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/item_cardview2.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/item_deck_view.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/item_edit_card.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/progress_bar.xml" value="0.12604166666666666" />

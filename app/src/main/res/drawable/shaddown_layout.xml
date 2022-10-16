@@ -3,7 +3,7 @@
     <!-- Gray shadow. -->
     <item android:left="3dp" android:top="5dp">
         <shape>
-            <solid android:color="@color/deckColor" />
+            <solid android:color="#FFFFFF"/>
             <corners android:radius="15dp" />
 
         </shape>
