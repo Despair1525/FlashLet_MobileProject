@@ -20,6 +20,8 @@
         android:background="@color/toolBarColor"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_menu"
+
+        android:iconTint="@drawable/nav_item_color_state"
         />
 
 </RelativeLayout>

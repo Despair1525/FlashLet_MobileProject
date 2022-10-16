@@ -49,8 +49,10 @@ public class HomeFragment extends Fragment {
     private boolean inPublic = true;
     HomeDeckListAdapter homeDeckAdap,homeDeckAdapNew ;
     private RecyclerView RvPublicDeck;
+    private TextView tvUserName;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
+    FirebaseUser user ;
     ProgressDialog loading;
     private TextView myDecks, publicDecks, logout;
     private String m_Text = "";
@@ -67,9 +69,18 @@ public class HomeFragment extends Fragment {
             ViewGroup container, Bundle savedInstanceState) {
         thiscontext = container.getContext();
         View view =  inflater.inflate(R.layout.activity_homepage, container, false);
-//      Get data
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
+        user  = checkGuest();
+
+        tvUserName = view.findViewById(R.id.tvHelloUserName);
+//      Get data
+        String userName="Guest";
+        if(user != null){
+            userName =  user.getDisplayName();
+        };
+        tvUserName.setText(userName);
+
         // Authentication
         if(firstTime) {
             DeckDao.readAllDecks(new FirebaseCallback() {
@@ -133,13 +144,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    public boolean checkGuest(){
+    public FirebaseUser checkGuest(){
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user==null){
-            return true;
-        }
-        Toast.makeText(thiscontext, "Hello"+user.getDisplayName(), Toast.LENGTH_SHORT).show();
-        return false;
+       return user;
     }
     public void logout(){
         mAuth.signOut();

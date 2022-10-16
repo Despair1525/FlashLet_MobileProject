@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:textAlignment="center"
     tools:context=".Ui.Activity.MainActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvHelloUser"
@@ -14,13 +18,13 @@
         android:layout_height="wrap_content"
         android:text="Hello"
         android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136"
-        android:textStyle="bold"/>
+        app:layout_constraintVertical_bias="0.03" />
 
     <TextView
         android:id="@+id/tvHelloUserName"
@@ -43,10 +47,10 @@
         android:text="logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.956"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintVertical_bias="0.034" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RvDecksPublic"
@@ -55,9 +59,9 @@
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@+id/tvHelloUserName"
-        android:padding="30dp"
+        android:paddingBottom="100dp"
        />
-
+</androidx.constraintlayout.widget.ConstraintLayout>
 
     <!--    <androidx.recyclerview.widget.RecyclerView-->
 <!--        android:id="@+id/RvDecksPublicPopular"-->
@@ -69,4 +73,4 @@
 
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
