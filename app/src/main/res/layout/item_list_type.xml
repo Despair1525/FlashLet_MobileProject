@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="150dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/deck_shape"
+    android:id="@+id/itemListType"
+    android:layout_marginEnd="15dp">
+
+    <ImageView
+        android:id="@+id/ivListTypeIcon"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:src="@drawable/public_icon"
+        android:layout_gravity="center"/>
+    <TextView
+        android:id="@+id/tvListTypeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="15dp"
+        android:text="public deck"
+        android:fontFamily="monospace"
+        android:layout_gravity="center"/>
+
+
+</LinearLayout>

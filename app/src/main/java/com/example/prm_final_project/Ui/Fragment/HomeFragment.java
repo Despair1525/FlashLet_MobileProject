@@ -20,6 +20,8 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.prm_final_project.Adapter.DeckListTypeAdapter;
+import com.example.prm_final_project.Model.DeckListType;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
@@ -48,7 +50,8 @@ public class HomeFragment extends Fragment {
     private boolean isGuest =  true;
     private boolean inPublic = true;
     HomeDeckListAdapter homeDeckAdap,homeDeckAdapNew ;
-    private RecyclerView RvPublicDeck;
+    DeckListTypeAdapter deckListTypeAdaper;
+    private RecyclerView RvPublicDeck,RvListDeckType;
     private TextView tvUserName;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
@@ -120,6 +123,12 @@ public class HomeFragment extends Fragment {
         logout.setOnClickListener(this::onClick);
 
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
+        RvListDeckType = view.findViewById(R.id.RvListDeckType);
+        ArrayList<DeckListType> listIem = initDeckList();
+        deckListTypeAdaper = new DeckListTypeAdapter(listIem);
+        RvListDeckType.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        RvListDeckType.setAdapter((deckListTypeAdaper));
+
 
 
 // Set style For ListView (Adjust )
@@ -142,6 +151,14 @@ public class HomeFragment extends Fragment {
 //         Click vao 1 deck bat ky
 
         return view;
+    }
+
+    private ArrayList<DeckListType> initDeckList() {
+        ArrayList<DeckListType> listIem = new ArrayList<>();
+        listIem.add(new DeckListType(R.drawable.public_icon,"Public Deck"));
+        listIem.add(new DeckListType(R.drawable.rectnly_icon,"Recently Deck"));
+        listIem.add(new DeckListType(R.drawable.popular_deck,"Popular Deck"));
+return listIem;
     }
 
     public FirebaseUser checkGuest(){
