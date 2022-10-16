@@ -36,6 +36,8 @@ public class Deck implements Serializable {
         this.date = date;
     }
 
+
+
     public String getTitle() {
         return title;
     }

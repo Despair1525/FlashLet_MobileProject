@@ -9,20 +9,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm_final_project.Model.DeckListType;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.callbackInterface.AdapterCallback;
+import com.google.firebase.database.core.Context;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapter.AddressViewHolder> {
 
     private ArrayList<DeckListType> items;
+    private ArrayList<DeckListType> OriginItems;
     int row_index = 0;
+    AdapterCallback callback;
 
-    public DeckListTypeAdapter(ArrayList<DeckListType> items) {
+    public DeckListTypeAdapter(ArrayList<DeckListType> items,AdapterCallback callback) {
         this.items = items;
+        this.OriginItems = items;
+        this.callback = callback;
     }
 
     @NonNull
@@ -50,8 +60,8 @@ public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapte
         }
         else {
             holder.item.setBackgroundResource(R.drawable.deck_shape);
-
         };
+        callback.onResponse(row_index);
     }
 
 

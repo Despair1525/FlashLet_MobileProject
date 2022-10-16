@@ -12,4 +12,5 @@
     <color name="toolBarColor">#64A36B</color>
     <color name="toolBarColorClick">#06CA8C</color>
     <color name="rippleEffect">#7564A36B</color>
+    <color name="loading">#03A9F4</color>
 </resources>

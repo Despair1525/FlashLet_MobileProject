@@ -25,7 +25,15 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
     boolean isGuest;
     ArrayList<Deck> decks;
 
-    public HomeDeckListAdapter(Context context,ArrayList<Deck> deck){
+    public ArrayList<Deck> getDecks() {
+        return decks;
+    }
+
+    public void setDecks(ArrayList<Deck> decks) {
+        this.decks = decks;
+    }
+
+    public HomeDeckListAdapter(Context context, ArrayList<Deck> deck){
         this.context = context;
         this.decks = deck ;
 
