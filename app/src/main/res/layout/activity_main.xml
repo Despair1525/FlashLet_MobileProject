@@ -18,10 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/toolBarColor"
+        app:itemIconTint="@drawable/nav_item_color_state"
+        app:itemTextColor="@drawable/nav_item_color_state"
         app:labelVisibilityMode="labeled"
-        app:menu="@menu/navigation_menu"
 
-        android:iconTint="@drawable/nav_item_color_state"
-        />
+        app:menu="@menu/navigation_menu" />
 
 </RelativeLayout>
