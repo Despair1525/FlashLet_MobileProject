@@ -1,9 +1,11 @@
 package com.example.prm_final_project.Ui.Activity;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
@@ -13,6 +15,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
@@ -44,7 +48,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private TextView tvView;
     private ImageView imageReload,imageTest;
     private RecyclerView recyclerViewList;
-    private RelativeLayout learnRelativeLayout, fullScreenRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
+    private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +60,6 @@ public class ViewCardActivity extends AppCompatActivity  {
         imageReload = findViewById(R.id.vc_Reload);
         imageTest = findViewById(R.id.vc_Test);
         learnRelativeLayout = findViewById(R.id.learnItem);
-        fullScreenRelativeLayout = findViewById(R.id.fullScreenItem);
         reloadRelativeLayout = findViewById(R.id.reloadItem);
         testRelativeLayout = findViewById(R.id.testItem);
         viewRelativeLayout = findViewById(R.id.viewItem);

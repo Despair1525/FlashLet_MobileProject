@@ -54,6 +54,7 @@
             android:exported="false" />
         <activity
             android:name=".Ui.Activity.ViewCardActivity"
+            android:theme="@style/Theme.PRM_Final_Project.Custombar"
             android:exported="true" />
         <activity
             android:name=".Ui.Activity.RegisterActivity"
