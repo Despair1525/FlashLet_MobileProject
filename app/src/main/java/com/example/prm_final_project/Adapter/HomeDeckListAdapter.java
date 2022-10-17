@@ -58,6 +58,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         holder.title.setText(curentDeck.getTitle());
         holder.totalNum.setText(curentDeck.getCards().size()+" cards");
         holder.author.setText(curentDeck.getAuthor());
+        holder.layoutItem.setVisibility(LinearLayout.GONE);
         holder.layoutItem.setOnClickListener(view -> onItem(curentDeck));
 
     }
