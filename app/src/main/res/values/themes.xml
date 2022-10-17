@@ -9,6 +9,7 @@
     </style>
     <style name="Theme.PRM_Final_Project.Custombar">
         <item name="colorPrimary">#ffffff</item>
+        <item name="titleTextColor">@color/colorPrimary</item>
         <item name="actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
 
     </style>
