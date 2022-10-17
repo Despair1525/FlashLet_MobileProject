@@ -49,7 +49,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
     private TextView tvTitile;
-    private TextView tvView;
+    private TextView tvView, textViewAuthor, textViewView, textViewTitle;
     private ImageView imageReload,imageTest;
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
@@ -58,15 +58,18 @@ public class ViewCardActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         // Take all View in layout
         setContentView(R.layout.activity_view_card);
-        tvView = findViewById(R.id.textViewView);
+
         imageViewLearn = findViewById(R.id.imageViewLearn);
-        tvTitile = findViewById(R.id.tvTitle);
+
         imageReload = findViewById(R.id.vc_Reload);
         imageTest = findViewById(R.id.vc_Test);
         learnRelativeLayout = findViewById(R.id.learnItem);
         reloadRelativeLayout = findViewById(R.id.reloadItem);
         testRelativeLayout = findViewById(R.id.testItem);
-        viewRelativeLayout = findViewById(R.id.viewItem);
+
+        textViewTitle = findViewById(R.id.textViewTitle);
+        textViewView = findViewById(R.id.textViewNumView);
+        textViewAuthor = findViewById(R.id.textViewAuthor);
 
         reloadRelativeLayout.setOnClickListener(view -> onReload());
         testRelativeLayout.setOnClickListener(view -> onTest());
@@ -77,8 +80,10 @@ public class ViewCardActivity extends AppCompatActivity  {
         if ( getIntent().getSerializableExtra("viewDeck") != null){
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
-        tvTitile.setText(deck.getTitle());
-        tvView.setText(deck.getView()+"");
+        getSupportActionBar().setTitle(deck.getTitle());
+        textViewTitle.setText(deck.getTitle());
+        textViewView.setText(deck.getView()+" Views");
+        textViewAuthor.setText(deck.getAuthor());
         loadSlideFlash();
     }
 
