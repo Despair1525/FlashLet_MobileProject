@@ -13,6 +13,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -69,6 +72,9 @@ public class HomeFragment extends Fragment {
 
     Context thiscontext;
     private boolean firstTime = true;
+
+    public HomeFragment(){
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

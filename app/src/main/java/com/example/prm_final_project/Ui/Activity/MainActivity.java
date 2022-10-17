@@ -72,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 CURRENT_FRAGMENT = HOME_FRAGMENT;
                 bottomNavigationView = findViewById(R.id.bottom_navigation);
                 bottomNavigationView.setOnNavigationItemSelectedListener(this);
-//                Intent i = new Intent(MainActivity.this, HomePageActivity.class);
-//                startActivity(i);
             }
         } else {
             Toast.makeText(MainActivity.this, "Not connect to internet", Toast.LENGTH_SHORT).show();
@@ -100,13 +98,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
                 return true;
             case R.id.nav_create:
-//                fragment = new CreateDeckFragment();
-//                if(CURRENT_FRAGMENT != CREATE_FRAGMENT){
-//                    loadFragment(fragment);
-//                    CURRENT_FRAGMENT = CREATE_FRAGMENT;
-//                }
                 creatDeck();
-                return true;
+                // do not set this fragment selected
+                return false;
             case R.id.nav_profile:
                 if(CURRENT_FRAGMENT != PROFILE_FRAGMENT){
                     loadFragment(fragmentProfile);
@@ -114,14 +108,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
                 return true;
         }
-        return true;
+        return false;
+    }
+
+    // when press back button, return home fragment
+    @Override
+    public void onBackPressed() {
+        if (bottomNavigationView.getSelectedItemId() == R.id.nav_home) {
+            super.onBackPressed();
+        } else {
+            bottomNavigationView.setSelectedItemId(R.id.nav_home);
+        }
     }
 
     void loadFragment(Fragment fragment) {
         //to attach fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -129,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mAuth = FirebaseAuth.getInstance();
         return mAuth;
     }
-//
+
 // create Deck
     public void creatDeck(){
         if(checkGuest()) {
