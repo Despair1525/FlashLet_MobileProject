@@ -1,5 +1,7 @@
 package com.example.prm_final_project.Model;
 
+import androidx.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -102,5 +104,11 @@ public class Deck implements Serializable {
 
     public void setDescriptions(String descriptions) {
         this.descriptions = descriptions;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "DeckID"+this.deckId+"|"+"Title"+this.title;
     }
 }

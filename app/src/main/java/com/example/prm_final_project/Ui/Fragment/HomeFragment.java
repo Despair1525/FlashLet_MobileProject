@@ -1,6 +1,5 @@
 package com.example.prm_final_project.Ui.Fragment;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,16 +13,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.CompositePageTransformer;
-import androidx.viewpager2.widget.MarginPageTransformer;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.prm_final_project.Adapter.DeckListTypeAdapter;
 import com.example.prm_final_project.Model.DeckListType;
+import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
@@ -32,6 +28,7 @@ import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
+import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,7 +37,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
@@ -48,6 +44,10 @@ public class HomeFragment extends Fragment {
     private ArrayList<Deck> originDecks = new ArrayList<>();
     private ArrayList<Deck> allDecks = new ArrayList<>();
     private ArrayList<Deck> newestDecks = new ArrayList<>();
+    private ArrayList<Deck> recentDecks = new ArrayList<>();
+    private ArrayList<RecentDeck> recentDeckKeys = new ArrayList<>();
+    public static HashMap<String,Deck> originDeckHm = new HashMap<>();
+
 
     ArrayList<String> myDeckKeys = new ArrayList<>();
     Map<String,Deck> keyedDecks = new HashMap<>();
@@ -115,7 +115,7 @@ public class HomeFragment extends Fragment {
                     }
                     ;
                     if (type == 1) {
-                        int changeDeckIndex = Methods.indexDeck(newestDecks, changeDeck);
+                        int changeDeckIndex = Methods.indexDeck(allDecks, changeDeck);
                         if (changeDeckIndex != -1) {
                             newestDecks.set(changeDeckIndex, changeDeck);
                             allDecks.set(changeDeckIndex,changeDeck);
@@ -140,6 +140,14 @@ public class HomeFragment extends Fragment {
                     homeDeckAdap.notifyDataSetChanged();
                 }
             }, originDecks);
+
+            DeckDao.readRecentDeckByUser(recentDeckKeys,new RecentDeckCallback() {
+                @Override
+                public void onResponse(ArrayList<RecentDeck> allDecks, RecentDeck changeDeck, int type) {
+                    Log.i("HomeFragment - RecentDeck",changeDeck.getId()+"");
+                }
+            });
+
         firstTime = false;
         };
 
@@ -155,14 +163,24 @@ public class HomeFragment extends Fragment {
         deckListTypeAdaper = new DeckListTypeAdapter(listIem, new AdapterCallback() {
             @Override
             public void onResponse( int type) {
+                new CountDownTimer(1000, 1000) {
+                    public void onFinish() {
+                        RvPublicDeck.setVisibility(RecyclerView.VISIBLE);
+                        PbLoading.setVisibility(ProgressBar.GONE);
+                    }
 
+                    public void onTick(long millisUntilFinished) {
+                        RvPublicDeck.setVisibility(RecyclerView.GONE);
+                        PbLoading.setVisibility(ProgressBar.VISIBLE);
+                    }
+                }.start();
                 if(type == 0){
                     changeRecle(allDecks,originDecks);
 //                    Toast.makeText(getActivity(),"You enter public",Toast.LENGTH_SHORT).show();
                 };
                 if(type == 1){
-//(String deckId, String Uid, String title, String descriptions ,String author,String date ,boolean isPublic ,int view,List<List<String>> cards)
-                    changeRecle(allDecks,newestDecks);
+                    matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
+                    changeRecle(allDecks,recentDecks);
                 };
                 if(type == 2){
                     Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();
@@ -193,20 +211,10 @@ public class HomeFragment extends Fragment {
 return listIem;
     }
 public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
-    new CountDownTimer(1000, 1000) {
-        public void onFinish() {
-            RvPublicDeck.setVisibility(RecyclerView.VISIBLE);
-            PbLoading.setVisibility(ProgressBar.GONE);
-        }
 
-        public void onTick(long millisUntilFinished) {
-            RvPublicDeck.setVisibility(RecyclerView.GONE);
-            PbLoading.setVisibility(ProgressBar.VISIBLE);
-        }
-    }.start();
-
-    for(int i = 0; i<a.size();i++) {
-       a.set(i,b.get(i));
+    a.clear();
+    for(int i = 0; i<b.size();i++) {
+       a.add(b.get(i));
     };
 
 };
@@ -226,4 +234,16 @@ public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
             logout();
         }
     }
+
+
+    public void matchHashMapRecentDeck(ArrayList<RecentDeck> aKey ,ArrayList<Deck> a ,HashMap<String,Deck> b){
+        a.clear();
+        for(RecentDeck key: aKey) {
+            Deck temp = b.get(key.getDeckId());
+            if(temp != null) {
+                a.add(temp);
+            };
+        };
+
+    };
 }

@@ -25,7 +25,9 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/deck_shape_clicked.xml" value="0.201" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_autorenew_24.xml" value="0.1815" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_checklist_24.xml" value="0.1305" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_content_copy_24.xml" value="0.1425" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_control_point_24.xml" value="0.175" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1425" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_fullscreen_24.xml" value="0.1965" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1305" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.1305" />
@@ -38,11 +40,12 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_add_cards.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_choose_type_test.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_edit_deck.xml" value="0.25416666666666665" />
-        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_homepage.xml" value="0.4" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_homepage.xml" value="0.3307291666666667" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_learn_card.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_loading_screen.xml" value="0.11302083333333333" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_no_internet.xml" value="0.152" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_publish_decks.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_register.xml" value="0.176" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_result_multiple_choice.xml" value="0.12708333333333333" />

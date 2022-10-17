@@ -2,6 +2,7 @@ package com.example.prm_final_project.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Ui.Activity.ViewCardActivity;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -62,6 +67,24 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         i.putExtra("viewDeck",currentDeck);
         // add view each time click
         DeckDao.addView(currentDeck);
+
+        // Add Save Recent Deck to database
+        FirebaseUser currentUser = UserDao.getUser();
+        if(currentUser != null) {
+            String userId = currentUser.getUid();
+            String deckId = currentDeck.getDeckId();
+            String id = userId+"-"+deckId;
+            RecentDeck newRecent = new RecentDeck(id,userId,deckId, Methods.getTime());
+
+            DeckDao.addRecentDeck(newRecent, new RecentDeckCallback() {
+                @Override
+                public void onResponse(ArrayList<RecentDeck> allDecks, RecentDeck changeDeck, int type) {
+                    Log.i("HomeDeckListAdapter",changeDeck.getId()+"Add to database");
+                }
+            });
+        };
+
+        //
         context.startActivity(i);
     }
 

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Fragment.HomeFragment;
@@ -77,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         } else {
             Toast.makeText(MainActivity.this, "Not connect to internet", Toast.LENGTH_SHORT).show();
             // Gửi sang trang Lỗi kết nối
+            Intent i = new Intent(this,NoInternetActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 

@@ -1,6 +1,7 @@
 package com.example.prm_final_project.Adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,10 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.DeckListType;
+import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
+import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
 import com.google.firebase.database.core.Context;
 
 import java.text.ParseException;
@@ -51,7 +55,7 @@ public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapte
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                row_index =i;
+                row_index = i;
                 notifyDataSetChanged();
             }
         });
@@ -60,6 +64,8 @@ public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapte
         }
         else {
             holder.item.setBackgroundResource(R.drawable.deck_shape);
+        };
+        if(row_index == 1){
         };
         callback.onResponse(row_index);
     }
