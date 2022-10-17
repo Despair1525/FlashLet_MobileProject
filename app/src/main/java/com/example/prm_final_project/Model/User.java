@@ -17,7 +17,10 @@ public class User {
         this.password = password;
         this.username = username;
         this.avatar = avatar;
+<<<<<<< HEAD
 
+=======
+>>>>>>> be25f9395219af20aabd354c24ec76cae0fa6199
         this.phone = phone;
         this.email = email;
         this.isActivate = isActivate;
