@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +27,7 @@ private EditText edUserName;
 private EditText edEmail;
 private EditText edPass1;
 private EditText edPass2;
+    private EditText edPhone;
 private TextView tvRegister;
 private ProgressDialog progressDialog;
     @Override
@@ -39,6 +42,7 @@ private void initUi(){
     edEmail = findViewById(R.id.edtEmail);
     edPass1 = findViewById(R.id.edtPassword1);
     edPass2 = findViewById(R.id.edtPassword2);
+    edPhone = findViewById(R.id.edtPhone);
     tvRegister = findViewById(R.id.tvRegisterUser);
     progressDialog = new ProgressDialog(this);
 
@@ -46,6 +50,7 @@ private void initUi(){
     private void onRegister(){
         String email = edEmail.getText().toString();
         String password = edPass1.getText().toString();
+        String phone = edPhone.getText().toString();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         progressDialog.show();
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -70,6 +75,11 @@ private void initUi(){
                                             }
                                         }
                                     });
+//                            (String userId, String password, String username, String avatar, String phone, String email, boolean isActivate)
+                            User newUser = new User(user.getUid(),password,user.getDisplayName(),user.getPhotoUrl()+"",phone,user.getEmail(),
+                                    true);
+
+                            UserDao.addUser(newUser);
                             Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
                             startActivity(intent);
                             finishAffinity();

@@ -5,7 +5,6 @@ public class User {
     private String password;
     private String username;
     private String avatar;
-    private Boolean isGender;
     private String phone;
     private String email;
     private boolean isActivate;
@@ -13,12 +12,12 @@ public class User {
     public User() {
     }
 
-    public User(String userId, String password, String username, String avatar, Boolean isGender, String phone, String email, boolean isActivate) {
+    public User(String userId, String password, String username, String avatar, String phone, String email, boolean isActivate) {
         this.userId = userId;
         this.password = password;
         this.username = username;
         this.avatar = avatar;
-        this.isGender = isGender;
+
         this.phone = phone;
         this.email = email;
         this.isActivate = isActivate;
@@ -54,14 +53,6 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
-    }
-
-    public Boolean getGender() {
-        return isGender;
-    }
-
-    public void setGender(Boolean gender) {
-        isGender = gender;
     }
 
     public String getPhone() {
