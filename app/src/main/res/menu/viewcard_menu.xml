@@ -7,6 +7,10 @@
             android:title="Information"
             android:icon="@drawable/ic_baseline_info_24"/>
         <item
+            android:id="@+id/saveSet"
+            android:title="Like this deck"
+            android:icon="@drawable/ic_baseline_save_24"/>
+        <item
             android:id="@+id/copySet"
             android:title="Copy this set"
             android:icon="@drawable/ic_baseline_content_copy_24"/>

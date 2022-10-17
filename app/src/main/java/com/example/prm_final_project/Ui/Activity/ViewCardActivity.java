@@ -34,8 +34,12 @@ import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
+import com.example.prm_final_project.Dao.DeckDao;
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Util.Methods;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -206,16 +210,24 @@ public class ViewCardActivity extends AppCompatActivity  {
             case R.id.deleteSet:
                 Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.saveSet:
+                String UserId = UserDao.getUser().getUid();
+                String deckId = deck.getDeckId();
+                String id = UserId+"-"+deckId;
+                FavoriteDeck favoriteDeck = new FavoriteDeck(id,UserId,deckId, Methods.getTimeLong());
+                DeckDao.addFavoriteDeck(favoriteDeck);
+                break;
+
             case R.id.infoSet:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Deck Informations");
                 LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog_deck_information   /*my layout here*/, null);
                 builder.setView(layout);
-                TextView deckId =  layout.findViewById(R.id.tvDeckId);
+                TextView deckIdInfo =  layout.findViewById(R.id.tvDeckId);
                 TextView Author = layout.findViewById(R.id.tvAuthor);
                 TextView Uid = layout.findViewById(R.id.tvUid)   ;
-                deckId.setText("DeckId"+deck.getDeckId());
+                deckIdInfo.setText("DeckId"+deck.getDeckId());
                 Author.setText("Author:"+deck.getAuthor());
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override

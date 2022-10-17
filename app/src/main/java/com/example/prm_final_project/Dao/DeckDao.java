@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.Model.Deck;
@@ -30,6 +31,7 @@ public class DeckDao {
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public static DatabaseReference rr ;
     public static HashMap<String,Deck> originDeck = new HashMap<>();
+    public static HashMap<String,ArrayList<String>> Hmfavorite = new HashMap<>() ;
     public static int numberDeck = 0;
 
 
@@ -185,6 +187,10 @@ public class DeckDao {
         callback.onResponse(null,RecentDeck,1);
     };
 
+    public static void addFavoriteDeck(FavoriteDeck FvDeck) {
+        FirebaseDatabase.getInstance().getReference("FavoriteDeck").child(FvDeck.getId()).setValue(FvDeck);
+
+    };
 
     public static void addView(Deck deck) {
         int currentView = deck.getView();
