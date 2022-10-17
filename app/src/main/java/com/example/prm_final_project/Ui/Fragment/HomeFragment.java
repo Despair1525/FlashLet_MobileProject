@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment {
             ViewGroup container, Bundle savedInstanceState) {
         // Setting List
 
+        //
 
         thiscontext = container.getContext();
         View view =  inflater.inflate(R.layout.activity_homepage, container, false);
@@ -117,9 +118,7 @@ public class HomeFragment extends Fragment {
                             newestDecks.add(changeDeck);
                             allDecks.add(changeDeck);
                         }
-                        ;
-                    }
-                    ;
+                    };
                     if (type == 1) {
                         int changeDeckIndex = Methods.indexDeck(allDecks, changeDeck);
                         if (changeDeckIndex != -1) {
@@ -134,14 +133,6 @@ public class HomeFragment extends Fragment {
                         allDecks.remove(changeDeck);
                     }
                     ;
-                    Collections.sort(newestDecks, (o1, o2) -> {
-                        try {
-                            return (Methods.compareStringDate(o1.getDate(), o2.getDate()));
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                        return 0;
-                    });
                     PbLoading.setVisibility(ProgressBar.GONE);
                     homeDeckAdap.notifyDataSetChanged();
                 }
@@ -185,8 +176,13 @@ public class HomeFragment extends Fragment {
 //                    Toast.makeText(getActivity(),"You enter public",Toast.LENGTH_SHORT).show();
                 };
                 if(type == 1){
-                    matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
+                    Collections.sort(recentDeckKeys, (o1, o2) -> {
+
+                        return (int) (o2.getTimeStamp() - o1.getTimeStamp());
+                    });
                     changeRecle(allDecks,recentDecks);
+                    matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
+
                 };
                 if(type == 2){
                     Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();
@@ -194,7 +190,7 @@ public class HomeFragment extends Fragment {
 
                 homeDeckAdap.notifyDataSetChanged();
             }
-        });
+        }, RvListDeckType);
         RvListDeckType.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         RvListDeckType.setAdapter((deckListTypeAdaper));
 

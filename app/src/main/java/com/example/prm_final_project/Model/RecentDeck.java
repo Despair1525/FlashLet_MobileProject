@@ -4,12 +4,12 @@ public class RecentDeck {
     private String id;
     private String UserId;
     private String DeckId;
-    private String TimeStamp;
+    private Long TimeStamp;
 
     public RecentDeck() {
     }
 
-    public RecentDeck(String id, String userId, String deckId, String timeStamp) {
+    public RecentDeck(String id, String userId, String deckId, Long timeStamp) {
         this.id = id;
         UserId = userId;
         DeckId = deckId;
@@ -40,11 +40,11 @@ public class RecentDeck {
         DeckId = deckId;
     }
 
-    public String getTimeStamp() {
+    public Long getTimeStamp() {
         return TimeStamp;
     }
 
-    public void setTimeStamp(String timeStamp) {
+    public void setTimeStamp(Long timeStamp) {
         TimeStamp = timeStamp;
     }
 }

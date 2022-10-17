@@ -14,12 +14,14 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -30,6 +32,9 @@ import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewCardActivity extends AppCompatActivity  {
     private Deck deck;
@@ -198,6 +203,32 @@ public class ViewCardActivity extends AppCompatActivity  {
             case R.id.deleteSet:
                 Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.infoSet:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Deck Informations");
+                LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
+                View layout = inflater.inflate(R.layout.dialog_deck_information   /*my layout here*/, null);
+                builder.setView(layout);
+                TextView deckId =  layout.findViewById(R.id.tvDeckId);
+                TextView Author = layout.findViewById(R.id.tvAuthor);
+                TextView Uid = layout.findViewById(R.id.tvUid)   ;
+                deckId.setText("DeckId"+deck.getDeckId());
+                Author.setText("Author:"+deck.getAuthor());
+                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+               break;
 
         }
         return super.onOptionsItemSelected(item);

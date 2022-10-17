@@ -19,24 +19,19 @@
         android:text="Hello"
         android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.03" />
+       />
 
     <TextView
         android:id="@+id/tvHelloUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="10dp"
         android:text="Manh"
         android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tvHelloUser"
         app:layout_constraintStart_toEndOf="@+id/tvHelloUser"
-        app:layout_constraintTop_toTopOf="@+id/tvHelloUser"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toTopOf="parent"
         android:fontFamily="casual"/>
 
 
@@ -68,7 +63,7 @@
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintTop_toBottomOf="@+id/RvListDeckType"
-        android:paddingBottom="100dp"
+        android:paddingBottom="50dp"
        >
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -81,8 +76,9 @@
         android:visibility="gone"
         android:indeterminateTint="@color/toolBarColor"
         >
-
     </ProgressBar>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 

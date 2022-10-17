@@ -74,7 +74,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
             String userId = currentUser.getUid();
             String deckId = currentDeck.getDeckId();
             String id = userId+"-"+deckId;
-            RecentDeck newRecent = new RecentDeck(id,userId,deckId, Methods.getTime());
+            RecentDeck newRecent = new RecentDeck(id,userId,deckId, Methods.getTimeLong());
 
             DeckDao.addRecentDeck(newRecent, new RecentDeckCallback() {
                 @Override

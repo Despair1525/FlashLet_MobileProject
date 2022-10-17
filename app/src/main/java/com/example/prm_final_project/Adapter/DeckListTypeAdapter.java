@@ -32,11 +32,13 @@ public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapte
     private ArrayList<DeckListType> OriginItems;
     int row_index = 0;
     AdapterCallback callback;
+    RecyclerView rc;
 
-    public DeckListTypeAdapter(ArrayList<DeckListType> items,AdapterCallback callback) {
+    public DeckListTypeAdapter(ArrayList<DeckListType> items,AdapterCallback callback,RecyclerView rc) {
         this.items = items;
         this.OriginItems = items;
         this.callback = callback;
+        this.rc = rc;
     }
 
     @NonNull
@@ -55,6 +57,8 @@ public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapte
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                rc.scrollToPosition(i);
                 row_index = i;
                 notifyDataSetChanged();
             }

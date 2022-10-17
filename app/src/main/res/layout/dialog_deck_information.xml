@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvDeckId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="DeckID:"/>
+    <TextView
+        android:id="@+id/tvAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Author:"/>
+    <TextView
+        android:id="@+id/tvUid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uid:"/>
+
+</LinearLayout>

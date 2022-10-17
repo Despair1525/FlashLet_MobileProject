@@ -64,9 +64,10 @@ public class DeckDao {
                         allDecks.set(i,thisDeck);
                         callback.onResponse(allDecks,thisDeck,1);
                         originDeck.put(thisDeck.getDeckId(),thisDeck);
+                        Log.i("DeckDao","DeckChildeChange " + thisDeck.getDeckId());
                     };
                 };
-                Log.i("DeckDao","DeckChildeChange" + snapshot.getKey());
+
             }
 
             @Override
@@ -116,7 +117,7 @@ public class DeckDao {
 //        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = UserDao.getUser();
 //        recentDeck= new ArrayList<>();
-        rr = (DatabaseReference) rootRef.getReference("RecentDeck").orderByChild("userId").equalTo(user.getUid()).getRef();
+        rr = (DatabaseReference) rootRef.getReference("RecentDeck").equalTo(user.getUid()).getRef();
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
@@ -129,6 +130,16 @@ public class DeckDao {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 //1
+                RecentDeck thisRecentDeck = (RecentDeck) snapshot.getValue(RecentDeck.class);
+//                Log.i("changeInfor",thisRecentDeck.getTimeStamp()+"|"+recentDeck.size());
+                for(int i =0;i<recentDeck.size();i++) {
+                    if(recentDeck.get(i).getDeckId().equalsIgnoreCase(thisRecentDeck.getDeckId()) ) {
+                        recentDeck.set(i,thisRecentDeck);
+                        callback.onResponse(recentDeck,thisRecentDeck,1);
+
+                    };
+                };
+
 //                Deck thisDeck = changeToDeck(snapshot);
 //                for(int i =0;i<allDecks.size();i++) {
 //                    if(allDecks.get(i).getDeckId().equalsIgnoreCase(snapshot.getKey()) ) {
@@ -136,21 +147,18 @@ public class DeckDao {
 //                        callback.onResponse(allDecks,thisDeck,1);
 //                    };
 //                };
-                Log.i("DeckDao","DeckChildeChange" + snapshot.getKey());
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 //2
-//                String id = snapshot.getKey();
-//                for(int i =0;i<allDecks.size();i++) {
-//                    if(allDecks.get(i).getDeckId().equalsIgnoreCase(id) ) {
-//                        Deck thisDeck = allDecks.get(i);
-//                        allDecks.remove(i);
-//                        callback.onResponse(allDecks,thisDeck,2);
-//                    };
-//                };
-//                Log.i("DeckDao","DeckChildeRemove" + snapshot.getKey());
+                RecentDeck thisRecentDeck = (RecentDeck) snapshot.getValue(RecentDeck.class);
+                for(int i =0;i<recentDeck.size();i++) {
+                    if(recentDeck.get(i).getDeckId().equalsIgnoreCase(snapshot.getKey()) ) {
+                        recentDeck.remove(i);
+                        callback.onResponse(recentDeck,thisRecentDeck,2);
+                    };
+                };
             }
 
             @Override

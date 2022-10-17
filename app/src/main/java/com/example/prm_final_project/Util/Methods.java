@@ -1,5 +1,7 @@
 package com.example.prm_final_project.Util;
 
+import android.util.Log;
+
 import com.example.prm_final_project.Model.Deck;
 
 import java.sql.Timestamp;
@@ -20,6 +22,10 @@ public class Methods {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         return sdf.format(timestamp)+"";
+    };
+    public static Long getTimeLong(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        return timestamp.getTime();
     };
 
     public static int compareStringDate(String o1 , String o2) throws ParseException {
