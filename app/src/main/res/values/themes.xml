@@ -3,8 +3,10 @@
     <style name="Theme.PRM_Final_Project" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/toolBarColor</item>
+        <item name="colorPrimaryDark">@color/toolBarColor</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="colorAccent">@color/teal_200</item>
+        <item name="colorAccent">@color/toolBarColor</item>
+        
         <!-- Customize your theme here. -->
     </style>
     <style name="Theme.PRM_Final_Project.Custombar">
