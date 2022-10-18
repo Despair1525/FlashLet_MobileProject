@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,18 +21,22 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edtEmail,edtPassword;
     private Button btnLogin;
-    private TextView btnGuest, btnSignup;
+    private TextView btnGuest, btnSignup, tvForgotPassword;
 
 
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
     private ArrayList<Deck> allDecks = new ArrayList<>();
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://flashlet-25aye-default-rtdb.firebaseio.com/");
+
 
 
 
@@ -50,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 //      Set Su kien cho nut
         btnLogin.setOnClickListener(view -> onLogin());
         btnSignup.setOnClickListener(view -> onSignUp());
-
+        tvForgotPassword.setOnClickListener(view -> onForgotPassword());
 
     };
 
@@ -63,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
         edtPassword =  findViewById(R.id.edtPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignup = (TextView)findViewById(R.id.tvSignup);
+        tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
 
         progressDialog = new ProgressDialog(this);
     };
@@ -86,21 +92,55 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            progressDialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+//                        if (task.isSuccessful()) {
+                        progressDialog.dismiss();
+//                            Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                             // Sign in success, update UI with the signed-in user's information
 //                            FirebaseUser user = mAuth.getCurrentUser();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            intent.putExtra("allDecks", allDecks);
-                            startActivity(intent);
-                            finishAffinity();
+//                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                            intent.putExtra("allDecks", allDecks);
+//                            startActivity(intent);
+//                            finishAffinity();
+//                        } else {
+//                            // If sign in fails, display a message to the user.
+//                            Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(),
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            if(mAuth.getCurrentUser().isEmailVerified()){
+                                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("allDecks", allDecks);
+                                startActivity(intent);
+                                finishAffinity();
+                            }
+                            else{
+//                                Toast.makeText(LoginActivity.this, "Please verify your email address!",
+//                                        Toast.LENGTH_SHORT).show();
+                                mAuth.getCurrentUser().sendEmailVerification()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if(task.isSuccessful()){
+                                                    Toast.makeText(LoginActivity.this, "Please verify your email address!",
+                                                            Toast.LENGTH_SHORT).show();
+                                                }else{
+                                                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
+                                                mAuth.signOut();
+                                            }
+                                        });
+                                mAuth.signOut();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(LoginActivity.this, task.getException().getLocalizedMessage(),
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
                         }
                     }
+
                 });
     };
 //<<<<<<< Updated upstream
@@ -123,7 +163,12 @@ public class LoginActivity extends AppCompatActivity {
 //    };
 
     private void onSignUp(){
-    Intent i = new Intent(this,RegisterActivity.class);
-    startActivity(i);
+        Intent i = new Intent(this,RegisterActivity.class);
+        startActivity(i);
+    };
+
+    private void onForgotPassword(){
+        Intent intent = new Intent(this, ForgotPasswordActivity.class);
+        startActivity(intent);
     };
 }

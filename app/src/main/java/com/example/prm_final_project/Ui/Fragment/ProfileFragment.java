@@ -92,8 +92,8 @@ public class ProfileFragment extends Fragment {
 //        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
 //        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
 //        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-        User user1 = new User("123", "123", "Thanh", "https://t2.ea.ltmcdn.com/en/posts/4/0/9/10_things_you_should_know_about_golden_retrievers_904_600_square.jpg",
-                "0123123123", "thanh@gmail.com", decks, true);
+        User user1 = new User("123", "Thanh", "https://t2.ea.ltmcdn.com/en/posts/4/0/9/10_things_you_should_know_about_golden_retrievers_904_600_square.jpg",
+                "0123123123", "thanh@gmail.com", decks);
         Glide.with(this).load(user1.getAvatar()).error(R.drawable.default_avatar).into(imageAvatar);
         tvUsername.setText(user1.getUsername());
         tvEmail.setText(user1.getEmail());

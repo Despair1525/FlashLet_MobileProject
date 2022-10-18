@@ -4,26 +4,22 @@ import java.util.ArrayList;
 
 public class User {
     private String userId;
-    private String password;
     private String username;
     private String avatar;
     private String phone;
     private String email;
     private ArrayList<String> myDeck;
-    private boolean isActivate;
 
     public User() {
     }
 
-    public User(String userId, String password, String username, String avatar, String phone, String email, ArrayList<String> myDeck, boolean isActivate) {
+    public User(String userId, String username, String avatar, String phone, String email, ArrayList<String> myDeck) {
         this.userId = userId;
-        this.password = password;
         this.username = username;
         this.avatar = avatar;
         this.phone = phone;
         this.email = email;
         this.myDeck = myDeck;
-        this.isActivate = isActivate;
     }
 
     public String getUserId() {
@@ -32,14 +28,6 @@ public class User {
 
     public void setUserId(String userId) {
         this.userId = userId;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getUsername() {
@@ -72,14 +60,6 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isActivate() {
-        return isActivate;
-    }
-
-    public void setActivate(boolean activate) {
-        isActivate = activate;
     }
 
     public ArrayList<String> getMyDeck() {
