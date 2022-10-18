@@ -13,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.ChangePasswordActivity;
 import com.example.prm_final_project.Ui.Activity.EditProfileActivity;
+import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Ui.Activity.MyFlashcardsActivity;
 
 import java.util.ArrayList;
@@ -121,7 +123,10 @@ public class ProfileFragment extends Fragment {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                UserDao.logout();
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                getActivity().finishAffinity();
             }
         });
         return view;
