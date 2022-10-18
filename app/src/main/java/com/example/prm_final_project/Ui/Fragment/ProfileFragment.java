@@ -80,13 +80,18 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
         initUi(view);
-        ArrayList<Deck> decks = new ArrayList<Deck>();
+        ArrayList<String> decks = new ArrayList<String>();
+        decks.add("1665069398251");
+        decks.add("1665072589374");
+        decks.add("1665073056163");
+        decks.add("1665139666277");
+        decks.add("1665139765821");
         //String deckId, String Uid, String title, String descriptions ,String author,String date ,boolean isPublic ,int view,List<List<String>> cards
-        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
+//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
+//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
+//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
+//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
+//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
         User user1 = new User("123", "123", "Thanh", "https://t2.ea.ltmcdn.com/en/posts/4/0/9/10_things_you_should_know_about_golden_retrievers_904_600_square.jpg",
                 "0123123123", "thanh@gmail.com", decks, true);
         Glide.with(this).load(user1.getAvatar()).error(R.drawable.default_avatar).into(imageAvatar);

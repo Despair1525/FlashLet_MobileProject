@@ -87,7 +87,7 @@ private void initUi(){
                                         }
                                     });
                             User newUser = new User(user.getUid(),password,user.getDisplayName(),user.getPhotoUrl()+"",phone,user.getEmail(),
-                                    new ArrayList<Deck>(), true);
+                                    new ArrayList<String>(), true);
 
                             UserDao.addUser(newUser);
                             Intent intent = new Intent(RegisterActivity.this,MainActivity.class);

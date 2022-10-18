@@ -9,13 +9,13 @@ public class User {
     private String avatar;
     private String phone;
     private String email;
-    private ArrayList<Deck> myDeck;
+    private ArrayList<String> myDeck;
     private boolean isActivate;
 
     public User() {
     }
 
-    public User(String userId, String password, String username, String avatar, String phone, String email, ArrayList<Deck> myDeck, boolean isActivate) {
+    public User(String userId, String password, String username, String avatar, String phone, String email, ArrayList<String> myDeck, boolean isActivate) {
         this.userId = userId;
         this.password = password;
         this.username = username;
@@ -82,11 +82,11 @@ public class User {
         isActivate = activate;
     }
 
-    public ArrayList<Deck> getMyDeck() {
+    public ArrayList<String> getMyDeck() {
         return myDeck;
     }
 
-    public void setMyDeck(ArrayList<Deck> myDeck) {
+    public void setMyDeck(ArrayList<String> myDeck) {
         this.myDeck = myDeck;
     }
 }
