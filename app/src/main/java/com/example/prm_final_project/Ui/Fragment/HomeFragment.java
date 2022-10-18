@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
     DeckListTypeAdapter deckListTypeAdaper;
     private RecyclerView RvPublicDeck,RvListDeckType;
     private TextView tvUserName;
-    private TextView myDecks, publicDecks, logout;
+    private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
 
@@ -149,8 +149,6 @@ public class HomeFragment extends Fragment {
         firstTime = false;
         };
 
-        logout =  view.findViewById(R.id.tvLogout);
-        logout.setOnClickListener(this::onClick);
 
         homeDeckAdap = new HomeDeckListAdapter(thiscontext,allDecks);
 
@@ -225,17 +223,10 @@ public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
         FirebaseUser user = mAuth.getCurrentUser();
        return user;
     }
-    public void logout(){
-        mAuth.signOut();
-        Intent i = new Intent(getActivity(), LoginActivity.class);
-        i.putExtra("allDecks", allDecks);
-        startActivity(i);
-    }
+
 
     public void onClick(View view) {
-        if(view == logout) {
-            logout();
-        }
+
     }
 
 
