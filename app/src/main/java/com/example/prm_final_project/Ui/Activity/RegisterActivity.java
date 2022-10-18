@@ -8,7 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,15 +29,19 @@ private EditText edUserName;
 private EditText edEmail;
 private EditText edPass1;
 private EditText edPass2;
-    private EditText edPhone;
-private TextView tvRegister;
+private EditText edPhone;
+private Button btRegister;
+private TextView tvLogin;
+private ImageView backImg;
 private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         initUi();
-        tvRegister.setOnClickListener(this);
+        btRegister.setOnClickListener(this);
+        tvLogin.setOnClickListener(this);
+        backImg.setOnClickListener(this);
     }
 private void initUi(){
     edUserName = findViewById(R.id.edtUsername);
@@ -43,7 +49,9 @@ private void initUi(){
     edPass1 = findViewById(R.id.edtPassword1);
     edPass2 = findViewById(R.id.edtPassword2);
     edPhone = findViewById(R.id.edtPhone);
-    tvRegister = findViewById(R.id.tvRegisterUser);
+    btRegister = findViewById(R.id.btn_signup);
+    tvLogin = findViewById(R.id.tvLogin);
+    backImg = findViewById(R.id.imageView2);
     progressDialog = new ProgressDialog(this);
 
 };
@@ -94,9 +102,15 @@ private void initUi(){
     };
     @Override
     public void onClick(View view) {
-       if(view == tvRegister) {
+       if(view == btRegister) {
             onRegister();
         };
+       if(view == backImg || view == tvLogin) {
+           Intent i = new Intent(RegisterActivity.this,LoginActivity.class);
+           startActivity(i);
+           finish();
+       }
+
     }
 
 }

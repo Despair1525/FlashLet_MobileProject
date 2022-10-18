@@ -21,8 +21,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm_final_project.Adapter.DeckListTypeAdapter;
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.DeckListType;
 import com.example.prm_final_project.Model.RecentDeck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
@@ -60,7 +62,6 @@ public class HomeFragment extends Fragment {
     FirebaseUser user ;
 
     private ListView lvDecks;
-    private boolean isGuest =  true;
     private boolean inPublic = true;
     HomeDeckListAdapter homeDeckAdap,homeDeckAdapNew ;
     DeckListTypeAdapter deckListTypeAdaper;
@@ -94,7 +95,7 @@ public class HomeFragment extends Fragment {
         View view =  inflater.inflate(R.layout.activity_homepage, container, false);
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        user  = checkGuest();
+        user  = UserDao.getUser();
 
         tvUserName = view.findViewById(R.id.tvHelloUserName);
         PbLoading =  view.findViewById(R.id.pbLoadingData);

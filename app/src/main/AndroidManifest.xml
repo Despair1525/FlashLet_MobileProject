@@ -58,10 +58,12 @@
             android:exported="true" />
         <activity
             android:name=".Ui.Activity.RegisterActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.PRM_Final_Project.NoActionBar"/>
         <activity
             android:name=".Ui.Activity.LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.PRM_Final_Project.NoActionBar"/>
         <activity
             android:name=".Ui.Activity.MainActivity"
             android:exported="true"

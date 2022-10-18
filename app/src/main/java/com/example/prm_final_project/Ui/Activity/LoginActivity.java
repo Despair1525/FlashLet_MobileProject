@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
-    private TextInputEditText edtEmail,edtPassword;
+    private EditText edtEmail,edtPassword;
     private Button btnLogin;
     private TextView btnGuest, btnSignup;
+
+
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
     private ArrayList<Deck> allDecks = new ArrayList<>();
@@ -56,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initUi(){
-        edtEmail = (TextInputEditText) findViewById(R.id.edtLoginEmail);
-        edtPassword = (TextInputEditText) findViewById(R.id.edtPass);
+        edtEmail = findViewById(R.id.edtEmail);
+        edtPassword =  findViewById(R.id.edtPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnSignup = (TextView)findViewById(R.id.tvSignup);
 
