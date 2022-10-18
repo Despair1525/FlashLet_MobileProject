@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -23,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+
+import java.util.ArrayList;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 private EditText edUserName;
@@ -83,9 +86,8 @@ private void initUi(){
                                             }
                                         }
                                     });
-//                            (String userId, String password, String username, String avatar, String phone, String email, boolean isActivate)
                             User newUser = new User(user.getUid(),password,user.getDisplayName(),user.getPhotoUrl()+"",phone,user.getEmail(),
-                                    true);
+                                    new ArrayList<Deck>(), true);
 
                             UserDao.addUser(newUser);
                             Intent intent = new Intent(RegisterActivity.this,MainActivity.class);

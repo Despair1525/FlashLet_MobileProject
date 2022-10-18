@@ -1,5 +1,7 @@
 package com.example.prm_final_project.Model;
 
+import java.util.ArrayList;
+
 public class User {
     private String userId;
     private String password;
@@ -7,18 +9,20 @@ public class User {
     private String avatar;
     private String phone;
     private String email;
+    private ArrayList<Deck> myDeck;
     private boolean isActivate;
 
     public User() {
     }
 
-    public User(String userId, String password, String username, String avatar, String phone, String email, boolean isActivate) {
+    public User(String userId, String password, String username, String avatar, String phone, String email, ArrayList<Deck> myDeck, boolean isActivate) {
         this.userId = userId;
         this.password = password;
         this.username = username;
         this.avatar = avatar;
         this.phone = phone;
         this.email = email;
+        this.myDeck = myDeck;
         this.isActivate = isActivate;
     }
 
@@ -76,5 +80,13 @@ public class User {
 
     public void setActivate(boolean activate) {
         isActivate = activate;
+    }
+
+    public ArrayList<Deck> getMyDeck() {
+        return myDeck;
+    }
+
+    public void setMyDeck(ArrayList<Deck> myDeck) {
+        this.myDeck = myDeck;
     }
 }

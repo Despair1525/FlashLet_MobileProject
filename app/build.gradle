@@ -61,4 +61,7 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     // Easy flip view
     implementation 'com.wajahatkarim:EasyFlipView:3.0.3'
+
+    implementation 'com.github.bumptech.glide:glide:4.14.2'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 }

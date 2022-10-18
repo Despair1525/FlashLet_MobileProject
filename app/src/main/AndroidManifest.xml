@@ -21,6 +21,15 @@
             android:theme="@style/Theme.PRM_Final_Project.NoActionBar"
             />
         <activity
+            android:name=".Ui.Activity.ChangePasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.Activity.EditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Ui.Activity.MyFlashcardsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Ui.Activity.TestActivity"
             android:exported="false" />
         <activity
