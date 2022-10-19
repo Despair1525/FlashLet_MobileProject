@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Fragment.HomeFragment;
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private int CURRENT_FRAGMENT;
 
     Fragment fragmentHome = new HomeFragment();;
-    Fragment fragmentSearch = new SearchFragment();
     Fragment fragmentProfile = new ProfileFragment() ;
     FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
 
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             case R.id.nav_search:
                 if(CURRENT_FRAGMENT != SEARCH_FRAGMENT){
-                    loadFragment(fragmentSearch);
+                    loadFragment(new SearchFragment());
                     CURRENT_FRAGMENT = SEARCH_FRAGMENT;
                 }
                 return true;

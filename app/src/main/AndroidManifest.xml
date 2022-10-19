@@ -78,7 +78,8 @@
         <activity
             android:name=".Ui.Activity.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.PRM_Final_Project.NoActionBar">
+            android:theme="@style/Theme.PRM_Final_Project.NoActionBar"
+            android:windowSoftInputMode="adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

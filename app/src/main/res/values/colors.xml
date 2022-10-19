@@ -10,6 +10,7 @@
     <color name="deckColor">#28CFE6B8</color>
     <color name="colorPrimary">#64A36B</color>
     <color name="toolBarColor">#64A36B</color>
+    <color name="searchBar">#ebf9eb</color>
     <color name="toolBarColorClick">#ffffcc</color>
     <color name="rippleEffect">#7564A36B</color>
     <color name="loading">#03A9F4</color>

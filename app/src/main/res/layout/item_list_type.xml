@@ -19,7 +19,6 @@
         android:layout_height="match_parent"
         android:textSize="15dp"
         android:text="public deck"
-        android:fontFamily="monospace"
         android:layout_gravity="center"/>
 
 

@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
-public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapter.AddressViewHolder>{
+public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapter.DeckViewHolder>{
 
     Context context;
     boolean isGuest;
@@ -46,14 +46,14 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
 
     @NonNull
     @Override
-    public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public DeckViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.item_deck_view,parent,false);
-        return new AddressViewHolder(view,HomeDeckListAdapter.this);
+        return new DeckViewHolder(view,HomeDeckListAdapter.this);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AddressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull DeckViewHolder holder, int position) {
         Deck curentDeck = decks.get(position);
         holder.title.setText(curentDeck.getTitle());
         holder.totalNum.setText(curentDeck.getCards().size()+" cards");
@@ -99,13 +99,13 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
     }
 
 
-    public class AddressViewHolder extends RecyclerView.ViewHolder {
+    public class DeckViewHolder extends RecyclerView.ViewHolder {
         TextView author ;
         TextView title ;
         TextView totalNum;
         HomeDeckListAdapter homeDeckListAdapter;
         private LinearLayout layoutItem;
-        public AddressViewHolder(@NonNull View itemView, HomeDeckListAdapter homeDeckListAdapter) {
+        public DeckViewHolder(@NonNull View itemView, HomeDeckListAdapter homeDeckListAdapter) {
             super(itemView);
             this.homeDeckListAdapter = homeDeckListAdapter;
             layoutItem = itemView.findViewById(R.id.deckViewItem);

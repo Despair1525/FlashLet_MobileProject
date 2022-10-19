@@ -5,13 +5,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
-import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -19,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +33,7 @@ public class DeckDao {
 
 
 
-    public static void readAllDecks( FirebaseCallback callback  , ArrayList<Deck> allDecks){
+    public static void readAllDecks(FirebaseCallback callback  ,ArrayList<Deck> allDecks){
 //        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
 //        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         rr = rootRef.getReference("Decks");
@@ -196,5 +193,16 @@ public class DeckDao {
         int currentView = deck.getView();
         FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId()).child("view").setValue(currentView +1);
     };
+
+    public static ArrayList<Deck> searchDeckByTitle(ArrayList<Deck> allDecks, String keywords){
+        ArrayList<Deck> decks = new ArrayList<>();
+        for (int i = 0; i < allDecks.size(); i++) {
+            if(allDecks.get(i).getTitle().toLowerCase().contains(keywords.toLowerCase()) & allDecks.get(i).isPublic()){
+                decks.add(allDecks.get(i));
+            }
+        }
+
+        return decks;
+    }
 
     }
