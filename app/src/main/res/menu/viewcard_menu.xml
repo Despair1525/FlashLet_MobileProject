@@ -27,5 +27,9 @@
             android:id="@+id/deleteSet"
             android:title="Delete this set"
             android:icon="@drawable/ic_baseline_delete_24"/>
+        <item
+            android:id="@+id/rateSet"
+            android:title="Rate this set"/>
+
 
 </menu>
