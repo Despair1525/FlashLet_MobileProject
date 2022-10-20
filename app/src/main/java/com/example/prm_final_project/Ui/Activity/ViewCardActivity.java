@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -81,27 +83,37 @@ public class ViewCardActivity extends AppCompatActivity  {
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
         getSupportActionBar().setTitle(deck.getTitle());
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewTitle.setText(deck.getTitle());
-        textViewView.setText(deck.getView()+" Views");
+        textViewView.setText(deck.getView()+"");
         textViewAuthor.setText(deck.getAuthor());
         loadSlideFlash();
     }
 
     private void onTest() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Setting");
-
-        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
+        View layout = getLayoutInflater().from(ViewCardActivity.this).inflate(
+                R.layout.activity_choose_type_test,
+                (ConstraintLayout)findViewById(R.id.layoutDialog)
+        );
         builder.setView(layout);
+
+//        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
+//        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
+//        builder.setView(layout);
         TextView totalNum =  layout.findViewById(R.id.numques_total);
         EditText quesNum = layout.findViewById(R.id.numques_num);
         totalNum.setText("/"+deck.getCards().size());
         RadioGroup radio_g = layout.findViewById(R.id.QuestionType);
-        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
+        Button yesButton = layout.findViewById(R.id.buttonYes);
+        Button noButton = layout.findViewById(R.id.buttonNo);
+
+        final AlertDialog alertDialog = builder.create();
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
+            public void onClick(View view) {
                 if(radio_g.getCheckedRadioButtonId()==-1)
                 {
                     Toast.makeText(getApplicationContext(), "Please select one choice", Toast.LENGTH_SHORT).show();
@@ -127,20 +139,17 @@ public class ViewCardActivity extends AppCompatActivity  {
                     startActivity(i);
 
                 };
-
-//                Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
-//                i.putExtra("TestDeck",deck);
-//                startActivity(i);
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+
+        noButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+            public void onClick(View view) {
+                alertDialog.dismiss();
             }
         });
 
-        builder.show();
+        alertDialog.show();
 
 
     }

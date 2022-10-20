@@ -109,6 +109,14 @@
                                 app:layout_constraintStart_toEndOf="@id/space"
                                 android:text="View"
                                 />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_view"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginLeft="3dp"
+                                app:layout_constraintStart_toEndOf="@id/textViewNumView"
+                                />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </LinearLayout>
@@ -140,7 +148,7 @@
                             android:id="@+id/imageViewLearn"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/img"
+                            android:src="@drawable/icon_learn1"
                             />
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
@@ -196,7 +204,7 @@
                             android:id="@+id/vc_Reload"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/ic_baseline_autorenew_24"
+                            android:src="@drawable/icon_reload"
                             />
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
@@ -251,7 +259,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
 
-                            android:src="@drawable/ic_baseline_checklist_24"
+                            android:src="@drawable/icon_test"
                             />
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
