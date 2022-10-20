@@ -7,5 +7,5 @@ import java.util.ArrayList;
 public interface FirebaseCallback {
         void onResponse(ArrayList<Deck> allDecks,Deck changeDeck, int type);
 
-    }
+}
 

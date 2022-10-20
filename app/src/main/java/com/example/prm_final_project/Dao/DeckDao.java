@@ -207,4 +207,13 @@ public class DeckDao {
         return decks;
     }
 
+    public static Deck getDeckById(ArrayList<Deck> allDecks, String deckId){
+        for (int i = 0; i < allDecks.size(); i++) {
+            if(allDecks.get(i).getDeckId().equals(deckId)){
+                return allDecks.get(i);
+            }
+        }
+        return null;
+    }
+
     }
