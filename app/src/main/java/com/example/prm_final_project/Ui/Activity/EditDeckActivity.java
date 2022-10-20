@@ -1,25 +1,35 @@
 package com.example.prm_final_project.Ui.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.prm_final_project.Adapter.EditCardAdapt;
 import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
@@ -33,8 +43,8 @@ private String title;
 private EditText EdTitle, EdDes;
 private Deck editDeck;
 private RecyclerView   recyclerViewList;
-private ImageButton IbAdd,IbSave;
-public cardViewAdapter1 cardViewAdapter;
+private ImageButton IbAdd;
+public EditCardAdapt cardViewAdapter;
 private SwitchCompat isPublic;
 
 private ProgressDialog dialog;
@@ -56,24 +66,23 @@ private ProgressDialog dialog;
             String author = user.getDisplayName();
             Boolean Public = true;
             int view =1;
-//                Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards)
 
             editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);;
         };
         // Set UI
         IbAdd = findViewById(R.id.imageButtonAdd);
-        IbSave = findViewById(R.id.ImgaeButtonSaveEdit);
         EdTitle = findViewById(R.id.editTitle);
         EdDes = findViewById(R.id.editDes);
         EdTitle.setText(title);
         isPublic = findViewById(R.id.SwitchCompatIsPublic);
         // Set RV
         recyclerViewList = findViewById(R.id.rcListEdit);
-        cardViewAdapter = new cardViewAdapter1(this,editDeck);
+        cardViewAdapter = new EditCardAdapt(this,editDeck);
         recyclerViewList.setAdapter( cardViewAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
         IbAdd.setOnClickListener(view -> onAdd());
-        IbSave.setOnClickListener(view -> onSave());
+//        IbSave.setOnClickListener(view -> onSave());
+        getSupportActionBar().setTitle("Edit Flashcard");
     }
 
     private void onSave() {
@@ -97,23 +106,12 @@ private ProgressDialog dialog;
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 FirebaseUser user = UserDao.getUser();
                 editDeck.setAuthor(user.getDisplayName());
                 editDeck.setTitle(EdTitle.getText().toString());
                 editDeck.setDescriptions(EdDes.getText().toString());
                 editDeck.setPublic(isPublic.isChecked());
-//                String date = Methods.getTime();
-//                String deckid = Methods.generateFlashCardId();
-//                List<List<String>> cards = editDeck.getCards();
-//                String title = EdTitle.getText().toString();
-//                String description = EdDes.getText().toString();
-//                String uid = user.getUid();
-//                String author = user.getDisplayName();
-//                Boolean Public = isPublic.isChecked();
-//                int view =1;
-////                Deck (String deckId, String Uid, String title, String author, boolean isPublic ,List<List<String>> cards)
-//
-//                Deck newDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);
                 DeckDao.addDeck(editDeck, new FirebaseCallback() {
                     @Override
                     public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
@@ -134,6 +132,7 @@ private ProgressDialog dialog;
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+                
             }
         });
 
@@ -143,20 +142,14 @@ private ProgressDialog dialog;
     private void onAdd(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add a card");
-        // Set up the input
-        final EditText inputFront = new EditText(this);
-        inputFront.setHint("Enter Front Card");
-        final EditText inputBack = new EditText(this);
-        inputBack.setHint("Enter Back Card");
-        LinearLayout lay = new LinearLayout(this);
-        lay.setOrientation(LinearLayout.HORIZONTAL);
-        lay.addView(inputFront);
-        lay.addView(inputBack);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        inputFront.setInputType(InputType.TYPE_CLASS_TEXT );
-        inputBack.setInputType(InputType.TYPE_CLASS_TEXT );
-        builder.setView(lay);
-// Set up the buttons
+        // Set up Layout for dialog
+
+        LayoutInflater inflater =EditDeckActivity.this.getLayoutInflater();
+        View layout = inflater.inflate(R.layout.item_edit_card,null);
+        builder.setView(layout);
+        EditText inputFront =layout.findViewById(R.id.Editfront);
+        EditText inputBack =layout.findViewById(R.id.Editback);
+
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -189,35 +182,35 @@ private ProgressDialog dialog;
         this.editDeck = editDeck;
     }
 
-    public cardViewAdapter1 getCardViewAdapter() {
+    public EditCardAdapt getCardViewAdapter() {
         return cardViewAdapter;
     }
 
-    public void setCardViewAdapter(cardViewAdapter1 cardViewAdapter) {
+    public void setCardViewAdapter(EditCardAdapt cardViewAdapter) {
         this.cardViewAdapter = cardViewAdapter;
     }
 
+    @SuppressLint("RestrictedApi")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.action_edit_menu,menu);
+        if(menu instanceof MenuBuilder){
+            MenuBuilder m = (MenuBuilder) menu;
+            m.setOptionalIconsVisible(true);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
 
-//    private void addDeck(Deck deck, FirebaseCallback callback){
-//        FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId()).setValue(deck);
-//                .setValue(deck).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                    @Override
-//                    public void onComplete( @NonNull Task<Void> task) {
-//                        if(task.isSuccessful()){
-//
-//                            Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
-//                            i.putExtra("viewDeck", deck);
-//                            startActivity(i);
-//                            Toast.makeText(EditDeckActivity.this, "Upload flashcard success !", Toast.LENGTH_LONG).show();
-//                            finish();
-//                        }
-//                        else{
-//                            Toast.makeText(EditDeckActivity.this, "Failed to upload new deck.", Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.SaveEditAction:
+                onSave();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-//    };
 
 };
 

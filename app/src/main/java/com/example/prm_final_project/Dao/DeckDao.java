@@ -56,7 +56,9 @@ public class DeckDao {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 //1
                 Deck thisDeck = changeToDeck(snapshot);
-                Log.i("firebaseChildChange",thisDeck.toString());
+
+                String deckId = snapshot.getKey() ;
+                Log.i("firebaseChildChange", deckId );
 
                 for(int i =0;i<allDecks.size();i++) {
                     if(allDecks.get(i).getDeckId().equalsIgnoreCase(snapshot.getKey()) ) {

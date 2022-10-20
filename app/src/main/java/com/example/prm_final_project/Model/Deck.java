@@ -1,6 +1,7 @@
 package com.example.prm_final_project.Model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -110,5 +111,13 @@ public class Deck implements Serializable {
     @Override
     public String toString() {
         return "DeckID"+this.deckId+"|"+"Title"+this.title;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        Deck compareDeck = (Deck) obj;
+        if(compareDeck.getDeckId().equals(this.getDeckId())) return true;
+        return false;
+
     }
 }

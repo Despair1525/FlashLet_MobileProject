@@ -1,10 +1,7 @@
 package com.example.prm_final_project.Ui.Activity;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -23,6 +20,7 @@ import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Fragment.HomeFragment;
 import com.example.prm_final_project.Ui.Fragment.ProfileFragment;
 import com.example.prm_final_project.Ui.Fragment.SearchFragment;
+import com.example.prm_final_project.Services.InternetConnection;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (isConnectedToInternet()) {
+        if (InternetConnection.isConnectedToInternet(getApplicationContext())) {
             rootRef = FirebaseDatabase.getInstance();
             mAuth = FirebaseAuth.getInstance();
             isGuest = checkGuest();
@@ -181,19 +179,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
-    public boolean isConnectedToInternet(){
-        ConnectivityManager connectivity = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivity != null)
-        {
-            NetworkInfo[] info = connectivity.getAllNetworkInfo();
-            if (info != null)
-                for (int i = 0; i < info.length; i++)
-                    if (info[i].getState() == NetworkInfo.State.CONNECTED)
-                    {
-                        return true;
-                    }
-        }
-        return false;
-    }
+
 
 }

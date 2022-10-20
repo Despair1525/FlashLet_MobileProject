@@ -49,53 +49,9 @@ public class cardViewAdapter1 extends RecyclerView.Adapter<cardViewAdapter1.Addr
     List<String> card = cards.getCards().get(position);
     holder.front.setText(card.get(0));
     holder.back.setText(card.get(1));
-    holder.front.setOnClickListener(view -> changeCard(position));
-    holder.back.setOnClickListener(view -> changeCard(position));
+//    holder.front.setOnClickListener(view -> changeCard(position));
+//    holder.back.setOnClickListener(view -> changeCard(position));
 
-    }
-
-    private void changeCard(int position){
-        List<String> card = cards.getCards().get(position);
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Enter your card");
-        // Set up the input
-        final EditText inputFront = new EditText(context);
-        inputFront.setHint("Enter Front Card");
-        inputFront.setText(card.get(0));
-        final EditText inputBack = new EditText(context);
-        inputBack.setHint("Enter Back Card");
-        inputBack.setText(card.get(1));
-        LinearLayout lay = new LinearLayout(context);
-        lay.setOrientation(LinearLayout.HORIZONTAL);
-        lay.addView(inputFront);
-        lay.addView(inputBack);
-// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-        inputFront.setInputType(InputType.TYPE_CLASS_TEXT );
-        inputBack.setInputType(InputType.TYPE_CLASS_TEXT );
-        builder.setView(lay);
-// Set up the buttons
-        builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String front;
-                String back;
-                front = inputFront.getText().toString();
-                back = inputBack.getText().toString();
-                List<String> newCard = new ArrayList<>();
-                newCard.add(front);
-                newCard.add(back);
-                cards.getCards().set(position,newCard);
-                notifyDataSetChanged();
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-        builder.show();
     }
 
     @Override

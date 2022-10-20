@@ -25,11 +25,13 @@ import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.DeckListType;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
+import com.example.prm_final_project.Services.InternetConnection;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
@@ -57,6 +59,7 @@ public class HomeFragment extends Fragment {
     ArrayList<String> myDeckKeys = new ArrayList<>();
     Map<String,Deck> keyedDecks = new HashMap<>();
     ArrayList<Deck> personalDecks = new ArrayList<>();
+    int typeDeck =0;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
     FirebaseUser user ;
@@ -70,18 +73,14 @@ public class HomeFragment extends Fragment {
     private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
-
     Context thiscontext;
     private boolean firstTime = true;
 
     public HomeFragment(){
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
@@ -89,7 +88,11 @@ public class HomeFragment extends Fragment {
             ViewGroup container, Bundle savedInstanceState) {
         // Setting List
 
-        //
+        // check Internet conditions
+//        if(!InternetConnection.isConnectedToInternet(getContext())) {
+//            Intent i = new Intent(getActivity(),NoInternetActivity.class);
+//            getActivity().finish();
+//        };
 
         thiscontext = container.getContext();
         View view =  inflater.inflate(R.layout.activity_homepage, container, false);
@@ -97,8 +100,11 @@ public class HomeFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         user  = UserDao.getUser();
 
+        // init Ui
         tvUserName = view.findViewById(R.id.tvHelloUserName);
         PbLoading =  view.findViewById(R.id.pbLoadingData);
+        RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
+        RvListDeckType = view.findViewById(R.id.RvListDeckType);
 
 
 //      Get data
@@ -111,32 +117,35 @@ public class HomeFragment extends Fragment {
         // Authentication
         if(firstTime) {
             PbLoading.setVisibility(ProgressBar.VISIBLE);
+            ArrayList<DeckListType> listIem = initDeckList();
             DeckDao.readAllDecks(new FirebaseCallback() {
                 @Override
                 public void onResponse(ArrayList<Deck> Decks, Deck changeDeck, int type) {
-                    if (type == 0) {
-                        if(changeDeck != null) {
-                            newestDecks.add(changeDeck);
-                            allDecks.add(changeDeck);
-                        }
-                    };
-                    if (type == 1) {
-                        int changeDeckIndex = Methods.indexDeck(allDecks, changeDeck);
-                        if (changeDeckIndex != -1) {
-                            newestDecks.set(changeDeckIndex, changeDeck);
-                            allDecks.set(changeDeckIndex,changeDeck);
+                    if (typeDeck == 0) {
+                        if (type == 0) {
+                            if (changeDeck != null) {
+//                            newestDecks.add(changeDeck);
+                                allDecks.add(changeDeck);
+                            }
                         }
                         ;
+                        if (type == 1) {
+                            int changeDeckIndex = Methods.indexDeck(allDecks, changeDeck);
+                            if (changeDeckIndex != -1) {
+//                            newestDecks.set(changeDeckIndex, changeDeck);
+                                allDecks.set(changeDeckIndex, changeDeck);
+                            }
+                            ;
+                        }
+                        if (type == 2) {
+//                        newestDecks.remove(changeDeck);
+                            allDecks.remove(changeDeck);
+                        }
+                        ;
+                        PbLoading.setVisibility(ProgressBar.GONE);
+                        homeDeckAdap.notifyDataSetChanged();
                     }
-                    ;
-                    if (type == 2) {
-                        newestDecks.remove(changeDeck);
-                        allDecks.remove(changeDeck);
-                    }
-                    ;
-                    PbLoading.setVisibility(ProgressBar.GONE);
-                    homeDeckAdap.notifyDataSetChanged();
-                }
+                };
             }, originDecks);
 
             DeckDao.readRecentDeckByUser(recentDeckKeys,new RecentDeckCallback() {
@@ -146,59 +155,45 @@ public class HomeFragment extends Fragment {
                 }
             });
 
+            deckListTypeAdaper = new DeckListTypeAdapter(listIem, new AdapterCallback() {
+                @Override
+                public void onResponse( int type) {
+                    new CountDownTimer(1000, 1000) {
+                        public void onFinish() {
+                            RvPublicDeck.setVisibility(RecyclerView.VISIBLE);
+                            PbLoading.setVisibility(ProgressBar.GONE);
+                        }
+
+                        public void onTick(long millisUntilFinished) {
+                            RvPublicDeck.setVisibility(RecyclerView.GONE);
+                            PbLoading.setVisibility(ProgressBar.VISIBLE);
+                        }
+                    }.start();
+                    typeDeck = type;
+                    if(type == 0){
+                        changeRecle(allDecks,originDecks);
+                    };
+                    if(type == 1){
+                        Collections.sort(recentDeckKeys, (o1, o2) -> {
+                            return (int) (o2.getTimeStamp() - o1.getTimeStamp());
+                        });
+                        changeRecle(allDecks,recentDecks);
+                        matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
+                    };
+                    if(type == 2){
+                        Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();
+                    };
+                    homeDeckAdap.notifyDataSetChanged();
+                }
+            }, RvListDeckType);
+
         firstTime = false;
         };
 
 
         homeDeckAdap = new HomeDeckListAdapter(thiscontext,allDecks);
-
-        RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
-        RvListDeckType = view.findViewById(R.id.RvListDeckType);
-        ArrayList<DeckListType> listIem = initDeckList();
-
-        deckListTypeAdaper = new DeckListTypeAdapter(listIem, new AdapterCallback() {
-            @Override
-            public void onResponse( int type) {
-                new CountDownTimer(1000, 1000) {
-                    public void onFinish() {
-                        RvPublicDeck.setVisibility(RecyclerView.VISIBLE);
-                        PbLoading.setVisibility(ProgressBar.GONE);
-                    }
-
-                    public void onTick(long millisUntilFinished) {
-                        RvPublicDeck.setVisibility(RecyclerView.GONE);
-                        PbLoading.setVisibility(ProgressBar.VISIBLE);
-                    }
-                }.start();
-                if(type == 0){
-                    changeRecle(allDecks,originDecks);
-//                    Toast.makeText(getActivity(),"You enter public",Toast.LENGTH_SHORT).show();
-                };
-                if(type == 1){
-                    Collections.sort(recentDeckKeys, (o1, o2) -> {
-
-                        return (int) (o2.getTimeStamp() - o1.getTimeStamp());
-                    });
-                    changeRecle(allDecks,recentDecks);
-                    matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
-
-                };
-                if(type == 2){
-                    Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();
-                };
-
-                homeDeckAdap.notifyDataSetChanged();
-            }
-        }, RvListDeckType);
         RvListDeckType.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
         RvListDeckType.setAdapter((deckListTypeAdaper));
-
-// Set style For ListView (Adjust )
-//        homeDeckAdapNew = new HomeDeckListAdapter(thiscontext,newestDecks);
-
-
-// Set For List Newest
-
         RvPublicDeck.setAdapter( homeDeckAdap);
         RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
         return view;

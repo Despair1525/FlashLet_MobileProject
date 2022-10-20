@@ -4,16 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.ActionMenuView;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
+import com.example.prm_final_project.Ui.Activity.EditDeckActivity;
 import com.example.prm_final_project.Ui.Activity.ViewCardActivity;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
@@ -62,10 +67,10 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
-
         holder.layoutItem.setOnClickListener(view -> onItem(curentDeck));
 
     }
+
 
     private void onItem(Deck currentDeck) {
         Intent i = new Intent(context, ViewCardActivity.class);
@@ -88,11 +93,9 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
                 }
             });
         };
-
         //
         context.startActivity(i);
     }
-
     @Override
     public int getItemCount() {
         return decks==null?0:decks.size();
@@ -104,6 +107,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         TextView title ;
         TextView totalNum;
         HomeDeckListAdapter homeDeckListAdapter;
+       TextView actionMenuView;
         private LinearLayout layoutItem;
         public DeckViewHolder(@NonNull View itemView, HomeDeckListAdapter homeDeckListAdapter) {
             super(itemView);
@@ -112,6 +116,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
             author = itemView.findViewById(R.id.tvDeckAuthor);
             totalNum = (TextView) itemView.findViewById(R.id.tvDeckTotal);
             title = itemView.findViewById(R.id.tvDeckName);
+//            actionMenuView = itemView.findViewById(R.id.tvDeckOptions);
         }
     }
 }

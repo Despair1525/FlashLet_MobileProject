@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_marginStart="2dp"
-        android:background="@drawable/border_search_item"
+        android:background="@drawable/deck_shape_2"
         app:cardElevation="8dp">
 
         <androidx.appcompat.widget.SearchView
