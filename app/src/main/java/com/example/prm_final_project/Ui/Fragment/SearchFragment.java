@@ -15,6 +15,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.prm_final_project.Adapter.SearchPageAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
@@ -29,6 +30,7 @@ public class SearchFragment extends Fragment {
     private SearchView searchView;
     private ArrayList<Deck> decks = new ArrayList<>();
     private ArrayList<Deck> allDecks = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
     private ArrayList<User> allUsers = new ArrayList<>();
     private ViewPager viewPager;
     private SearchPageAdapter searchPageAdapter;
@@ -53,6 +55,7 @@ public class SearchFragment extends Fragment {
         SearchResultViewModel viewModel = new ViewModelProvider(this)
                 .get(SearchResultViewModel.class);
         viewModel.setAllDecks(allDecks);
+        viewModel.setAllUsers(allUsers);
         viewModel.setIsSearch(false);
 
         // add nested fragments into search fragment
@@ -60,6 +63,10 @@ public class SearchFragment extends Fragment {
         addViewPager(tabLayout);
 
         readDecks();
+        UserDao.readAllUsers(users);
+
+        Log.i("check size allUsers", "size " + users.toString());
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -71,6 +78,11 @@ public class SearchFragment extends Fragment {
                     // set results found into shared view model
                     viewModel.setAllDecks(allDecks);
                     viewModel.setIsSearch(true);
+
+                    allUsers = UserDao.searchByUserName(users, s);
+                    viewModel.setAllUsers(allUsers);
+                    Log.i("search user result", allUsers.toString());
+
 
                     // restart child fragments
                     addViewPager(tabLayout);
@@ -84,6 +96,7 @@ public class SearchFragment extends Fragment {
                 // check when click on Close button
                 if(TextUtils.isEmpty(s)){
                     viewModel.setAllDecks(new ArrayList<>());
+                    viewModel.setAllUsers(new ArrayList<>());
                     viewModel.setIsSearch(false);
                     addViewPager(tabLayout);
                 }

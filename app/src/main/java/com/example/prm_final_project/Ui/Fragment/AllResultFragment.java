@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class AllResultFragment extends Fragment {
     private Button allUserButton;
     private SearchResultViewModel viewModel;
     private ArrayList<Deck> allDecks = new ArrayList<>();
+    private ArrayList<User> allUsers = new ArrayList<>();
     private Boolean isSearch;
 
     public AllResultFragment() {
@@ -59,10 +61,11 @@ public class AllResultFragment extends Fragment {
         viewModel = new ViewModelProvider(getParentFragment())
                 .get(SearchResultViewModel.class);
         allDecks = viewModel.getAllDecks().getValue();
+        allUsers = viewModel.getAllUsers().getValue();
         isSearch = viewModel.getIsSearch().getValue();
         Log.i("search all decks", allDecks.toString());
 
-        if(allDecks.size() > 0 && isSearch){
+        if((allDecks.size() > 0 | allUsers.size() > 0) & isSearch){
             Log.d("result ", "found");
             textView.setVisibility(View.GONE);
 
@@ -71,12 +74,17 @@ public class AllResultFragment extends Fragment {
             params.gravity = Gravity.TOP;
 
             allResultLayout.setLayoutParams(params);
-            allDeckLayout.setVisibility(View.VISIBLE);
 
-            HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, getLimitResult(allDecks, 3));
-            RecyclerView recyclerView = view.findViewById(R.id.recycler_search_decks);
-            recyclerView.setAdapter(homeDeckListAdapter);
-            recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
+            if(allDecks.size() > 0){
+                allDeckLayout.setVisibility(View.VISIBLE);
+                HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, getLimitResult(allDecks, 3));
+                RecyclerView recyclerView = view.findViewById(R.id.recycler_search_decks);
+                recyclerView.setAdapter(homeDeckListAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
+            }
+            if(allUsers.size() > 0){
+                allUserLayout.setVisibility(View.VISIBLE);
+            }
         }
         else if(isSearch) {
             textView.setText("No result found!");
