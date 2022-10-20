@@ -20,6 +20,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +57,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private ImageView imageReload,imageTest;
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
+    private RatingBar bar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -258,6 +261,23 @@ public class ViewCardActivity extends AppCompatActivity  {
 
                 builder.show();
                break;
+            case R.id.rateSet:
+                builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
+                inflater =ViewCardActivity.this.getLayoutInflater();
+                layout = inflater.inflate(R.layout.dialog_rating_deck   /*my layout here*/, null);
+                builder.setView(layout);
+                RatingBar ratingBar = layout.findViewById(R.id.ratingBar);
+
+                builder.setPositiveButton("Get Rate", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String ratingPoint = ratingBar.getRating()+"";
+                        Log.i("ratingPoint", ratingPoint);
+                    }
+                });
+                builder.show();
+
+
 
         }
         return super.onOptionsItemSelected(item);
