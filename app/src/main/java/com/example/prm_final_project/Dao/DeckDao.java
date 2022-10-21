@@ -10,6 +10,8 @@ import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -28,6 +30,7 @@ public class DeckDao {
     public static FirebaseAuth mAuth = FirebaseAuth.getInstance();
     public static DatabaseReference rr ;
     public static HashMap<String,Deck> originDeck = new HashMap<>();
+    public static ArrayList<Deck> originDeckList = new ArrayList<>();
     public static HashMap<String,ArrayList<String>> Hmfavorite = new HashMap<>() ;
     public static int numberDeck = 0;
 
@@ -37,8 +40,6 @@ public class DeckDao {
 //        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
 //        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         rr = rootRef.getReference("Decks");
-
-
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
@@ -99,6 +100,20 @@ public class DeckDao {
         };
         rr.addChildEventListener(childEventListener);
     }
+
+    public static void readAllDecksOnce(){
+//        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        rr = rootRef.getReference("Decks");
+        rr.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Deck thisDeck = changeToDeck(task.getResult());
+                originDeckList.add(thisDeck);
+            }
+        });
+    }
+
     public static Deck changeToDeck(@NonNull DataSnapshot ds){
         String uid = ds.child("uid").getValue(String.class);
         String author = ds.child("author").getValue(String.class);

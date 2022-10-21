@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Fragment.HomeFragment;
@@ -51,11 +52,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        UserDao.readAllUsersStatic();
         if (InternetConnection.isConnectedToInternet(getApplicationContext())) {
             rootRef = FirebaseDatabase.getInstance();
             mAuth = FirebaseAuth.getInstance();
             isGuest = checkGuest();
+//            UserDao.readAllUsers();
             if (isGuest) {
                 Log.e("check guest", "true");
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);

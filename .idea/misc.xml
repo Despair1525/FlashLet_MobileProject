@@ -60,6 +60,7 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_logintest.xml" value="0.4" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_my_flashcards.xml" value="0.13177083333333334" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_no_internet.xml" value="0.152" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_publish_decks.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_register.xml" value="0.264" />
@@ -75,6 +76,10 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/deck_lv_item.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/dialog_deck_information.xml" value="0.264" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/edit_card_item.xml" value="0.2375" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_all_deck.xml" value="0.13177083333333334" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_all_result.xml" value="0.13177083333333334" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_all_user.xml" value="0.13177083333333334" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_create_deck.xml" value="0.13177083333333334" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/homepage_activity.xml" value="0.25" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/item_cardview2.xml" value="0.25416666666666665" />

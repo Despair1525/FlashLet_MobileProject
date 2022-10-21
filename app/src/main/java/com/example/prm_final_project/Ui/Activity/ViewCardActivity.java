@@ -42,6 +42,7 @@ import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.FavoriteDeck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 
@@ -261,6 +262,7 @@ public class ViewCardActivity extends AppCompatActivity  {
 
                 builder.show();
                break;
+
             case R.id.rateSet:
                 builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
                 inflater =ViewCardActivity.this.getLayoutInflater();
@@ -273,11 +275,23 @@ public class ViewCardActivity extends AppCompatActivity  {
                     public void onClick(DialogInterface dialog, int which) {
                         String ratingPoint = ratingBar.getRating()+"";
                         Log.i("ratingPoint", ratingPoint);
+                        double score =   (ratingBar.getRating() - 3 + (int)(deck.getView() / 100 ) ) ;
+                        User rateUser = UserDao.readUserById(UserDao.getUser().getUid());
+                        if(rateUser != null) {
+                            rateUser.getRate().put(deck.getDeckId(),score);
+                            UserDao.addUser(rateUser);
+                        }else {
+                            Log.i("RateUser","Not found User ID");
+                        };
+                    }
+                });
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
                     }
                 });
                 builder.show();
-
-
 
         }
         return super.onOptionsItemSelected(item);

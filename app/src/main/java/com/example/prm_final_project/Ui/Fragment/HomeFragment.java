@@ -33,6 +33,7 @@ import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.recomendSystem;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
@@ -53,6 +54,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<Deck> newestDecks = new ArrayList<>();
     private ArrayList<Deck> recentDecks = new ArrayList<>();
     private ArrayList<RecentDeck> recentDeckKeys = new ArrayList<>();
+    private ArrayList<Deck> slopeOneDeck = new ArrayList<>();
+
     public static HashMap<String,Deck> originDeckHm = new HashMap<>();
 
 
@@ -181,7 +184,21 @@ public class HomeFragment extends Fragment {
                         matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
                     };
                     if(type == 2){
-                        Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();
+//                        RvPublicDeck.setVisibility(RecyclerView.GONE);
+//                        PbLoading.setVisibility(ProgressBar.VISIBLE);
+
+                        UserDao.readAllUsersStatic();
+                        recomendSystem rs = new recomendSystem();
+                        rs.slopeOne(originDecks,UserDao.allUsers);
+                        ArrayList<Deck> listReco = new ArrayList<>();
+                        Log.i("RecoSize",UserDao.allUsers.size()+"");
+                        HashMap<Deck, Double> listRecomend = rs.outputData.get(UserDao.getUser().getUid());
+                        listReco.addAll(listRecomend.keySet());
+
+                        Collections.sort(listReco, (o1, o2) -> (listRecomend.get(o1) - listRecomend.get(o2)) > 0 ? 1 : -1);
+//                        Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();\
+                        changeRecle(allDecks,listReco);
+                        rs.printData();
                     };
                     homeDeckAdap.notifyDataSetChanged();
                 }
