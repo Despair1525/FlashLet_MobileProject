@@ -70,6 +70,7 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_splash.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_test.xml" value="0.24010416666666667" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_view_all.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_view_card.xml" value="0.4" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/activity_written_quiz.xml" value="0.12708333333333333" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/card_item_1.xml" value="0.25416666666666665" />
@@ -81,6 +82,8 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_all_user.xml" value="0.13177083333333334" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_create_deck.xml" value="0.13177083333333334" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_search.xml" value="0.1526268115942029" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/fragment_view_all.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/homepage_activity.xml" value="0.25" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/item_cardview2.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/FlashLet/app/src/main/res/layout/item_deck_view.xml" value="0.25416666666666665" />
@@ -102,6 +105,7 @@
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/item_learn_deck.xml" value="0.1947463768115942" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/slide_card_container.xml" value="0.1947463768115942" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/FlashLet_MobileProject/app/src/main/res/layout/test_file.xml" value="0.1947463768115942" />
+        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.18432971014492755" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer2/FlashLet_MobileProject/app/src/main/res/drawable/button_alert_dialog_background.xml" value="0.1695" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer2/FlashLet_MobileProject/app/src/main/res/drawable/dialog_background.xml" value="0.1695" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer2/FlashLet_MobileProject/app/src/main/res/drawable/ic_view.xml" value="0.1695" />
@@ -122,7 +126,6 @@
         <entry key="..\:/S8/PRM392/FinalProject/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.2015625" />
         <entry key="..\:/S8/PRM392/FinalProject/FlashLet_MobileProject/app/src/main/res/menu/navigation_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/S8/PRM392/FinalProject/FlashLet_MobileProject/app/src/main/res/menu/viewcard_menu.xml" value="0.25416666666666665" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.18432971014492755" />
         <entry key="..\:/Users/Thanh/Desktop/FlashLet_MobileProject/app/src/main/res/layout/activity_change_password.xml" value="0.25" />
         <entry key="..\:/Users/Thanh/Desktop/FlashLet_MobileProject/app/src/main/res/layout/activity_edit_profile.xml" value="0.25" />
         <entry key="..\:/Users/Thanh/Desktop/FlashLet_MobileProject/app/src/main/res/layout/activity_my_flashcards.xml" value="0.25" />

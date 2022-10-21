@@ -39,7 +39,7 @@ public class DeckDao {
     public static void readAllDecks(FirebaseCallback callback  ,ArrayList<Deck> allDecks){
 //        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
 //        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        rr = rootRef.getReference("Decks");
+        rr = rootRef.getReference("Decks").startAfter(0).limitToFirst(8).getRef();
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
@@ -71,7 +71,6 @@ public class DeckDao {
                 };
 
             }
-
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 //2
@@ -99,19 +98,6 @@ public class DeckDao {
             }
         };
         rr.addChildEventListener(childEventListener);
-    }
-
-    public static void readAllDecksOnce(){
-//        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
-//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        rr = rootRef.getReference("Decks");
-        rr.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Deck thisDeck = changeToDeck(task.getResult());
-                originDeckList.add(thisDeck);
-            }
-        });
     }
 
     public static Deck changeToDeck(@NonNull DataSnapshot ds){

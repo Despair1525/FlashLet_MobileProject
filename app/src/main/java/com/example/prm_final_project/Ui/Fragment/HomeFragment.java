@@ -32,6 +32,7 @@ import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
+import com.example.prm_final_project.Ui.Activity.ViewAllActivity;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.Util.recomendSystem;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
@@ -76,6 +77,7 @@ public class HomeFragment extends Fragment {
     private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
+    private TextView tvViewAll;
     Context thiscontext;
     private boolean firstTime = true;
 
@@ -104,11 +106,19 @@ public class HomeFragment extends Fragment {
         user  = UserDao.getUser();
 
         // init Ui
+        tvViewAll = view.findViewById(R.id.tvViewAll);
         tvUserName = view.findViewById(R.id.tvHelloUserName);
         PbLoading =  view.findViewById(R.id.pbLoadingData);
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
         RvListDeckType = view.findViewById(R.id.RvListDeckType);
 
+        tvViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ViewAllActivity.class);
+                startActivity(i);
+            }
+        });
 
 //      Get data
         String userName="Guest";
@@ -238,6 +248,10 @@ public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
 
 
     public void onClick(View view) {
+        if(view == tvViewAll) {
+            Intent i = new Intent(getActivity(), ViewAllActivity.class);
+            startActivity(i);
+        };
 
     }
 
