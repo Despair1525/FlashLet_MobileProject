@@ -103,11 +103,14 @@ private void initUi(){
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if(task.isSuccessful()){
-                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("avatar").setValue("null");
-                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("email").setValue(email);
-                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("phone").setValue(phone);
-                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("userId").setValue(mAuth.getCurrentUser().getUid());
-                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("username").setValue(username);
+                                                User newUser = new User(mAuth.getCurrentUser().getUid(),username,null,email,phone);
+                                                UserDao.addUser(newUser);
+
+                                                //                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("avatar").setValue("null");
+//                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("email").setValue(email);
+//                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("phone").setValue(phone);
+//                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("userId").setValue(mAuth.getCurrentUser().getUid());
+//                                                databaseReference.child("Users").child(mAuth.getCurrentUser().getUid()).child("username").setValue(username);
 
                                                 Toast.makeText(RegisterActivity.this, "Register successfully. Pleas check your email for verification",
                                                         Toast.LENGTH_SHORT).show();

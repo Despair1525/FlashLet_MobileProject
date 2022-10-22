@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -16,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM_Final_Project"
         tools:targetApi="31">
+        <activity
+            android:name=".Ui.Activity.ViewAllActivity"
+            android:exported="false"
+            android:parentActivityName=".Ui.Activity.MainActivity"
+            android:theme="@style/Theme.PRM_Final_Project.Custombar"
+            />
         <activity
             android:name=".Ui.Activity.ForgotPasswordActivity"
             android:exported="false" />
@@ -60,12 +65,12 @@
         </activity>
         <activity
             android:name=".Ui.Activity.LearnCardActivity"
-            android:theme="@style/Theme.PRM_Final_Project.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.PRM_Final_Project.NoActionBar" />
         <activity
             android:name=".Ui.Activity.EditDeckActivity"
             android:exported="false"
-            android:theme="@style/Theme.PRM_Final_Project.Custombar"/>
+            android:theme="@style/Theme.PRM_Final_Project.Custombar" />
         <activity
             android:name=".Ui.Activity.ViewCardActivity"
             android:exported="true"

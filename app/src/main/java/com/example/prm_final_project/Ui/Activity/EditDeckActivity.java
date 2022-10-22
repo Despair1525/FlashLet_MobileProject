@@ -132,7 +132,7 @@ private ProgressDialog dialog;
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-                
+
             }
         });
 

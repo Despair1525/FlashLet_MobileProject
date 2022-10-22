@@ -32,7 +32,9 @@ import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
+import com.example.prm_final_project.Ui.Activity.ViewAllActivity;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.recomendSystem;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
@@ -53,6 +55,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<Deck> newestDecks = new ArrayList<>();
     private ArrayList<Deck> recentDecks = new ArrayList<>();
     private ArrayList<RecentDeck> recentDeckKeys = new ArrayList<>();
+    private ArrayList<Deck> slopeOneDeck = new ArrayList<>();
+
     public static HashMap<String,Deck> originDeckHm = new HashMap<>();
 
 
@@ -73,6 +77,7 @@ public class HomeFragment extends Fragment {
     private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
+    private TextView tvViewAll;
     Context thiscontext;
     private boolean firstTime = true;
 
@@ -101,11 +106,19 @@ public class HomeFragment extends Fragment {
         user  = UserDao.getUser();
 
         // init Ui
+        tvViewAll = view.findViewById(R.id.tvViewAll);
         tvUserName = view.findViewById(R.id.tvHelloUserName);
         PbLoading =  view.findViewById(R.id.pbLoadingData);
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
         RvListDeckType = view.findViewById(R.id.RvListDeckType);
 
+        tvViewAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ViewAllActivity.class);
+                startActivity(i);
+            }
+        });
 
 //      Get data
         String userName="Guest";
@@ -181,7 +194,21 @@ public class HomeFragment extends Fragment {
                         matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
                     };
                     if(type == 2){
-                        Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();
+//                        RvPublicDeck.setVisibility(RecyclerView.GONE);
+//                        PbLoading.setVisibility(ProgressBar.VISIBLE);
+
+                        UserDao.readAllUsersStatic();
+                        recomendSystem rs = new recomendSystem();
+                        rs.slopeOne(originDecks,UserDao.allUsers);
+                        ArrayList<Deck> listReco = new ArrayList<>();
+                        Log.i("RecoSize",UserDao.allUsers.size()+"");
+                        HashMap<Deck, Double> listRecomend = rs.outputData.get(UserDao.getUser().getUid());
+                        listReco.addAll(listRecomend.keySet());
+
+                        Collections.sort(listReco, (o1, o2) -> (listRecomend.get(o1) - listRecomend.get(o2)) > 0 ? 1 : -1);
+//                        Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();\
+                        changeRecle(allDecks,listReco);
+                        rs.printData();
                     };
                     homeDeckAdap.notifyDataSetChanged();
                 }
@@ -221,6 +248,10 @@ public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
 
 
     public void onClick(View view) {
+        if(view == tvViewAll) {
+            Intent i = new Intent(getActivity(), ViewAllActivity.class);
+            startActivity(i);
+        };
 
     }
 
