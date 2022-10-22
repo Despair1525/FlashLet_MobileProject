@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
+import com.example.prm_final_project.Adapter.UserListAdapter;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
@@ -77,13 +78,17 @@ public class AllResultFragment extends Fragment {
 
             if(allDecks.size() > 0){
                 allDeckLayout.setVisibility(View.VISIBLE);
-                HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, getLimitResult(allDecks, 3));
+                HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, getLimitDeckResult(allDecks, 3));
                 RecyclerView recyclerView = view.findViewById(R.id.recycler_search_decks);
                 recyclerView.setAdapter(homeDeckListAdapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
             }
             if(allUsers.size() > 0){
                 allUserLayout.setVisibility(View.VISIBLE);
+                UserListAdapter userListAdapter = new UserListAdapter(thiscontext, getLimitUserResult(allUsers, 3));
+                RecyclerView recyclerView = view.findViewById(R.id.recycler_search_users);
+                recyclerView.setAdapter(userListAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
             }
         }
         else if(isSearch) {
@@ -124,7 +129,7 @@ public class AllResultFragment extends Fragment {
         allUserButton = view.findViewById(R.id.btn_view_all_users);
     }
 
-    private ArrayList<Deck> getLimitResult(ArrayList<Deck> originList, int noResult){
+    private ArrayList<Deck> getLimitDeckResult(ArrayList<Deck> originList, int noResult){
         ArrayList<Deck> results = new ArrayList<>();
         if(originList.size() <= noResult){
             return originList;
@@ -136,5 +141,19 @@ public class AllResultFragment extends Fragment {
         }
         return results;
     }
+
+    private ArrayList<User> getLimitUserResult(ArrayList<User> originList, int noResult){
+        ArrayList<User> results = new ArrayList<>();
+        if(originList.size() <= noResult){
+            return originList;
+        }
+        else {
+            for (int i = 0; i < noResult; i++) {
+                results.add(originList.get(i));
+            }
+        }
+        return results;
+    }
+
 
 }

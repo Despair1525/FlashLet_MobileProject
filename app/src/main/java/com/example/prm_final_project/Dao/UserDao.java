@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -115,6 +116,16 @@ public class UserDao {
             }
         }
 
+        return results;
+    }
+
+    public static ArrayList<Deck> getDeckByUser (ArrayList<Deck> decks, String userId){
+        ArrayList<Deck> results = new ArrayList<>();
+        for (int i = 0; i < decks.size(); i++) {
+            if(decks.get(i).getUid().equals(userId)){
+                results.add(decks.get(i));
+            }
+        }
         return results;
     }
 }
