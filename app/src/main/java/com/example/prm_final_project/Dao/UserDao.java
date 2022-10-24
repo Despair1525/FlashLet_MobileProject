@@ -41,6 +41,10 @@ public class UserDao {
         return user;
     }
 
+    public static User getCurrentUser(){
+        return allUserHT.get(getUser().getUid());
+    }
+
     public static void addUser(User user) {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
@@ -64,7 +68,15 @@ public class UserDao {
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
                         child("recentDecks").child(key).setValue(value);
             };
+        };
 
+        if(user.getMyDeck() != null) {
+            for(RecentDeck deck : user.getMyDeck()) {
+                String key = deck.getDeckId();
+                Long value = deck.getTimeStamp();
+                FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
+                        child("myDeck").child(key).setValue(value);
+            };
         };
     };
 
@@ -84,12 +96,9 @@ public class UserDao {
         newUser.setPhone(snapshot.child("phone").getValue(String.class));
         newUser.setEmail(snapshot.child("email").getValue(String.class));
         // setMyDeck;
-        ArrayList<String> userDeck = new ArrayList<>();
-        for(DataSnapshot ds : snapshot.child("myDeck").getChildren()) {
-            userDeck.add(ds.getValue(String.class));
-        };
-
         ArrayList<RecentDeck> recentDecks = new ArrayList<>();
+        ArrayList<RecentDeck> myDeck = new ArrayList<>();
+
         for(DataSnapshot ds : snapshot.child("recentDecks").getChildren()) {
             String deckId = ds.getKey();
             Long timeStamp = ds.getValue(Long.class);
@@ -98,7 +107,14 @@ public class UserDao {
         };
         newUser.setRecentDecks(recentDecks);
 
-        newUser.setMyDeck(userDeck);
+        for(DataSnapshot ds : snapshot.child("myDeck").getChildren()) {
+            String deckId = ds.getKey();
+            Long timeStamp = ds.getValue(Long.class);
+            RecentDeck newRecent = new RecentDeck(deckId,timeStamp);
+            myDeck.add(newRecent);
+        };
+        newUser.setMyDeck(myDeck);
+
         // set Rate User;
         Hashtable<String,Double> userRate = new Hashtable<String, Double>();
         for(DataSnapshot ds : snapshot.child("rate").getChildren()) {

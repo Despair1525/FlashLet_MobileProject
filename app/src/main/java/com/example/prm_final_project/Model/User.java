@@ -10,7 +10,7 @@ public class User {
     private String avatar;
     private String phone;
     private String email;
-    private ArrayList<String> myDeck;
+    private ArrayList<RecentDeck> myDeck;
     private ArrayList<RecentDeck> recentDecks;
     private Hashtable<String,Double> rate;
 
@@ -23,8 +23,7 @@ public class User {
         this.phone = phone;
         this.email = email;
     }
-
-    public User(String userId, String username, String avatar, String phone, String email, ArrayList<String> myDeck) {
+    public User(String userId, String username, String avatar, String phone, String email,ArrayList<RecentDeck> myDeck) {
         this.userId = userId;
         this.username = username;
         this.avatar = avatar;
@@ -33,15 +32,6 @@ public class User {
         this.myDeck = myDeck;
     }
 
-    public User(String userId, String username, String avatar, String phone, String email, ArrayList<String> myDeck,Hashtable<String,Double> rate) {
-        this.userId = userId;
-        this.username = username;
-        this.avatar = avatar;
-        this.phone = phone;
-        this.email = email;
-        this.myDeck = myDeck;
-        this.rate = rate;
-    }
 
     public String getUserId() {
         return userId;
@@ -83,11 +73,11 @@ public class User {
         this.email = email;
     }
 
-    public ArrayList<String> getMyDeck() {
+    public ArrayList<RecentDeck> getMyDeck() {
         return myDeck;
     }
 
-    public void setMyDeck(ArrayList<String> myDeck) {
+    public void setMyDeck(ArrayList<RecentDeck> myDeck) {
         this.myDeck = myDeck;
     }
 

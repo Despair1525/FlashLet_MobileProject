@@ -30,6 +30,8 @@ import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.FavoriteDeck;
+import com.example.prm_final_project.Model.RecentDeck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
@@ -93,7 +95,6 @@ private ProgressDialog dialog;
         };
         String title = EdTitle.getText().toString();
         if(title.trim().isEmpty()) {
-
             Toast.makeText(EditDeckActivity.this,"Title can not be empty !",Toast.LENGTH_SHORT).show();
             return;
         };
@@ -112,6 +113,7 @@ private ProgressDialog dialog;
                 editDeck.setTitle(EdTitle.getText().toString());
                 editDeck.setDescriptions(EdDes.getText().toString());
                 editDeck.setPublic(isPublic.isChecked());
+
                 DeckDao.addDeck(editDeck, new FirebaseCallback() {
                     @Override
                     public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
@@ -123,6 +125,10 @@ private ProgressDialog dialog;
                         finish();
                     }
                 });
+                User curentUser = UserDao.getCurrentUser();
+                RecentDeck recentDeck= new RecentDeck(editDeck.getDeckId(),Methods.getTimeLong());
+                curentUser.getMyDeck().add(recentDeck);
+                UserDao.addUser(curentUser);
 
 //                Toast.makeText(EditDeckActivity.this, editDeck.getCards().size()+"|"+ Methods.generateFlashCardId()
 //                        +"|"+Methods.getTime()+"|"+userName+"|"+Public, Toast.LENGTH_SHORT).show();

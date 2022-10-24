@@ -57,7 +57,6 @@ public class SearchFragment extends Fragment {
         viewModel.setAllDecks(allDecks);
         viewModel.setAllUsers(allUsers);
         viewModel.setIsSearch(false);
-
         // add nested fragments into search fragment
         tabLayout = addChildFragment(view);
         addViewPager(tabLayout);

@@ -64,10 +64,10 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         holder.title.setText(curentDeck.getTitle());
         holder.totalNum.setText(curentDeck.getCards().size()+" cards");
         holder.author.setText(curentDeck.getAuthor());
-        if(!curentDeck.isPublic()) {
-            holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-        }
+//        if(!curentDeck.isPublic()) {
+//            holder.itemView.setVisibility(View.GONE);
+//            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+//        }
         holder.layoutItem.setOnClickListener(view -> onItem(curentDeck));
 
     }
@@ -103,6 +103,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         //
         context.startActivity(i);
     }
+
     @Override
     public int getItemCount() {
         return decks==null?0:decks.size();

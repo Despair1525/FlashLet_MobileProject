@@ -57,7 +57,6 @@ public class DeckListTypeAdapter extends RecyclerView.Adapter<DeckListTypeAdapte
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 rc.scrollToPosition(i);
                 row_index = i;
                 notifyDataSetChanged();
