@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
+import com.example.prm_final_project.callbackInterface.AllDataCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,9 +20,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 
 public class DeckDao {
@@ -34,12 +37,13 @@ public class DeckDao {
     public static HashMap<String,ArrayList<String>> Hmfavorite = new HashMap<>() ;
     public static int numberDeck = 0;
 
+    public static Hashtable<String,Deck> HmAllDeck = new Hashtable<>();
 
 
     public static void readAllDecks(FirebaseCallback callback  ,ArrayList<Deck> allDecks){
 //        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
 //        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        rr = rootRef.getReference("Decks").startAfter(0).limitToFirst(8).getRef();
+        rr = rootRef.getReference("Decks");
         ChildEventListener childEventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
@@ -98,6 +102,62 @@ public class DeckDao {
             }
         };
         rr.addChildEventListener(childEventListener);
+    }
+
+    public static void readAllDecksOnce(AllDataCallback callback){
+//        FirebaseDatabase rootRef =  FirebaseDatabase.getInstance();
+//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+         rootRef.getReference("Decks").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                DataSnapshot snapshot = task.getResult();
+                HmAllDeck.clear();
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    Deck thisDeck = changeToDeck(ds);
+                    HmAllDeck.put(thisDeck.getDeckId(),thisDeck);
+                };
+                callback.onResponse(HmAllDeck);
+            }
+        });
+        readAllDecksHM();
+
+    }
+
+    public static void readAllDecksHM(){
+
+        rootRef.getReference("Decks").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
+                //0
+                Deck thisDeck = changeToDeck(ds);
+                Log.i("numberDeckIncrease",thisDeck.getDeckId());
+                HmAllDeck.put(thisDeck.getDeckId(),thisDeck);
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
+                Deck thisDeck = changeToDeck(ds);
+                HmAllDeck.put(thisDeck.getDeckId(),thisDeck);
+
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot ds) {
+                //2
+                Deck thisDeck = changeToDeck(ds);
+                HmAllDeck.remove(thisDeck.getDeckId());
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                Log.i("DeckDao","DeckChildeMove" + snapshot.getKey());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("firebase",error.getMessage());
+            }
+        });
+
+
     }
 
     public static Deck changeToDeck(@NonNull DataSnapshot ds){
@@ -182,10 +242,7 @@ public class DeckDao {
         callback.onResponse(null,deck,1);
 
     };
-    public static void addRecentDeck(RecentDeck RecentDeck, RecentDeckCallback callback){
-        FirebaseDatabase.getInstance().getReference("RecentDeck").child(RecentDeck.getId()).setValue(RecentDeck);
-        callback.onResponse(null,RecentDeck,1);
-    };
+
 
     public static void addFavoriteDeck(FavoriteDeck FvDeck) {
         FirebaseDatabase.getInstance().getReference("FavoriteDeck").child(FvDeck.getId()).setValue(FvDeck);

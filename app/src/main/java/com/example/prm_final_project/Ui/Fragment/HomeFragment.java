@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,6 +32,7 @@ import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Ui.Activity.MainActivity;
 import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
 import com.example.prm_final_project.Ui.Activity.ViewAllActivity;
 import com.example.prm_final_project.Util.Methods;
@@ -46,18 +48,21 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
-    private ArrayList<Deck> originDecks = new ArrayList<>();
     private ArrayList<Deck> allDecks = new ArrayList<>();
+
+    private ArrayList<Deck> originDecks = new ArrayList<>();
     private ArrayList<Deck> newestDecks = new ArrayList<>();
     private ArrayList<Deck> recentDecks = new ArrayList<>();
+
     private ArrayList<RecentDeck> recentDeckKeys = new ArrayList<>();
     private ArrayList<Deck> slopeOneDeck = new ArrayList<>();
 
-    public static HashMap<String,Deck> originDeckHm = new HashMap<>();
+    public static Hashtable<String,Deck> originDeckHm = new Hashtable<>();
 
 
     ArrayList<String> myDeckKeys = new ArrayList<>();
@@ -67,6 +72,7 @@ public class HomeFragment extends Fragment {
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
     FirebaseUser user ;
+    User currentUser;
 
     private ListView lvDecks;
     private boolean inPublic = true;
@@ -77,7 +83,6 @@ public class HomeFragment extends Fragment {
     private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
-    private TextView tvViewAll;
     Context thiscontext;
     private boolean firstTime = true;
 
@@ -91,82 +96,40 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
             ViewGroup container, Bundle savedInstanceState) {
-        // Setting List
-
-        // check Internet conditions
-//        if(!InternetConnection.isConnectedToInternet(getContext())) {
-//            Intent i = new Intent(getActivity(),NoInternetActivity.class);
-//            getActivity().finish();
-//        };
 
         thiscontext = container.getContext();
         View view =  inflater.inflate(R.layout.activity_homepage, container, false);
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        user  = UserDao.getUser();
 
+        // Data acccess
+        user  = UserDao.getUser();
+        currentUser = UserDao.allUserHT.get(user.getUid());
+        originDeckHm = DeckDao.HmAllDeck;
+
+        Log.i("numberDeck",  originDeckHm.size()+"");
+        Log.i("currentUser",   currentUser+"");
         // init Ui
-        tvViewAll = view.findViewById(R.id.tvViewAll);
         tvUserName = view.findViewById(R.id.tvHelloUserName);
         PbLoading =  view.findViewById(R.id.pbLoadingData);
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
         RvListDeckType = view.findViewById(R.id.RvListDeckType);
 
-        tvViewAll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), ViewAllActivity.class);
-                startActivity(i);
-            }
-        });
 
-//      Get data
         String userName="Guest";
         if(user != null){
             userName =  user.getDisplayName();
         };
         tvUserName.setText(userName);
 
-        // Authentication
-        if(firstTime) {
+
+
             PbLoading.setVisibility(ProgressBar.VISIBLE);
             ArrayList<DeckListType> listIem = initDeckList();
-            DeckDao.readAllDecks(new FirebaseCallback() {
-                @Override
-                public void onResponse(ArrayList<Deck> Decks, Deck changeDeck, int type) {
-                    if (typeDeck == 0) {
-                        if (type == 0) {
-                            if (changeDeck != null) {
-//                            newestDecks.add(changeDeck);
-                                allDecks.add(changeDeck);
-                            }
-                        }
-                        ;
-                        if (type == 1) {
-                            int changeDeckIndex = Methods.indexDeck(allDecks, changeDeck);
-                            if (changeDeckIndex != -1) {
-//                            newestDecks.set(changeDeckIndex, changeDeck);
-                                allDecks.set(changeDeckIndex, changeDeck);
-                            }
-                            ;
-                        }
-                        if (type == 2) {
-//                        newestDecks.remove(changeDeck);
-                            allDecks.remove(changeDeck);
-                        }
-                        ;
-                        PbLoading.setVisibility(ProgressBar.GONE);
-                        homeDeckAdap.notifyDataSetChanged();
-                    }
-                };
-            }, originDecks);
 
-            DeckDao.readRecentDeckByUser(recentDeckKeys,new RecentDeckCallback() {
-                @Override
-                public void onResponse(ArrayList<RecentDeck> allDecks, RecentDeck changeDeck, int type) {
-                    Log.i("HomeFragment - RecentDeck",changeDeck.getId()+"");
-                }
-            });
+
+
+
 
             deckListTypeAdaper = new DeckListTypeAdapter(listIem, new AdapterCallback() {
                 @Override
@@ -183,23 +146,35 @@ public class HomeFragment extends Fragment {
                         }
                     }.start();
                     typeDeck = type;
+
                     if(type == 0){
-                        changeRecle(allDecks,originDecks);
+                        ArrayList<Deck>  allDeckArray = new ArrayList<>();
+                        allDeckArray.addAll(originDeckHm.values());
+
+                        changeRecle(allDecks,allDeckArray);
+
                     };
                     if(type == 1){
+                        recentDeckKeys = currentUser.getRecentDecks();
                         Collections.sort(recentDeckKeys, (o1, o2) -> {
                             return (int) (o2.getTimeStamp() - o1.getTimeStamp());
                         });
-                        changeRecle(allDecks,recentDecks);
-                        matchHashMapRecentDeck(recentDeckKeys,recentDecks,DeckDao.originDeck);
+                        ArrayList<Deck> recentDeck = new ArrayList<>();
+                        recentDeck =  matchHashMapRecentDeck();
+                        changeRecle(allDecks,recentDeck);
+
                     };
                     if(type == 2){
 //                        RvPublicDeck.setVisibility(RecyclerView.GONE);
 //                        PbLoading.setVisibility(ProgressBar.VISIBLE);
+                        ArrayList<Deck>  allDeckArray = new ArrayList<>();
+                        ArrayList<User>  allUserArray = new ArrayList<>();
+                        allDeckArray.addAll(originDeckHm.values());
+                        allUserArray.addAll(UserDao.allUserHT.values());
 
-                        UserDao.readAllUsersStatic();
                         recomendSystem rs = new recomendSystem();
-                        rs.slopeOne(originDecks,UserDao.allUsers);
+
+                        rs.slopeOne(allDeckArray,allUserArray);
                         ArrayList<Deck> listReco = new ArrayList<>();
                         Log.i("RecoSize",UserDao.allUsers.size()+"");
                         HashMap<Deck, Double> listRecomend = rs.outputData.get(UserDao.getUser().getUid());
@@ -214,8 +189,7 @@ public class HomeFragment extends Fragment {
                 }
             }, RvListDeckType);
 
-        firstTime = false;
-        };
+
 
 
         homeDeckAdap = new HomeDeckListAdapter(thiscontext,allDecks);
@@ -246,24 +220,18 @@ public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
        return user;
     }
 
-
-    public void onClick(View view) {
-        if(view == tvViewAll) {
-            Intent i = new Intent(getActivity(), ViewAllActivity.class);
-            startActivity(i);
-        };
-
-    }
-
-
-    public void matchHashMapRecentDeck(ArrayList<RecentDeck> aKey ,ArrayList<Deck> a ,HashMap<String,Deck> b){
-        a.clear();
-        for(RecentDeck key: aKey) {
-            Deck temp = b.get(key.getDeckId());
+    public  ArrayList<Deck> matchHashMapRecentDeck(){
+        ArrayList<Deck> recentDeck = new ArrayList<>();
+        Log.i("USERDAO_childChangedfound",recentDeckKeys.size()+"");
+        for(RecentDeck key: recentDeckKeys) {
+            Deck temp = DeckDao.HmAllDeck.get(key.getDeckId());
             if(temp != null) {
-                a.add(temp);
-            };
+                recentDeck.add(temp);
+                Log.i("USERDAO_childChangedfound",temp.getTitle());
+            }
+
         };
+        return recentDeck;
 
     };
 }

@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.Ui.Activity.EditDeckActivity;
 import com.example.prm_final_project.Ui.Activity.ViewCardActivity;
 import com.example.prm_final_project.Dao.DeckDao;
@@ -79,19 +80,25 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         DeckDao.addView(currentDeck);
 
         // Add Save Recent Deck to database
-        FirebaseUser currentUser = UserDao.getUser();
+        User currentUser = UserDao.allUserHT.get(UserDao.getUser().getUid());
         if(currentUser != null) {
-            String userId = currentUser.getUid();
             String deckId = currentDeck.getDeckId();
-            String id = userId+"-"+deckId;
-            RecentDeck newRecent = new RecentDeck(id,userId,deckId, Methods.getTimeLong());
+            RecentDeck newRecent = new RecentDeck(deckId, Methods.getTimeLong());
+            ArrayList<RecentDeck> userRecent = currentUser.getRecentDecks();
+                int lastRecent = 0;
+                for(int position = 0; position < userRecent.size() ; position++) {
+                    if(userRecent.get(position).getTimeStamp()  < userRecent.get(lastRecent).getTimeStamp() ) {
+                        lastRecent = position;
+                    };
+                    if(newRecent.getDeckId().equals(userRecent.get(position).getDeckId())) {
+                        userRecent.set(position,newRecent );
+                    };
+                };
+                userRecent.add(newRecent);
+                if(userRecent.size() > 10) userRecent.remove(lastRecent);
+                currentUser.setRecentDecks(userRecent);
+       UserDao.addUser(currentUser);
 
-            DeckDao.addRecentDeck(newRecent, new RecentDeckCallback() {
-                @Override
-                public void onResponse(ArrayList<RecentDeck> allDecks, RecentDeck changeDeck, int type) {
-                    Log.i("HomeDeckListAdapter",changeDeck.getId()+"Add to database");
-                }
-            });
         };
         //
         context.startActivity(i);

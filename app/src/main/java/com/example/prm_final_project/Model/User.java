@@ -11,6 +11,7 @@ public class User {
     private String phone;
     private String email;
     private ArrayList<String> myDeck;
+    private ArrayList<RecentDeck> recentDecks;
     private Hashtable<String,Double> rate;
 
     public User() {
@@ -96,5 +97,13 @@ public class User {
 
     public void setRate(Hashtable<String, Double> rate) {
         this.rate = rate;
+    }
+
+    public ArrayList<RecentDeck> getRecentDecks() {
+        return recentDecks;
+    }
+
+    public void setRecentDecks(ArrayList<RecentDeck> recentDecks) {
+        this.recentDecks = recentDecks;
     }
 }

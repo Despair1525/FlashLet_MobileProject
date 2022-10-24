@@ -14,7 +14,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
+import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
@@ -22,6 +25,8 @@ import com.example.prm_final_project.Ui.Fragment.HomeFragment;
 import com.example.prm_final_project.Ui.Fragment.ProfileFragment;
 import com.example.prm_final_project.Ui.Fragment.SearchFragment;
 import com.example.prm_final_project.Services.InternetConnection;
+import com.example.prm_final_project.Ui.Fragment.SearchResultViewModel;
+import com.example.prm_final_project.callbackInterface.AllDataCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +34,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 // Khởi động ban đầu sẽ vào loading screen để load Database
 
@@ -36,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private String m_Text;
     BottomNavigationView bottomNavigationView;
     private boolean isGuest = false;
-    private ArrayList<Deck> allDecks = new ArrayList<>();
+    private boolean firstTime = true;
     private FirebaseAuth mAuth;
     private final static int HOME_FRAGMENT = 0;
     private final static int SEARCH_FRAGMENT = 1;
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private final static int PROFILE_FRAGMENT = 3;
     private int CURRENT_FRAGMENT;
 
+    private Hashtable<String,Deck> allDecks  = new Hashtable<>();
     Fragment fragmentHome = new HomeFragment();;
     Fragment fragmentProfile = new ProfileFragment() ;
     FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
@@ -52,25 +59,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        UserDao.readAllUsersStatic();
+
+
         if (InternetConnection.isConnectedToInternet(getApplicationContext())) {
+
             rootRef = FirebaseDatabase.getInstance();
             mAuth = FirebaseAuth.getInstance();
             isGuest = checkGuest();
-//            UserDao.readAllUsers();
-            if (isGuest) {
-                Log.e("check guest", "true");
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
 
-            } else {
-                Log.e("check guest", "false");
-                // set home fragment by default
-                loadFragment(new HomeFragment());
-                CURRENT_FRAGMENT = HOME_FRAGMENT;
-                bottomNavigationView = findViewById(R.id.bottom_navigation);
-                bottomNavigationView.setOnNavigationItemSelectedListener(this);
-            }
+            UserDao.readAllUserFirst();
+            DeckDao.readAllDecksOnce(new AllDataCallback() {
+                @Override
+                public void onResponse(Hashtable<String, Deck> allDecks) {
+                        if (isGuest) {
+                            Log.e("check guest", "true");
+                            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                            startActivity(i);
+
+                        } else {
+                            Log.e("check guest", "false");
+                            // set home fragment by default
+                            loadFragment(fragmentHome);
+                            CURRENT_FRAGMENT = HOME_FRAGMENT;
+                            bottomNavigationView = findViewById(R.id.bottom_navigation);
+                            bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
+                        }
+                    };
+
+            });
+
+
+
         } else {
             Toast.makeText(MainActivity.this, "Not connect to internet", Toast.LENGTH_SHORT).show();
             // Gửi sang trang Lỗi kết nối
