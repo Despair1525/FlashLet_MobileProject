@@ -29,8 +29,6 @@ public class UserDao {
     public static ArrayList<User> allUsers = new ArrayList<>();
     public static Hashtable<String,User> allUserHT = new Hashtable<>();
 
-    public static ChildEventListener childEventListener;
-
     public static FirebaseUser getUser(){
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
@@ -86,8 +84,6 @@ public class UserDao {
         mAuth.signOut();
     }
 
-
-
     public static User getSnapshotUser(DataSnapshot snapshot) {
         User newUser = new User();
         newUser.setUserId(snapshot.child("userId").getValue(String.class));
@@ -125,53 +121,6 @@ public class UserDao {
         return newUser;
     };
 
-    public static void readAllUsers(ArrayList<User> allUsersList){
-        allUsers = new ArrayList<>();
-        ref = data.getReference("Users");
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-//                User u = snapshot.getValue(User.class);
-                User u = getSnapshotUser(snapshot);
-                allUsersList.add(u);
-                allUsers.add(u);
-                Log.d("USERDAO_childAdded", "id " + u.getUsername());
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                User u = getSnapshotUser(snapshot);
-                int index = getIndexByKey( allUsersList, snapshot);
-                if(index != -1) {
-                    allUsersList.set(index, u);
-                    allUsers.set(index,u);
-                }
-
-                Log.d("USERDAO_childChanged", "username " + u.getUsername());
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                int index = getIndexByKey(allUsers, snapshot);
-                if(index != -1) {
-                    allUsersList.remove(index);
-                }
-
-                Log.d("USERDAO_childRemoved", "username " + snapshot.getValue(User.class).getUsername());
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("USERDAO_childMoved", "username " + snapshot.getValue(User.class).getUsername());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("USERDAO_cancelled", "error " + error.getMessage());
-            }
-        });
-    }
-
     public static void readAllUserFirst(){
         ref = data.getReference("Users");
         ref.addChildEventListener(new ChildEventListener() {
@@ -179,6 +128,7 @@ public class UserDao {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User u = getSnapshotUser(snapshot);
                 allUserHT.put(u.getUserId(),u);
+                allUsers.add(u);
                 Log.d("USERDAO_childAdded", "id " + u.getUsername());
             }
 
@@ -186,6 +136,7 @@ public class UserDao {
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User u = getSnapshotUser(snapshot);
                 allUserHT.put(u.getUserId(),u);
+
                 Log.d("USERDAO_childChanged", "id " + u.getUsername());
                 Log.d("USERDAO_childChanged", "RecendDeck- " + u.getRecentDecks().size()+"");
             }
@@ -194,6 +145,7 @@ public class UserDao {
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 User u = getSnapshotUser(snapshot);
                 allUserHT.remove(u.getUserId());
+
                 Log.d("USERDAO_Remoce", "id " + u.getUsername());
             }
 
@@ -207,63 +159,6 @@ public class UserDao {
                 Log.i("USERDAO_cancelled", "error " + error.getMessage());
             }
         });
-    }
-
-
-    public static void readUsersByName(ArrayList<User> allUsers){
-        ref = data.getReference("Users");
-
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                User u = snapshot.getValue(User.class);
-                allUsers.add(u);
-                Log.d("USERDAO_childAdded", "id " + u.getUsername());
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                User u = snapshot.getValue(User.class);
-                int index = getIndexByKey(allUsers, snapshot);
-                if(index != -1) {
-                    allUsers.set(index, u);
-                }
-
-                Log.d("USERDAO_childChanged", "username " + u.getUsername());
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                int index = getIndexByKey(allUsers, snapshot);
-                if(index != -1) {
-                    allUsers.remove(index);
-                }
-
-                Log.d("USERDAO_childRemoved", "username " + snapshot.getValue(User.class).getUsername());
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                Log.d("USERDAO_childMoved", "username " + snapshot.getValue(User.class).getUsername());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("USERDAO_cancelled", "error " + error.getMessage());
-            }
-        });
-    }
-    public static int getIndexByKey(ArrayList<User> allUsers, DataSnapshot ds){
-        if(ds == null){
-            return -1;
-        }
-        User u = getSnapshotUser(ds);
-        for (int i = 0; i < allUsers.size(); i++) {
-            if(u.getUserId().equals(allUsers.get(i).getUserId())){
-                return i;
-            }
-        }
-        return -1;
     }
 
     public static ArrayList<User> searchByUserName(ArrayList<User> allUsers, String keyword){
@@ -299,5 +194,4 @@ public class UserDao {
         return  null;
     }
     
-
 }

@@ -3,6 +3,7 @@ package com.example.prm_final_project.Adapter;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -53,5 +54,18 @@ public class SearchPageAdapter extends FragmentStatePagerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position) {
+        String title = null;
+        if (position == 0)
+            title = "All RESULTS";
+        else if (position == 1)
+            title = "DECKS";
+        else if (position == 2)
+            title = "USERS";
+        return title;
     }
 }

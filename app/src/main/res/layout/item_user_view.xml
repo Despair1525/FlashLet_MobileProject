@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="@dimen/deck_height"
     android:descendantFocusability="blocksDescendants"
-    android:layout_margin="20dp"
+    android:layout_margin="10dp"
     android:background="@drawable/deck_shape"
     android:elevation="2dp">
 
@@ -13,20 +13,46 @@
         android:layout_height="match_parent"
         android:padding="15dp"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/tv_user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="maicth"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textSize="20sp"
-/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="@dimen/marginLeft"
+                android:src="@drawable/ic_default_avt"/>
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="maicth"
+                android:layout_gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textSize="20sp"
+                />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tv_user_no_deck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="5 decks"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_study_set"/>
+
+            <TextView
+                android:id="@+id/tv_user_no_deck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/marginLeft"
+                android:text="5 decks"/>
+        </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

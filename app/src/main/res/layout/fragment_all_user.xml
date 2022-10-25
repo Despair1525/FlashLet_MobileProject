@@ -33,9 +33,9 @@
                 android:id="@+id/tv_all_users"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Users"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:layout_marginLeft="@dimen/marginLeft"
+                android:textSize="@dimen/title_font_size"
+                android:text="Users"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_all_users"

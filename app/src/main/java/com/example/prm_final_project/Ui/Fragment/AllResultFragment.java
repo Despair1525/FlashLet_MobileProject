@@ -38,8 +38,8 @@ public class AllResultFragment extends Fragment {
     private Button allDeckButton;
     private Button allUserButton;
     private SearchResultViewModel viewModel;
-    private ArrayList<Deck> allDecks = new ArrayList<>();
-    private ArrayList<User> allUsers = new ArrayList<>();
+    private ArrayList<Deck> allDecks;
+    private ArrayList<User> allUsers;
     private Boolean isSearch;
 
     public AllResultFragment() {
@@ -67,13 +67,11 @@ public class AllResultFragment extends Fragment {
         Log.i("search all decks", allDecks.toString());
 
         if((allDecks.size() > 0 | allUsers.size() > 0) & isSearch){
-            Log.d("result ", "found");
             textView.setVisibility(View.GONE);
 
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             params.gravity = Gravity.TOP;
-
             allResultLayout.setLayoutParams(params);
 
             if(allDecks.size() > 0){
@@ -95,7 +93,6 @@ public class AllResultFragment extends Fragment {
             textView.setText("No result found!");
         }
 
-
         allDeckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,7 +100,6 @@ public class AllResultFragment extends Fragment {
                 parent.setPagerFragment(1);
             }
         });
-
 
         allUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +123,9 @@ public class AllResultFragment extends Fragment {
         allUserLayout = view.findViewById(R.id.search_users);
         allDeckButton = view.findViewById(R.id.btn_view_all_decks);
         allUserButton = view.findViewById(R.id.btn_view_all_users);
+
+        allDecks = new ArrayList<>();
+        allUsers = new ArrayList<>();
     }
 
     private ArrayList<Deck> getLimitDeckResult(ArrayList<Deck> originList, int noResult){
@@ -154,6 +153,5 @@ public class AllResultFragment extends Fragment {
         }
         return results;
     }
-
 
 }

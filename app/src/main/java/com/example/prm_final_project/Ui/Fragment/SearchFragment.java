@@ -19,6 +19,8 @@ import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.Regex;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.google.android.material.tabs.TabLayout;
 
@@ -28,10 +30,10 @@ public class SearchFragment extends Fragment {
 
     private Context thiscontext;
     private SearchView searchView;
-    private ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<Deck> allDecks = new ArrayList<>();
-    private ArrayList<User> users = new ArrayList<>();
-    private ArrayList<User> allUsers = new ArrayList<>();
+    private ArrayList<Deck> decks;
+    private ArrayList<Deck> allDecks;
+    private ArrayList<User> users;
+    private ArrayList<User> allUsers;
     private ViewPager viewPager;
     private SearchPageAdapter searchPageAdapter;
     private TabLayout tabLayout;
@@ -57,35 +59,34 @@ public class SearchFragment extends Fragment {
         viewModel.setAllDecks(allDecks);
         viewModel.setAllUsers(allUsers);
         viewModel.setIsSearch(false);
+
         // add nested fragments into search fragment
-        tabLayout = addChildFragment(view);
+        tabLayout = addChildFragment();
         addViewPager(tabLayout);
 
-        readDecks();
-        UserDao.readAllUsers(users);
+        decks.addAll(DeckDao.HmAllDeck.values());
+        users.addAll(UserDao.allUserHT.values());
 
         Log.i("check size allUsers", "size " + users.toString());
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
+                String query = Regex.textNormalization(s);
                 searchView.clearFocus();
-                if(s.trim() != null) {
-                    allDecks = DeckDao.searchDeckByTitle(decks, s);
+                if(query != null) {
+                    allDecks = DeckDao.searchDeckByTitle(decks, query);
+                    allUsers = UserDao.searchByUserName(users, query);
                     Log.i("search size result", allDecks.toString());
-
-                    // set results found into shared view model
-                    viewModel.setAllDecks(allDecks);
-                    viewModel.setIsSearch(true);
-
-                    allUsers = UserDao.searchByUserName(users, s);
-                    viewModel.setAllUsers(allUsers);
                     Log.i("search user result", allUsers.toString());
 
+                    // set results found into shared view model
+                    viewModel.setIsSearch(true);
+                    viewModel.setAllDecks(allDecks);
+                    viewModel.setAllUsers(allUsers);
 
                     // restart child fragments
                     addViewPager(tabLayout);
-                    setPagerFragment(0);
                 }
                 return true;
             }
@@ -93,7 +94,8 @@ public class SearchFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 // check when click on Close button
-                if(TextUtils.isEmpty(s)){
+                String s2 = Regex.textNormalization(s);
+                if(TextUtils.isEmpty(s2)){
                     viewModel.setAllDecks(new ArrayList<>());
                     viewModel.setAllUsers(new ArrayList<>());
                     viewModel.setIsSearch(false);
@@ -105,59 +107,35 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private TabLayout addChildFragment(View view){
+    private TabLayout addChildFragment(){
         // add tab for tab layout
-        TabLayout tabLayout = view.findViewById(R.id.search_result_tab);
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.all_result_tab));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.all_deck_tab));
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.all_user_tab));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
         return tabLayout;
     }
 
     private void addViewPager(TabLayout tabLayout){
-        // manage screen view pager
         // use getChildFragmentManager when having nested fragment
         searchPageAdapter = new SearchPageAdapter(
                 getChildFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(searchPageAdapter);
-
-        // set on click listener
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition(), true);
-            }
-        });
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     public void init(View view){
+        tabLayout = view.findViewById(R.id.search_result_tab);
         viewPager = view.findViewById(R.id.search_result_page);
         searchView = view.findViewById(R.id.search_bar);
-    }
 
-    private void readDecks(){
-        DeckDao.readAllDecks(new FirebaseCallback() {
-            @Override
-            public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
-            }
-        }, decks);
+        decks = new ArrayList<>();
+        allDecks = new ArrayList<>();
+        users = new ArrayList<>();
+        allUsers = new ArrayList<>();
     }
 
     public void setPagerFragment(int a)
     {
-        searchPageAdapter.notifyDataSetChanged();
         viewPager.setCurrentItem(a);
     }
 

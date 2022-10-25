@@ -3,18 +3,51 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/background_btn.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/background_edittext.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/button_alert_dialog_background.xml" value="0.2595" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/cursor.xml" value="0.1945" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/deck_shape.xml" value="0.1125" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/deck_shape_2.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/deck_shape_clicked.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_baseline_fullscreen_24.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_baseline_image_24.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_baseline_remove_red_eye_24.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_baseline_save_24.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_close.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_default_avt.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_email.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_home.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_lock.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_person.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_profile.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_search.xml" value="0.2595" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_study_set.xml" value="0.1945" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/ic_view.xml" value="0.234" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/top_dialog_backgroud.xml" value="0.2595" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_homepage.xml" value="0.15534420289855072" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_my_flashcards.xml" value="0.1453125" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_view_card.xml" value="0.25416666666666665" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_written_quiz.xml" value="0.19010416666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/dialog_deck_information.xml" value="0.19010416666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/dialog_rating_deck.xml" value="0.19010416666666666" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_deck.xml" value="0.14947916666666666" />
-        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_result.xml" value="0.17552083333333332" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_result.xml" value="0.4959349593495935" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_user.xml" value="0.25416666666666665" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_search.xml" value="0.14947916666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_view_all_deck.xml" value="0.19010416666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_view_all_my_deck.xml" value="0.19010416666666666" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_deck_view.xml" value="0.264" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_edit_card.xml" value="0.25416666666666665" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_list_type.xml" value="0.15534420289855072" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_user_view.xml" value="0.264" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/menu/action_edit_menu.xml" value="0.19010416666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/menu/navigation_menu.xml" value="0.19010416666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/menu/viewcard_menu.xml" value="0.19010416666666666" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/layout/activity_add_cards.xml" value="0.25416666666666665" />
