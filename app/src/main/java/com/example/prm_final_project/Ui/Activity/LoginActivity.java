@@ -193,9 +193,9 @@ public class LoginActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
                 task.getResult(ApiException.class);
-                finish();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }catch (ApiException e){
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 

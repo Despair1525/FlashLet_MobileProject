@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
@@ -144,7 +145,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             }
                                         });
                             } else {
-                                Toast.makeText(RegisterActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                try{
+                                    throw task.getException();
+                                }catch(FirebaseAuthUserCollisionException e){
+                                    edEmail.setError(e.getMessage());
+                                    edEmail.requestFocus();
+                                }catch(Exception e){
+                                    Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                }
+
 
                             }
                         }
