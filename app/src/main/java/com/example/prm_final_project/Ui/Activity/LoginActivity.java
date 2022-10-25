@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.Regex;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -93,8 +94,8 @@ public class LoginActivity extends AppCompatActivity {
                 edPassword.setError("Please enter your password!");
             return false;
         }
-        email = Methods.getEmail(email);
-        password = Methods.getPassword(password);
+        email = Regex.getEmail(email);
+        password = Regex.getPassword(password);
         if(email.isEmpty() || password.isEmpty()){
             if(email.isEmpty())
                 edEmail.setError("Please enter valid email!");

@@ -19,6 +19,7 @@ import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -82,11 +83,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 edUserName.setError("Please fill out this field!");
             return false;
         }
-        email = Methods.getEmail(email);
-        password1 = Methods.getPassword(password1);
-        password2 = Methods.getPassword(password2);
-        phone = Methods.getPhone(phone);
-        username = Methods.getUsername(username);
+        email = Regex.getEmail(email);
+        password1 = Regex.getPassword(password1);
+        password2 = Regex.getPassword(password2);
+        phone = Regex.getPhone(phone);
+        username = Regex.getUsername(username);
         if(email.isEmpty() || password1.isEmpty() || password2.isEmpty() || phone.isEmpty() || username.isEmpty()){
             if(email.isEmpty())
                 edEmail.setError("Please enter valid email!");
