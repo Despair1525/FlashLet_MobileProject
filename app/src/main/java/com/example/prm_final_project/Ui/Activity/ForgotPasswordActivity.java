@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -42,7 +43,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             edtEmail.setError("Please enter your email!");
             return false;
         }
-        email = Methods.getEmail(email);
+        email = Regex.getEmail(email);
         if(email.isEmpty()){
             edtEmail.setError("Please enter valid email!");
             return false;
