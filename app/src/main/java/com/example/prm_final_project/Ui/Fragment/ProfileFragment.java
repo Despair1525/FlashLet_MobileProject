@@ -81,23 +81,13 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
         initUi(view);
-        ArrayList<RecentDeck> decks = new ArrayList<>();
-        decks.add(new RecentDeck("1665069398251",(long)1));
-        decks.add(new RecentDeck("1665072589374",(long)2));
-        decks.add(new RecentDeck("1665073056163",(long)3));
 
-        //String deckId, String Uid, String title, String descriptions ,String author,String date ,boolean isPublic ,int view,List<List<String>> cards
-//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-//        decks.add(new Deck("1","1","asdf","asdf","ertsdf","123412",true,4, null));
-        User user1 = new User("123", "Thanh", "https://t2.ea.ltmcdn.com/en/posts/4/0/9/10_things_you_should_know_about_golden_retrievers_904_600_square.jpg",
-                "0123123123", "thanh@gmail.com", decks);
-        Glide.with(this).load(user1.getAvatar()).error(R.drawable.default_avatar).into(imageAvatar);
-        tvUsername.setText(user1.getUsername());
-        tvEmail.setText(user1.getEmail());
-        tvPhone.setText(user1.getPhone());
+        User user = UserDao.getCurrentUser();
+
+        Glide.with(this).load(user.getAvatar()).error(R.drawable.default_avatar).into(imageAvatar);
+        tvUsername.setText(user.getUsername());
+        tvEmail.setText(user.getEmail());
+        tvPhone.setText(user.getPhone());
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
