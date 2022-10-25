@@ -9,4 +9,7 @@
     <string name="all_result_tab">All results</string>
     <string name="all_deck_tab">Decks</string>
     <string name="all_user_tab">Users</string>
+    <string name="facebook_app_id">482114910602448</string>
+    <string name="fb_login_protocol_scheme">fb482114910602448</string>
+    <string name="facebook_client_token">59d6714cbce926ddfd37a551ee440370</string>
 </resources>

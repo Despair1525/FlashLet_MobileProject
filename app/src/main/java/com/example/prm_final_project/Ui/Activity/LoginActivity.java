@@ -4,6 +4,7 @@ package com.example.prm_final_project.Ui.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,10 +15,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.Util.Regex;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -25,21 +35,29 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText edEmail,edPassword;
     private Button btnLogin, btnGoogle, btnFacebook;
     private TextView btnGuest, btnSignup, tvForgotPassword;
     private String email, password;
+    private CallbackManager callbackManager;
 
 
     private ProgressDialog progressDialog;
@@ -48,6 +66,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://flashlet-25aye-default-rtdb.firebaseio.com/");
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
+    private AccessToken token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +79,9 @@ public class LoginActivity extends AppCompatActivity {
         allDecks = (ArrayList<Deck>) getIntent().getSerializableExtra("allDecks");
         btnLogin.setOnClickListener(view -> onLogin());
         btnSignup.setOnClickListener(view -> onSignUp());
-        btnFacebook.setOnClickListener(view -> onLoginFacebook());
         btnGoogle.setOnClickListener(view -> onLoginGoogle());
         tvForgotPassword.setOnClickListener(view -> onForgotPassword());
-
+        btnFacebook.setOnClickListener(view -> onLoginFacebook());
     };
 
 
@@ -79,8 +97,29 @@ public class LoginActivity extends AppCompatActivity {
         btnGoogle = (Button) findViewById(R.id.btnGoogle);
         btnSignup = (TextView)findViewById(R.id.tvSignup);
         tvForgotPassword = (TextView) findViewById(R.id.tvForgotPassword);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
         gsc = GoogleSignIn.getClient(this, gso);
+        FacebookSdk.sdkInitialize(LoginActivity.this);
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        token = loginResult.getAccessToken();
+                        onLoginFacebook_();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                    }
+
+                    @Override
+                    public void onError(@NonNull FacebookException e) {
+                    }
+                });
         progressDialog = new ProgressDialog(this);
     };
 
@@ -178,29 +217,78 @@ public class LoginActivity extends AppCompatActivity {
     };
 
     private void onLoginFacebook(){
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
 
     };
+    private void onLoginFacebook_(){
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        FirebaseAuth.getInstance().signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    if(task.getResult().getAdditionalUserInfo().isNewUser()){
+                        User newUser = new User(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getPhotoUrl().toString(),
+                                mAuth.getCurrentUser().getPhoneNumber(), mAuth.getCurrentUser().getEmail());
+                        UserDao.addUser(newUser);
+                    }
+                    LoginManager.getInstance().logOut();
+                    finish();
+
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("allDecks", allDecks);
+
+                    startActivity(intent);
+
+                }else{
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT);
+                }
+            }
+        });
+    }
 
     private void onLoginGoogle(){
         Intent intent = gsc.getSignInIntent();
-        startActivityForResult(intent, 100);
+        startActivityForResult(intent, 6969);
     };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        //AuthCredential credential = GoogleAuthProvider.getCredential(googleIdToken, null);
 
-        if (requestCode==100){
+        if (requestCode==6969){
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try{
-                task.getResult(ApiException.class);
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+
+                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+                FirebaseAuth.getInstance().signInWithCredential(credential)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if(task.isSuccessful()){
+                                    if(task.getResult().getAdditionalUserInfo().isNewUser()){
+                                        User newUser = new User(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName(), null,
+                                                mAuth.getCurrentUser().getPhoneNumber(), mAuth.getCurrentUser().getEmail());
+                                        UserDao.addUser(newUser);
+                                    }
+                                    gsc.signOut();
+                                    finish();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("allDecks", allDecks);
+
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT);
+                                }
+                            }
+                        });
             }catch (ApiException e){
                 Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 
             }
+        }else{
+            callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

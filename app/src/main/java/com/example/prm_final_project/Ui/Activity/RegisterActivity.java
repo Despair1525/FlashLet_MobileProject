@@ -132,7 +132,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    User newUser = new User(mAuth.getCurrentUser().getUid(), username, null, email, phone);
+                                                    User newUser = new User(mAuth.getCurrentUser().getUid(), username, null, phone, email);
                                                     UserDao.addUser(newUser);
                                                     Toast.makeText(RegisterActivity.this, "Register successfully. Pleas check your email for verification",
                                                             Toast.LENGTH_SHORT).show();
