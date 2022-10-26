@@ -4,6 +4,8 @@ package com.example.prm_final_project.Ui.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.util.Patterns;
 import android.widget.Button;
@@ -61,6 +63,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private ProgressDialog progressDialog;
+    private Handler handler;
     private FirebaseAuth mAuth;
     private ArrayList<Deck> allDecks = new ArrayList<>();
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://flashlet-25aye-default-rtdb.firebaseio.com/");
@@ -230,6 +233,14 @@ public class LoginActivity extends AppCompatActivity {
                         User newUser = new User(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getPhotoUrl().toString(),
                                 mAuth.getCurrentUser().getPhoneNumber(), mAuth.getCurrentUser().getEmail());
                         UserDao.addUser(newUser);
+                        progressDialog.show();
+                        handler = new Handler();
+                        handler.postDelayed(new Runnable(){
+                            @Override
+                            public void run() {
+                                progressDialog.dismiss();
+                            }
+                        }, 1000);
                     }
                     LoginManager.getInstance().logOut();
                     finish();
@@ -271,6 +282,15 @@ public class LoginActivity extends AppCompatActivity {
                                         User newUser = new User(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName(), null,
                                                 mAuth.getCurrentUser().getPhoneNumber(), mAuth.getCurrentUser().getEmail());
                                         UserDao.addUser(newUser);
+                                        progressDialog.show();
+                                        handler = new Handler();
+                                        handler.postDelayed(new Runnable(){
+                                            @Override
+                                            public void run() {
+                                                progressDialog.dismiss();
+                                            }
+                                        }, 1000);
+
                                     }
                                     gsc.signOut();
                                     finish();
