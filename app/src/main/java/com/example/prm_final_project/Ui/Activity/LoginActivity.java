@@ -304,7 +304,8 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }catch (ApiException e){
                 Toast.makeText(this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-
+                Log.e("G69", task.getException().toString());
+                Log.e("G69", task.getException().getMessage());
             }
         }else{
             callbackManager.onActivityResult(requestCode, resultCode, data);
