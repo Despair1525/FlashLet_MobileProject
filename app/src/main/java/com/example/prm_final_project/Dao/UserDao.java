@@ -134,9 +134,11 @@ public class UserDao {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User u = getSnapshotUser(snapshot);
-                allUserHT.put(u.getUserId(),u);
-                allUsers.add(u);
-                Log.d("USERDAO_childAdded", "id " + u.getUsername());
+                if(u.getUserId() != null) {
+                    allUserHT.put(u.getUserId(), u);
+                    allUsers.add(u);
+                    Log.d("USERDAO_childAdded", "id " + u.getUsername());
+                };
             }
 
             @Override

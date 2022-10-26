@@ -69,7 +69,7 @@ private ProgressDialog dialog;
             Boolean Public = true;
             int view =1;
 
-            editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);;
+            editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);
         };
         // Set UI
         IbAdd = findViewById(R.id.imageButtonAdd);
@@ -82,6 +82,7 @@ private ProgressDialog dialog;
         cardViewAdapter = new EditCardAdapt(this,editDeck);
         recyclerViewList.setAdapter( cardViewAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
+
         IbAdd.setOnClickListener(view -> onAdd());
 //        IbSave.setOnClickListener(view -> onSave());
         getSupportActionBar().setTitle("Edit Flashcard");
@@ -129,7 +130,6 @@ private ProgressDialog dialog;
                 RecentDeck recentDeck= new RecentDeck(editDeck.getDeckId(),Methods.getTimeLong());
                 curentUser.getMyDeck().add(recentDeck);
                 UserDao.addUser(curentUser);
-
 //                Toast.makeText(EditDeckActivity.this, editDeck.getCards().size()+"|"+ Methods.generateFlashCardId()
 //                        +"|"+Methods.getTime()+"|"+userName+"|"+Public, Toast.LENGTH_SHORT).show();
             }
@@ -141,7 +141,6 @@ private ProgressDialog dialog;
 
             }
         });
-
         builder.show();
     }
 
@@ -212,6 +211,12 @@ private ProgressDialog dialog;
         switch (item.getItemId()){
             case R.id.SaveEditAction:
                 onSave();
+                break;
+
+            case R.id.UploadAction:
+                Intent i = new Intent(this,ImportDataActivity.class);
+                i.putExtra("editDeck",editDeck);
+                startActivity(i);
                 break;
         }
         return super.onOptionsItemSelected(item);

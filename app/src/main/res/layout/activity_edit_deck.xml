@@ -39,16 +39,25 @@
 
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:layout_marginTop="40dp">
+    android:layout_height="420dp"
+    android:layout_marginTop="40dp"
+    android:padding="10dp"
+    android:background="@xml/textview_border2"
+    android:elevation="20dp"
+    >
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcListEdit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+
+        />
 </ScrollView>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginBottom="20dp"
+    >
 
     <ImageButton
         android:id="@+id/imageButtonAdd"

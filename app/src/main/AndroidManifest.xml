@@ -10,6 +10,9 @@
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" /> <!-- allows app to access Facebook app features -->
         <provider android:authorities="com.facebook.orca.provider.PlatformProvider" /> <!-- allows sharing to Messenger app -->
     </queries>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -31,6 +34,12 @@
             android:exported="false"
             android:parentActivityName=".Ui.Activity.MainActivity"
             android:theme="@style/Theme.PRM_Final_Project.Custombar" />
+        <activity
+            android:name=".Ui.Activity.ImportDataActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PRM_Final_Project.Custombar"
+            />
+
         <activity
             android:name=".Ui.Activity.ForgotPasswordActivity"
             android:exported="false" />
