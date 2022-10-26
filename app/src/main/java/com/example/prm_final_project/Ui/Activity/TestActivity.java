@@ -53,6 +53,9 @@ public class TestActivity extends AppCompatActivity {
 
 
         Collections.shuffle(questionSet);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(deck.getTitle());
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         Question.setText(questionSet.get(questnum).getQuestion());
         Log.i("numQues", questionSet.size() +"");
 
@@ -141,6 +144,13 @@ public class TestActivity extends AppCompatActivity {
             AnswerSet.add(card.get(1));
         }
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
 
 
 }

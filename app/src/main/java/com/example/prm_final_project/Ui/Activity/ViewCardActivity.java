@@ -45,6 +45,7 @@ import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +60,7 @@ public class ViewCardActivity extends AppCompatActivity  {
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     private RatingBar bar;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +81,8 @@ public class ViewCardActivity extends AppCompatActivity  {
         viewRelativeLayout = findViewById(R.id.viewAllFlashCardItem);
 
         reloadRelativeLayout.setOnClickListener(view -> onReload());
-        testRelativeLayout.setOnClickListener(view -> onTest());
+
+
         learnRelativeLayout.setOnClickListener(view -> onLearn());
         viewRelativeLayout.setOnClickListener(view -> onViewFlashCard());
 
@@ -88,13 +91,69 @@ public class ViewCardActivity extends AppCompatActivity  {
         if ( getIntent().getSerializableExtra("viewDeck") != null){
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
+        if(deck.getCards().size()>=5){
+            testRelativeLayout.setOnClickListener(view -> onTest());}
+        else{
+            testRelativeLayout.setOnClickListener(view -> onTest2());
+        }
         getSupportActionBar().setTitle(deck.getTitle());
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewTitle.setText(deck.getTitle());
         textViewView.setText(deck.getView()+"");
         textViewAuthor.setText(deck.getAuthor());
+        user  = UserDao.getUser();
         loadSlideFlash();
+    }
+
+    private void onTest2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
+        View layout = getLayoutInflater().from(ViewCardActivity.this).inflate(
+                R.layout.activity_choose_type_test_written,
+                (ConstraintLayout)findViewById(R.id.layoutDialog)
+        );
+        builder.setView(layout);
+
+//        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
+//        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
+//        builder.setView(layout);
+        EditText quesNum = layout.findViewById(R.id.numques_num);
+        quesNum.setHint(" /"+deck.getCards().size());
+        Button yesButton = layout.findViewById(R.id.buttonYes);
+        Button noButton = layout.findViewById(R.id.buttonNo);
+
+        final AlertDialog alertDialog = builder.create();
+
+        yesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(quesNum.getText().toString().isEmpty()){
+                    quesNum.setError("Please fill out number of questions");
+                    return;
+                }
+                int numQues = Integer.parseInt(quesNum.getText().toString().trim());
+                if(numQues >  deck.getCards().size() ) {
+                    Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
+                    return;
+                };
+                    Intent i = new Intent(ViewCardActivity.this,WrittenQuizActivity.class);
+                    i.putExtra("numQues",numQues);
+                    i.putExtra("TestDeck",deck);
+                    startActivity(i);
+
+            }
+        });
+
+        noButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        alertDialog.show();
+
+
     }
 
     private void onViewFlashCard() {
@@ -231,10 +290,14 @@ public class ViewCardActivity extends AppCompatActivity  {
                 Toast.makeText(this, "ShareSet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.editSet:
+                if(user.getDisplayName().equalsIgnoreCase(deck.getAuthor())){
                 Intent i = new Intent(this, EditDeckActivity.class);
                 i.putExtra("editDeck",deck);
                 startActivity(i);
-                break;
+                break;}
+                else{
+                    Toast.makeText(this, "You must own this set to edit", Toast.LENGTH_SHORT).show();
+                }
             case R.id.deleteSet:
                 Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
                 break;
