@@ -76,10 +76,12 @@ public class ViewCardActivity extends AppCompatActivity  {
         textViewTitle = findViewById(R.id.textViewTitle);
         textViewView = findViewById(R.id.textViewNumView);
         textViewAuthor = findViewById(R.id.textViewAuthor);
+        viewRelativeLayout = findViewById(R.id.viewAllFlashCardItem);
 
         reloadRelativeLayout.setOnClickListener(view -> onReload());
         testRelativeLayout.setOnClickListener(view -> onTest());
         learnRelativeLayout.setOnClickListener(view -> onLearn());
+        viewRelativeLayout.setOnClickListener(view -> onViewFlashCard());
 
 
 
@@ -95,6 +97,12 @@ public class ViewCardActivity extends AppCompatActivity  {
         loadSlideFlash();
     }
 
+    private void onViewFlashCard() {
+        Intent i = new Intent(this, ViewAllCardsActivity.class);
+        i.putExtra("currentDeck",deck);
+        startActivity(i);
+    }
+
     private void onTest() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
         View layout = getLayoutInflater().from(ViewCardActivity.this).inflate(
@@ -106,9 +114,8 @@ public class ViewCardActivity extends AppCompatActivity  {
 //        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
 //        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
 //        builder.setView(layout);
-        TextView totalNum =  layout.findViewById(R.id.numques_total);
         EditText quesNum = layout.findViewById(R.id.numques_num);
-        totalNum.setText("/"+deck.getCards().size());
+        quesNum.setHint(" /"+deck.getCards().size());
         RadioGroup radio_g = layout.findViewById(R.id.QuestionType);
         Button yesButton = layout.findViewById(R.id.buttonYes);
         Button noButton = layout.findViewById(R.id.buttonNo);
@@ -120,17 +127,22 @@ public class ViewCardActivity extends AppCompatActivity  {
             public void onClick(View view) {
                 if(radio_g.getCheckedRadioButtonId()==-1)
                 {
-                    Toast.makeText(getApplicationContext(), "Please select one choice", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please select one test type", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 RadioButton uans = (RadioButton) layout.findViewById(radio_g.getCheckedRadioButtonId());
-                String ansText = uans.getText().toString();
-                int numQues = Integer.parseInt(quesNum.getText().toString() );
+//                String ansText = uans.getText().toString();
+                if(quesNum.getText().toString().isEmpty()){
+                    quesNum.setError("Please fill out number of questions");
+                    return;
+                }
+                int numQues = Integer.parseInt(quesNum.getText().toString().trim());
                 if(numQues >  deck.getCards().size() ) {
                     Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
                     return;
                 };
-                if(ansText.equalsIgnoreCase("Multiple Choice")){
+                if(uans == layout.findViewById(R.id.multiChoice)){
+                    //ansText.equalsIgnoreCase("Multiple Choice")
                     Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
                     i.putExtra("numQues",numQues);
                     i.putExtra("TestDeck",deck);
@@ -162,12 +174,10 @@ public class ViewCardActivity extends AppCompatActivity  {
         loadSlideFlash();
     }
     private void loadSlideFlash(){
-
-        recyclerViewList = findViewById(R.id.RcCardList);
         initSlideCard(); // Set Slide Flash card
-        cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
-        recyclerViewList.setAdapter(cardViewAdapter);
-        recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
+//        cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
+//        recyclerViewList.setAdapter(cardViewAdapter);
+//        recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
 
     };
 

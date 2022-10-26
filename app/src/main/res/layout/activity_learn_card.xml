@@ -6,35 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".Ui.Activity.ViewCardActivity">
 
-    <LinearLayout
-        android:id="@+id/Progress_details"
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:minHeight="10dp"
+        android:max="600"
+        android:min="1"
+        android:progress="0"
+        android:indeterminate="false"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/tv_progress"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="0/100"
-            android:textColorHint="#7A8089"
-            android:textSize="20dp" />
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minHeight="10dp"
-            android:max="600"
-            android:min="1"
-            android:progress="0"
-            android:indeterminate="false"
-            android:indeterminateTint="@color/colorPrimary" />
-    </LinearLayout>
+
+        android:indeterminateTint="@color/colorPrimary" />
+
 
 
 
@@ -49,7 +36,7 @@
         app:flipFrom="front"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Progress_details"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
         >
 
 
@@ -68,7 +55,7 @@
         <TextView
             android:id="@+id/SliderCardFront"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="623dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_corner_slide_card"
@@ -77,6 +64,15 @@
             android:textSize="20dp" />
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="0/100"
+        android:textColorHint="#7A8089"
+        app:layout_constraintTop_toBottomOf="@+id/flipViewCard"
+        android:textSize="20dp" />
 
 
     <Button
