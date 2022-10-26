@@ -34,7 +34,7 @@ public class MyFlashcardsFragment extends Fragment {
 
     private Context thiscontext;
     private TextView textView;
-    private LinearLayout allDeckLayout, recyclerLayout;
+    private LinearLayout recyclerLayout;
     private RecyclerView recycler_my_flashcard;
     private SearchResultViewModel viewModel;
     private ArrayList<Deck> decks = new ArrayList<>();

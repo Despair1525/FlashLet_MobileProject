@@ -1,66 +1,80 @@
 package com.example.prm_final_project.Ui.Fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
+import com.example.prm_final_project.Dao.DeckDao;
+import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavouriteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Collection;
+
+
 public class FavouriteFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    private Context thiscontext;
+    private TextView textView;
+    private LinearLayout recyclerLayout;
+    private RecyclerView recycler_favourite;
+    private SearchResultViewModel viewModel;
+    private ArrayList<Deck> decks = new ArrayList<>();
+    private ArrayList<Deck> allDecks = new ArrayList<>();
     public FavouriteFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavouriteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavouriteFragment newInstance(String param1, String param2) {
-        FavouriteFragment fragment = new FavouriteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite, container, false);
+        thiscontext = container.getContext();
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_favourite, container, false);
+        initUi(view);
+
+
+//        Set<String> keySet = DeckDao.originDeck.keySet();
+//        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
+
+
+        Collection<Deck> values = DeckDao.HmAllDeck.values();
+        allDecks = new ArrayList<Deck>(values);
+
+        User user = UserDao.getCurrentUser();
+
+
+        decks = UserDao.getDeckByUser(allDecks, user.getUserId());
+
+//        allDecks.add(DeckDao.getDeckById("1665657495678"));
+        HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, decks);
+        RecyclerView recyclerView = recycler_favourite;
+        recyclerView.setAdapter(homeDeckListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
+
+        return view;
+    }
+
+    public void initUi(View view){
+        recyclerLayout = view.findViewById(R.id.layout_favourite);
+        recycler_favourite = view.findViewById(R.id.recycler_favourite);
     }
 }

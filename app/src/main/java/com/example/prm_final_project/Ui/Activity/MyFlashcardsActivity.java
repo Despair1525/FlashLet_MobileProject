@@ -37,10 +37,19 @@ public class MyFlashcardsActivity extends AppCompatActivity {
         viewPager.setAdapter(myFlashcardsPageAdapter);
         //Tablayout
         tabLayout.setupWithViewPager(viewPager);
+        getSupportActionBar().setTitle("My Flashcards");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     private void initUi(){
         tabLayout = findViewById(R.id.my_flashcards_tab);
         viewPager = findViewById(R.id.my_flashcards_page);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }

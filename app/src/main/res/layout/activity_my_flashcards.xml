@@ -4,24 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".Ui.Activity.MyFlashcardsActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewMyFlashCardsTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="My Flashcards"
-        android:layout_gravity="center"
-        android:textSize="20sp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/my_flashcards_tab"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         app:tabIndicatorColor="@color/toolBarColor" />
 
     <androidx.viewpager.widget.ViewPager

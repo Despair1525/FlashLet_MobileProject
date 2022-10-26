@@ -7,91 +7,428 @@
     tools:context=".Ui.Fragment.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="40dp">
+        android:orientation="vertical">
+
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/imageAvatar"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:scaleType="fitCenter"
-            app:riv_corner_radius="30dip"
-            app:riv_border_width="3dip"
-            app:riv_border_color="#FFFFFF"
-            app:riv_mutate_background="true"
-            app:riv_oval="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="centerCrop"
             android:src="@drawable/default_avatar"
-            />
+            app:riv_border_color="@color/colorPrimary"
+            app:riv_border_width="3dip"
+            app:riv_corner_radius="30dip"
+            app:riv_mutate_background="true"
+            app:riv_oval="true" />
+
         <TextView
             android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/imageAvatar"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:textSize="30sp"
-            android:text="User name"/>
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/imageAvatar"
-            app:layout_constraintTop_toBottomOf="@id/tvUsername"
-            android:layout_marginStart="16dp"
-            android:textSize="20sp"
-            android:text="Email"/>
-        <TextView
-            android:id="@+id/tvPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toEndOf="@+id/imageAvatar"
-            app:layout_constraintTop_toBottomOf="@id/tvEmail"
-            android:layout_marginStart="16dp"
-            android:textSize="20sp"
-            android:text="Phone"/>
-        <Button
-            android:id="@+id/btnEditProfile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Edit profile"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/imageAvatar"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <Button
-            android:id="@+id/btnMyFlashCards"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My Flashcards"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnEditProfile"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <Button
-            android:id="@+id/btnChangePassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Change password"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnMyFlashCards"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <Button
-            android:id="@+id/btnNotification"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Notification"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnChangePassword"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            android:layout_marginTop="32dp"
-            app:layout_constraintTop_toBottomOf="@+id/btnNotification"
-            app:layout_constraintStart_toStartOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_gravity="center"
+            android:text="User name"
+            android:textStyle="bold"
+            android:textSize="25sp" />
 
+<!--        <TextView-->
+<!--            android:id="@+id/tvEmail"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="Email"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tvPhone"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="16dp"-->
+<!--            android:text="Phone"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnEditProfile"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="Edit profile" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnMyFlashCards"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="My Flashcards" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnChangePassword"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="Change password" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnNotification"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="Notification" />-->
+
+<!--        <Button-->
+<!--            android:id="@+id/btnLogout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:text="Logout" />-->
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewEditUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_person"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tvEditUsernameTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_marginStart="16dp"
+                            android:text="Username"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+                        <TextView
+                            android:id="@+id/tvUsernameProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/tvEditUsernameTitle"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="Username"
+                            android:textColor="@color/colorPrimary"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewEditEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_email"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tvEditEmailTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_marginStart="16dp"
+                            android:text="Email"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+                        <TextView
+                            android:id="@+id/tvEmailProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/tvEditEmailTitle"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="Email"
+                            android:textColor="@color/colorPrimary"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewEditPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_phone"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:id="@+id/tvEditPhoneTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="20dp"
+                            android:layout_marginStart="16dp"
+                            android:text="Phone number"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            />
+                        <TextView
+                            android:id="@+id/tvPhoneProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@id/tvEditPhoneTitle"
+                            android:layout_marginStart="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:text="Phone number"
+                            android:textColor="@color/colorPrimary"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewChangePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_edit" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvChangePasswordTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Change password"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewMyFlashcards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_deck"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvMyFlashcardsTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="My Flashcards"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewNotification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_notification"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvNotificationTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Notification"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/ic_logout"
+                        />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tvLogoutTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Logout"
+                            android:textSize="20dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+    </LinearLayout>
+    </ScrollView>
 </FrameLayout>
