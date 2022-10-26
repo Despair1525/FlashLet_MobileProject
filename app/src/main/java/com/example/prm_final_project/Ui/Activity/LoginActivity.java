@@ -121,6 +121,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull FacebookException e) {
+                        Toast.makeText(LoginActivity.this, e.toString(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
         progressDialog = new ProgressDialog(this);
