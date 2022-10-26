@@ -238,7 +238,7 @@ public class LoginActivity extends AppCompatActivity {
                         handler.postDelayed(new Runnable(){
                             @Override
                             public void run() {
-                                progressDialog.dismiss();
+
                             }
                         }, 1000);
                     }
@@ -282,12 +282,11 @@ public class LoginActivity extends AppCompatActivity {
                                         User newUser = new User(mAuth.getCurrentUser().getUid(), mAuth.getCurrentUser().getDisplayName(), null,
                                                 mAuth.getCurrentUser().getPhoneNumber(), mAuth.getCurrentUser().getEmail());
                                         UserDao.addUser(newUser);
-                                        progressDialog.show();
                                         handler = new Handler();
                                         handler.postDelayed(new Runnable(){
                                             @Override
                                             public void run() {
-                                                progressDialog.dismiss();
+
                                             }
                                         }, 1000);
 
