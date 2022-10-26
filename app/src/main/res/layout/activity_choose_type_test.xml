@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layoutDialog"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -28,61 +29,96 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle"
         android:orientation="horizontal" >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/numques_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:ems="10"
-            android:hint="Enter number of question"
-            android:inputType="number"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Enter number of qestions: "
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/numques_total"
-            android:textSize="20dp"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:text="/"
-            />
+            <EditText
+                android:id="@+id/numques_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Num Quest"
+                android:inputType="number"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textSize="20dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </LinearLayout>
 
-    <RadioGroup
-        android:id="@+id/QuestionType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/numques">
 
-        <RadioButton
-            android:id="@+id/multiChoice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:checked="false"
-            android:text="Multiple Choice" />
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Written"
-            android:id="@+id/writtenChoice"
-            android:checked="false"
-            />
-    </RadioGroup>
-
-    <TextView
+    <LinearLayout
+        android:id="@+id/typetest"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textMessage"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="18sp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textTitle"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/numques"
+        android:orientation="horizontal" >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <RadioGroup
+                android:id="@+id/QuestionType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.992"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <RadioButton
+                    android:id="@+id/multiChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    />
+
+                <RadioButton
+                    android:id="@+id/writtenChoice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tvMultiplechoice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:text="Multple choice"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:text="Written Test"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvMultiplechoice"
+                app:layout_constraintVertical_bias="1.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
     <Button
         android:text="Back"
@@ -91,28 +127,29 @@
         android:id="@+id/buttonNo"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/button_alert_dialog_background"
-        android:textColor="@color/white"
-        android:textSize="14sp"
+        android:background="@android:color/transparent"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/buttonYes"
-        app:layout_constraintTop_toBottomOf="@id/QuestionType"/>
+        app:layout_constraintTop_toBottomOf="@id/typetest"/>
 
     <Button
-        android:text="Create"
+        android:id="@+id/buttonYes"
         android:layout_width="0dp"
         android:layout_height="40dp"
-        android:id="@+id/buttonYes"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="40dp"
-        android:background="@drawable/button_alert_dialog_background"
-        android:textColor="@color/white"
-        android:textSize="14sp"
+        android:background="@android:color/transparent"
+        android:text="Create"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="@id/layoutDialog"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/buttonNo"
-        app:layout_constraintTop_toBottomOf="@id/QuestionType"/>
+        app:layout_constraintTop_toBottomOf="@id/typetest"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

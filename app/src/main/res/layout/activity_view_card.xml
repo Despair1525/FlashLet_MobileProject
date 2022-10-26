@@ -288,26 +288,63 @@
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
-
-
-            <TextView
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/viewAllFlashCardItem"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:padding="10dp"
+                >
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/viewAllCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="5dp"
+                    app:cardMaxElevation="5dp"
+                    app:cardCornerRadius="10dp"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        >
+                        <ImageView
+                            android:id="@+id/vc_ViewFlashCard"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
 
-                android:text="Cards"
-                android:textSize="20dp"
-                android:id="@+id/Tv_cardsList"
-                />
+                            android:src="@drawable/icon_test"
+                            />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/textViewAllFlashCards"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="20dp"
+                                android:layout_marginStart="30dp"
+                                android:text="View All Flash Card"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintTop_toBottomOf="@+id/textViewAllFlashCards"
+                                android:layout_marginStart="30dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                android:text="View all to see all set"
+                                />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </RelativeLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:background="@xml/textview_border2"
-                android:id="@+id/RcCardList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="250dp"
-                android:clipToPadding="false"
-                />
+
+
+
         </LinearLayout>
     </ScrollView>
 

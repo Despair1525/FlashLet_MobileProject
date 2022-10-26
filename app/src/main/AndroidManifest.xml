@@ -4,11 +4,13 @@
     package="com.example.prm_final_project">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <queries>
         <provider android:authorities="com.facebook.katana.provider.PlatformProvider" /> <!-- allows app to access Facebook app features -->
         <provider android:authorities="com.facebook.orca.provider.PlatformProvider" /> <!-- allows sharing to Messenger app -->
     </queries>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -21,11 +23,14 @@
         android:theme="@style/Theme.PRM_Final_Project"
         tools:targetApi="31">
         <activity
+            android:name=".Ui.Activity.ViewAllCardsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.PRM_Final_Project.Custombar"/>
+        <activity
             android:name=".Ui.Activity.ViewAllActivity"
             android:exported="false"
             android:parentActivityName=".Ui.Activity.MainActivity"
-            android:theme="@style/Theme.PRM_Final_Project.Custombar"
-            />
+            android:theme="@style/Theme.PRM_Final_Project.Custombar" />
         <activity
             android:name=".Ui.Activity.ForgotPasswordActivity"
             android:exported="false" />
@@ -71,7 +76,7 @@
         <activity
             android:name=".Ui.Activity.LearnCardActivity"
             android:exported="false"
-            android:theme="@style/Theme.PRM_Final_Project.NoActionBar" />
+            android:theme="@style/Theme.PRM_Final_Project.Custombar" />
         <activity
             android:name=".Ui.Activity.EditDeckActivity"
             android:exported="false"
@@ -107,24 +112,29 @@
             <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
             <!-- </intent-filter> -->
         </activity>
-
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-        <meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
     </application>
 
 </manifest>

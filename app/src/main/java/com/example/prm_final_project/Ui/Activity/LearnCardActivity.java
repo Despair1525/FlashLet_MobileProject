@@ -39,6 +39,10 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
         studyingCards = deck.getCards();
         Log.i("Chekc",deck.getCards().size() +"");
         initSlideCard();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(deck.getTitle());
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         buttonStudying.setOnClickListener(this);
         buttonContinue.setOnClickListener(this);
     };
@@ -54,6 +58,12 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
         progressBar.setProgress(1);
         textViewProgress.setText("0/"+progressBar.getMax());
         addaptChange();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     @Override
