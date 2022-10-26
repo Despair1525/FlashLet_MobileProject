@@ -222,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
     };
 
     private void onLoginFacebook(){
-        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email","public_profile"));
 
     };
     private void onLoginFacebook_(){
