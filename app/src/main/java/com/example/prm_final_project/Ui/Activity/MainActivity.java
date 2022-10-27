@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Fragment.HomeFragment;
 import com.example.prm_final_project.Ui.Fragment.ProfileFragment;
@@ -27,6 +28,7 @@ import com.example.prm_final_project.Ui.Fragment.SearchFragment;
 import com.example.prm_final_project.Services.InternetConnection;
 import com.example.prm_final_project.Ui.Fragment.SearchResultViewModel;
 import com.example.prm_final_project.callbackInterface.AllDataCallback;
+import com.example.prm_final_project.callbackInterface.UserCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -67,29 +69,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             mAuth = FirebaseAuth.getInstance();
             isGuest = checkGuest();
 
-            UserDao.readAllUserFirst();
-            DeckDao.readAllDecksOnce(new AllDataCallback() {
+            UserDao.readAllUserFirst(new UserCallback() {
                 @Override
-                public void onResponse(Hashtable<String, Deck> allDecks) {
-                        if (isGuest) {
-                            Log.e("check guest", "true");
-                            Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                            startActivity(i);
+                public void onResponse(ArrayList<User> allUsers, User changeUser, int type) {
+                    if(type ==0){
+                    DeckDao.readAllDecksOnce(new AllDataCallback() {
+                        @Override
+                        public void onResponse(Hashtable<String, Deck> allDecks) {
+                            if (isGuest) {
+                                Log.e("check guest", "true");
+                                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                                startActivity(i);
 
-                        } else {
-                            Log.e("check guest", "false");
-                            // set home fragment by default
-                            loadFragment(fragmentHome);
-                            CURRENT_FRAGMENT = HOME_FRAGMENT;
-                            bottomNavigationView = findViewById(R.id.bottom_navigation);
-                            bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
-                        }
+                            } else {
+                                Log.e("check guest", "false");
+                                // set home fragment by default
+                                loadFragment(fragmentHome);
+                                CURRENT_FRAGMENT = HOME_FRAGMENT;
+                                bottomNavigationView = findViewById(R.id.bottom_navigation);
+                                bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
+                            }
+                        };
+
+                    });}
+                    else{
+                        Log.i("here","Yolo");
+                        Intent i = new Intent(MainActivity.this,NoInternetActivity.class);
+                        startActivity(i);
+                        finish();
                     };
-
+                }
             });
-
-
-
         } else {
             Toast.makeText(MainActivity.this, "Not connect to internet", Toast.LENGTH_SHORT).show();
             // Gửi sang trang Lỗi kết nối

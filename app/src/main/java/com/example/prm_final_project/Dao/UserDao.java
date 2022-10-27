@@ -11,6 +11,7 @@ import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
+import com.example.prm_final_project.callbackInterface.UserCallback;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -128,7 +129,32 @@ public class UserDao {
         return newUser;
     };
 
-    public static void readAllUserFirst(){
+    public static void readAllUserFirst(UserCallback callback){
+        data.getReference("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                Log.d("USERDAO_childAdded", task.getException()+"-erre");
+                if(task.isSuccessful()) {
+                    DataSnapshot snapshot = task.getResult();
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        User u = getSnapshotUser(ds);
+
+                        if (u.getUserId() != null) {
+                            allUserHT.put(u.getUserId(), u);
+                            allUsers.add(u);
+                            Log.d("USERDAO_childAdded", "id: "+u.getUserId()+"-" + u.getUsername());
+                        }
+
+                    }
+                    callback.onResponse(null,null,0);      ;
+                }
+
+                else{
+                    callback.onResponse(null,null ,1);
+                };
+            }
+        });
+
         ref = data.getReference("Users");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -137,7 +163,6 @@ public class UserDao {
                 if(u.getUserId() != null) {
                     allUserHT.put(u.getUserId(), u);
                     allUsers.add(u);
-                    Log.d("USERDAO_childAdded", "id " + u.getUsername());
                 };
             }
 

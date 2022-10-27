@@ -1,5 +1,6 @@
 package com.example.prm_final_project.Ui.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -95,24 +97,34 @@ public class RecentDeckFragment extends Fragment {
         user  = UserDao.getUser();
         currentUser = UserDao.allUserHT.get(user.getUid());
 
-        // Get RecentDeck;
-        recentDeckKeys = currentUser.getRecentDecks();
+        if(currentUser == null) {
+            Log.i("here","fuk");
+            Intent i = new Intent(getActivity(), NoInternetActivity.class);
+            startActivity(i);
+            getActivity().finish();
 
-        Collections.sort(recentDeckKeys, (o1, o2) -> {
-                            return (int) (o2.getTimeStamp() - o1.getTimeStamp());
-                        });
-        ArrayList<Deck> recentDeck = new ArrayList<>();
-        recentDecks =  matchHashMapRecentDeck();
+        }else {
+            // Get RecentDeck;
+            Log.i("eror", currentUser.getUserId());
+            recentDeckKeys = currentUser.getRecentDecks();
 
-        RvPublicDeck = view.findViewById(R.id.RvDecksRecent);
-        RvPublicDeck.setNestedScrollingEnabled(false);
-        homeDeckAdap = new HomeDeckListAdapter(getActivity(),recentDecks);
+            Collections.sort(recentDeckKeys, (o1, o2) -> {
+                return (int) (o2.getTimeStamp() - o1.getTimeStamp());
+            });
+            ArrayList<Deck> recentDeck = new ArrayList<>();
+            recentDecks = matchHashMapRecentDeck();
 
-        RvPublicDeck.setAdapter( homeDeckAdap);
-        RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
-        homeDeckAdap.notifyDataSetChanged();
-        return view;
+            RvPublicDeck = view.findViewById(R.id.RvDecksRecent);
+            RvPublicDeck.setNestedScrollingEnabled(false);
+            homeDeckAdap = new HomeDeckListAdapter(getActivity(), recentDecks);
+
+            RvPublicDeck.setAdapter(homeDeckAdap);
+            RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
+            homeDeckAdap.notifyDataSetChanged();
+        };
+            return view;
     }
+
 
     public  ArrayList<Deck> matchHashMapRecentDeck(){
         ArrayList<Deck> recentDeck = new ArrayList<>();
