@@ -121,6 +121,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(@NonNull FacebookException e) {
+                        Toast.makeText(LoginActivity.this, e.toString(),
+                                Toast.LENGTH_SHORT).show();
                     }
                 });
         progressDialog = new ProgressDialog(this);
@@ -220,7 +222,7 @@ public class LoginActivity extends AppCompatActivity {
     };
 
     private void onLoginFacebook(){
-        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
+        LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email","public_profile"));
 
     };
     private void onLoginFacebook_(){
