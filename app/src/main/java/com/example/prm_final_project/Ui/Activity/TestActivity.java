@@ -39,7 +39,8 @@ public class TestActivity extends AppCompatActivity {
     private RadioGroup radio_g;
     private RadioButton rb1,rb2,rb3,rb4;
 
-    public static int marks=0,correct=0,wrong=0;
+    public static int marks=0,correct=0,wrong=0, numQuest = 0;
+    public static String title = "";
     int questnum = 0;
 
     @Override
@@ -49,7 +50,8 @@ public class TestActivity extends AppCompatActivity {
         deck = (Deck) getIntent().getSerializableExtra("TestDeck");
         init();
         initQuestionAnswerSet();
-        int numQuest = getIntent().getIntExtra("numQues", questionSet.size());
+        numQuest = getIntent().getIntExtra("numQues", questionSet.size());
+        title = deck.getTitle();
 
 
         Collections.shuffle(questionSet);
@@ -89,6 +91,7 @@ public class TestActivity extends AppCompatActivity {
                 else{
                     marks=correct;
                     Intent in = new Intent(getApplicationContext(),ResultMultipleChoiceActivity.class);
+                    in.putExtra("viewDeck",deck);
                     startActivity(in);
                 }
                 radio_g.clearCheck();
