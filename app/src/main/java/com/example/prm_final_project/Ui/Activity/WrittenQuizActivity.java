@@ -25,7 +25,8 @@ public class WrittenQuizActivity extends AppCompatActivity {
 
     private Button SubmitQuestion, Quit;
     private EditText Answer;
-    public static int marks=0,correct=0,wrong=0;
+    public static int marks=0,correct=0,wrong=0,numQuest = 0 ;
+    public static String title  ="";
     int questnum = 0;
     private Deck deck;
 
@@ -36,8 +37,14 @@ public class WrittenQuizActivity extends AppCompatActivity {
         deck = (Deck) getIntent().getSerializableExtra("TestDeck");
         init();
         initQuestionAnswerSet();
-        int numQuest = getIntent().getIntExtra("numQues", questionSet.size());
+        numQuest = getIntent().getIntExtra("numQues", questionSet.size());
+        title = deck.getTitle();
+
         Collections.shuffle(questionSet);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(deck.getTitle());
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+
         Question.setText(questionSet.get(questnum).getQuestion());
         SubmitQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +76,10 @@ public class WrittenQuizActivity extends AppCompatActivity {
                 else{
                     marks=correct;
                     Intent in = new Intent(getApplicationContext(),ResultWrittenChoiceActivity.class);
+                    in.putExtra("viewDeck",deck);
                     startActivity(in);
                 }
+                Answer.setText("");
 
             }
         });
@@ -89,6 +98,11 @@ public class WrittenQuizActivity extends AppCompatActivity {
             questionSet.add(quiz);
             AnswerSet.add(card.get(1));
         }
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
 }

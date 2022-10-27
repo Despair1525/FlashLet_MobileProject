@@ -204,7 +204,7 @@
                             android:id="@+id/vc_Reload"
                             android:layout_width="50dp"
                             android:layout_height="50dp"
-                            android:src="@drawable/icon_reload"
+                            android:src="@drawable/icon_reload2"
                             />
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"
@@ -314,7 +314,7 @@
                             android:layout_width="50dp"
                             android:layout_height="50dp"
 
-                            android:src="@drawable/icon_test"
+                            android:src="@drawable/icon_view_all_card"
                             />
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="wrap_content"

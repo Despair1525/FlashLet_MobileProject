@@ -8,30 +8,41 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 
 public class ResultWrittenChoiceActivity extends AppCompatActivity {
     private TextView Correct, Wrong;
     private Button RestartButton;
+    private Deck deck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_multiple_choice);
         init();
+
+        if ( getIntent().getSerializableExtra("viewDeck") != null){
+            deck = (Deck) getIntent().getSerializableExtra("viewDeck");
+        }
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(WrittenQuizActivity.title);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         StringBuffer sb = new StringBuffer();
-        sb.append("Correct answers: " + WrittenQuizActivity.correct + "\n");
-        StringBuffer sb2 = new StringBuffer();
-        sb2.append("Wrong Answers: " + WrittenQuizActivity.wrong + "\n");
+        sb.append("Your score is " + WrittenQuizActivity.correct + " out of " + WrittenQuizActivity.numQuest);
+
+
+
         Correct.setText(sb);
-        Wrong.setText(sb2);
 
         WrittenQuizActivity.correct=0;
         WrittenQuizActivity.wrong=0;
         RestartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent in = new Intent(getApplicationContext(),MainActivity.class);
+                Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
+                in.putExtra("viewDeck",deck);
                 startActivity(in);
             }
         });
@@ -39,7 +50,12 @@ public class ResultWrittenChoiceActivity extends AppCompatActivity {
 
     public void init() {
         Correct = findViewById(R.id.Correct);
-        Wrong = findViewById(R.id.Wrong);
         RestartButton = findViewById(R.id.btnRestart);
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
+
 }

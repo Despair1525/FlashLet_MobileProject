@@ -50,17 +50,18 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewCardActivity extends AppCompatActivity  {
+public class ViewCardActivity extends AppCompatActivity {
     private Deck deck;
     private ViewPager2 viewPager2;
     private ImageView imageViewLearn;
     private TextView tvTitile;
     private TextView tvView, textViewAuthor, textViewView, textViewTitle;
-    private ImageView imageReload,imageTest;
+    private ImageView imageReload, imageTest;
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     private RatingBar bar;
     FirebaseUser user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,22 +88,21 @@ public class ViewCardActivity extends AppCompatActivity  {
         viewRelativeLayout.setOnClickListener(view -> onViewFlashCard());
 
 
-
-        if ( getIntent().getSerializableExtra("viewDeck") != null){
+        if (getIntent().getSerializableExtra("viewDeck") != null) {
             deck = (Deck) getIntent().getSerializableExtra("viewDeck");
         }
-        if(deck.getCards().size()>=5){
-            testRelativeLayout.setOnClickListener(view -> onTest());}
-        else{
+        if (deck.getCards().size() >= 5) {
+            testRelativeLayout.setOnClickListener(view -> onTest());
+        } else {
             testRelativeLayout.setOnClickListener(view -> onTest2());
         }
         getSupportActionBar().setTitle(deck.getTitle());
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewTitle.setText(deck.getTitle());
-        textViewView.setText(deck.getView()+"");
+        textViewView.setText(deck.getView() + "");
         textViewAuthor.setText(deck.getAuthor());
-        user  = UserDao.getUser();
+        user = UserDao.getUser();
         loadSlideFlash();
     }
 
@@ -110,7 +110,7 @@ public class ViewCardActivity extends AppCompatActivity  {
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
         View layout = getLayoutInflater().from(ViewCardActivity.this).inflate(
                 R.layout.activity_choose_type_test_written,
-                (ConstraintLayout)findViewById(R.id.layoutDialog)
+                (ConstraintLayout) findViewById(R.id.layoutDialog)
         );
         builder.setView(layout);
 
@@ -118,7 +118,7 @@ public class ViewCardActivity extends AppCompatActivity  {
 //        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
 //        builder.setView(layout);
         EditText quesNum = layout.findViewById(R.id.numques_num);
-        quesNum.setHint(" /"+deck.getCards().size());
+        quesNum.setHint(" /" + deck.getCards().size());
         Button yesButton = layout.findViewById(R.id.buttonYes);
         Button noButton = layout.findViewById(R.id.buttonNo);
 
@@ -127,19 +127,20 @@ public class ViewCardActivity extends AppCompatActivity  {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(quesNum.getText().toString().isEmpty()){
+                if (quesNum.getText().toString().isEmpty()) {
                     quesNum.setError("Please fill out number of questions");
                     return;
                 }
                 int numQues = Integer.parseInt(quesNum.getText().toString().trim());
-                if(numQues >  deck.getCards().size() ) {
+                if (numQues > deck.getCards().size()) {
                     Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
                     return;
-                };
-                    Intent i = new Intent(ViewCardActivity.this,WrittenQuizActivity.class);
-                    i.putExtra("numQues",numQues);
-                    i.putExtra("TestDeck",deck);
-                    startActivity(i);
+                }
+                ;
+                Intent i = new Intent(ViewCardActivity.this, WrittenQuizActivity.class);
+                i.putExtra("numQues", numQues);
+                i.putExtra("TestDeck", deck);
+                startActivity(i);
 
             }
         });
@@ -158,7 +159,7 @@ public class ViewCardActivity extends AppCompatActivity  {
 
     private void onViewFlashCard() {
         Intent i = new Intent(this, ViewAllCardsActivity.class);
-        i.putExtra("currentDeck",deck);
+        i.putExtra("currentDeck", deck);
         startActivity(i);
     }
 
@@ -166,7 +167,7 @@ public class ViewCardActivity extends AppCompatActivity  {
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
         View layout = getLayoutInflater().from(ViewCardActivity.this).inflate(
                 R.layout.activity_choose_type_test,
-                (ConstraintLayout)findViewById(R.id.layoutDialog)
+                (ConstraintLayout) findViewById(R.id.layoutDialog)
         );
         builder.setView(layout);
 
@@ -174,7 +175,7 @@ public class ViewCardActivity extends AppCompatActivity  {
 //        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
 //        builder.setView(layout);
         EditText quesNum = layout.findViewById(R.id.numques_num);
-        quesNum.setHint(" /"+deck.getCards().size());
+        quesNum.setHint(" /" + deck.getCards().size());
         RadioGroup radio_g = layout.findViewById(R.id.QuestionType);
         Button yesButton = layout.findViewById(R.id.buttonYes);
         Button noButton = layout.findViewById(R.id.buttonNo);
@@ -184,36 +185,36 @@ public class ViewCardActivity extends AppCompatActivity  {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(radio_g.getCheckedRadioButtonId()==-1)
-                {
+                if (radio_g.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Please select one test type", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 RadioButton uans = (RadioButton) layout.findViewById(radio_g.getCheckedRadioButtonId());
 //                String ansText = uans.getText().toString();
-                if(quesNum.getText().toString().isEmpty()){
+                if (quesNum.getText().toString().isEmpty()) {
                     quesNum.setError("Please fill out number of questions");
                     return;
                 }
                 int numQues = Integer.parseInt(quesNum.getText().toString().trim());
-                if(numQues >  deck.getCards().size() ) {
+                if (numQues > deck.getCards().size()) {
                     Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
                     return;
-                };
-                if(uans == layout.findViewById(R.id.multiChoice)){
-                    //ansText.equalsIgnoreCase("Multiple Choice")
-                    Intent i = new Intent(ViewCardActivity.this,TestActivity.class);
-                    i.putExtra("numQues",numQues);
-                    i.putExtra("TestDeck",deck);
-                    startActivity(i);
                 }
-                else {
-                    Intent i = new Intent(ViewCardActivity.this,WrittenQuizActivity.class);
-                    i.putExtra("numQues",numQues);
-                    i.putExtra("TestDeck",deck);
+                ;
+                if (uans == layout.findViewById(R.id.multiChoice)) {
+                    //ansText.equalsIgnoreCase("Multiple Choice")
+                    Intent i = new Intent(ViewCardActivity.this, TestActivity.class);
+                    i.putExtra("numQues", numQues);
+                    i.putExtra("TestDeck", deck);
+                    startActivity(i);
+                } else {
+                    Intent i = new Intent(ViewCardActivity.this, WrittenQuizActivity.class);
+                    i.putExtra("numQues", numQues);
+                    i.putExtra("TestDeck", deck);
                     startActivity(i);
 
-                };
+                }
+                ;
             }
         });
 
@@ -232,17 +233,20 @@ public class ViewCardActivity extends AppCompatActivity  {
     private void onReload() {
         loadSlideFlash();
     }
-    private void loadSlideFlash(){
+
+    private void loadSlideFlash() {
         initSlideCard(); // Set Slide Flash card
 //        cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
 //        recyclerViewList.setAdapter(cardViewAdapter);
 //        recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
 
-    };
+    }
 
-    public void initSlideCard(){
+    ;
+
+    public void initSlideCard() {
         viewPager2 = findViewById(R.id.viewPagerImageSlider);
-        viewPager2.setAdapter(new SliderFlashcardAdapter(this,deck,viewPager2));
+        viewPager2.setAdapter(new SliderFlashcardAdapter(this, deck, viewPager2));
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(3);
@@ -253,27 +257,30 @@ public class ViewCardActivity extends AppCompatActivity  {
         compositePageTransformer.addTransformer(new ViewPager2.PageTransformer() {
             @Override
             public void transformPage(@NonNull View page, float position) {
-                float r = 1- Math.abs(position);
-                page.setScaleY(0.85f + r* 0.15f);
+                float r = 1 - Math.abs(position);
+                page.setScaleY(0.85f + r * 0.15f);
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
-    };
+    }
+
+    ;
 
 
+    public void onLearn() {
+        Bundle b = new Bundle();
+        Intent i = new Intent(this, LearnCardActivity.class);
+        i.putExtra("currentDeck", deck);
+        startActivity(i);
+    }
 
-   public void onLearn(){
-       Bundle b = new Bundle();
-       Intent i = new Intent(this, LearnCardActivity.class);
-       i.putExtra("currentDeck",deck);
-       startActivity(i);
-   };
+    ;
 
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.viewcard_menu,menu);
-        if(menu instanceof MenuBuilder){
+        getMenuInflater().inflate(R.menu.viewcard_menu, menu);
+        if (menu instanceof MenuBuilder) {
             MenuBuilder m = (MenuBuilder) menu;
             m.setOptionalIconsVisible(true);
         }
@@ -282,7 +289,7 @@ public class ViewCardActivity extends AppCompatActivity  {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.copySet:
                 Toast.makeText(this, "CopySet", Toast.LENGTH_SHORT).show();
                 break;
@@ -290,36 +297,40 @@ public class ViewCardActivity extends AppCompatActivity  {
                 Toast.makeText(this, "ShareSet", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.editSet:
-                if(user.getDisplayName().equalsIgnoreCase(deck.getAuthor())){
-                Intent i = new Intent(this, EditDeckActivity.class);
-                i.putExtra("editDeck",deck);
-                startActivity(i);
-                break;}
-                else{
+                if (user.getDisplayName().equalsIgnoreCase(deck.getAuthor())) {
+                    Intent i = new Intent(this, EditDeckActivity.class);
+                    i.putExtra("editDeck", deck);
+                    startActivity(i);
+                    break;
+                } else {
                     Toast.makeText(this, "You must own this set to edit", Toast.LENGTH_SHORT).show();
                 }
             case R.id.deleteSet:
-                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+                if (user.getDisplayName().equalsIgnoreCase(deck.getAuthor())) {
+                    Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "You must own this set to delete", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.saveSet:
                 String UserId = UserDao.getUser().getUid();
                 String deckId = deck.getDeckId();
-                String id = UserId+"-"+deckId;
-                FavoriteDeck favoriteDeck = new FavoriteDeck(id,UserId,deckId, Methods.getTimeLong());
+                String id = UserId + "-" + deckId;
+                FavoriteDeck favoriteDeck = new FavoriteDeck(id, UserId, deckId, Methods.getTimeLong());
                 DeckDao.addFavoriteDeck(favoriteDeck);
                 break;
 
             case R.id.infoSet:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle("Deck Informations");
-                LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
+                LayoutInflater inflater = ViewCardActivity.this.getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog_deck_information   /*my layout here*/, null);
                 builder.setView(layout);
-                TextView deckIdInfo =  layout.findViewById(R.id.tvDeckId);
+                TextView deckIdInfo = layout.findViewById(R.id.tvDeckId);
                 TextView Author = layout.findViewById(R.id.tvAuthor);
-                TextView Uid = layout.findViewById(R.id.tvUid)   ;
-                deckIdInfo.setText("DeckId"+deck.getDeckId());
-                Author.setText("Author:"+deck.getAuthor());
+                TextView Uid = layout.findViewById(R.id.tvUid);
+                deckIdInfo.setText("DeckId" + deck.getDeckId());
+                Author.setText("Author:" + deck.getAuthor());
                 builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -334,11 +345,11 @@ public class ViewCardActivity extends AppCompatActivity  {
                 });
 
                 builder.show();
-               break;
+                break;
 
             case R.id.rateSet:
                 builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);
-                inflater =ViewCardActivity.this.getLayoutInflater();
+                inflater = ViewCardActivity.this.getLayoutInflater();
                 layout = inflater.inflate(R.layout.dialog_rating_deck   /*my layout here*/, null);
                 builder.setView(layout);
                 RatingBar ratingBar = layout.findViewById(R.id.ratingBar);
@@ -346,16 +357,17 @@ public class ViewCardActivity extends AppCompatActivity  {
                 builder.setPositiveButton("Get Rate", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String ratingPoint = ratingBar.getRating()+"";
+                        String ratingPoint = ratingBar.getRating() + "";
                         Log.i("ratingPoint", ratingPoint);
-                        double score =   (ratingBar.getRating() - 3 + (int)(deck.getView() / 100 ) ) ;
+                        double score = (ratingBar.getRating() - 3 + (int) (deck.getView() / 100));
                         User rateUser = UserDao.readUserById(UserDao.getUser().getUid());
-                        if(rateUser != null) {
-                            rateUser.getRate().put(deck.getDeckId(),score);
+                        if (rateUser != null) {
+                            rateUser.getRate().put(deck.getDeckId(), score);
                             UserDao.addUser(rateUser);
-                        }else {
-                            Log.i("RateUser","Not found User ID");
-                        };
+                        } else {
+                            Log.i("RateUser", "Not found User ID");
+                        }
+                        ;
                     }
                 });
 
@@ -370,4 +382,4 @@ public class ViewCardActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-    }
+}
