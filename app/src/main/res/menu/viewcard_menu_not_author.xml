@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <item
+        android:id="@+id/infoSet"
+        android:title="Information"
+        android:icon="@drawable/ic_baseline_info_24"/>
+    <item
+        android:id="@+id/saveSet"
+        android:title="Like this deck"
+        android:icon="@drawable/ic_baseline_save_24"/>
+    <item
+        android:id="@+id/copySet"
+        android:title="Copy this set"
+        android:icon="@drawable/ic_baseline_content_copy_24"/>
+    <item
+        android:id="@+id/rateSet"
+        android:title="Rate this set"
+        android:icon="@drawable/ic_baseline_star_rate_24"/>
+
+
+</menu>
