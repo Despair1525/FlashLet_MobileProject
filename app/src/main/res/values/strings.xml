@@ -12,4 +12,5 @@
     <string name="facebook_app_id">482114910602448</string>
     <string name="fb_login_protocol_scheme">fb482114910602448</string>
     <string name="facebook_client_token">59d6714cbce926ddfd37a551ee440370</string>
+    <string name="ic_size">50dp</string>
 </resources>

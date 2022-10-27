@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.prm_final_project.Adapter.CustomViewPager;
 import com.example.prm_final_project.Adapter.DeckListTypeAdapter;
@@ -43,6 +44,8 @@ import com.example.prm_final_project.Util.recomendSystem;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -78,14 +81,17 @@ public class HomeFragment extends Fragment {
     private boolean inPublic = true;
     HomeDeckListAdapter homeDeckAdap,homeDeckAdapNew ;
     DeckListTypeAdapter deckListTypeAdaper;
-    private RecyclerView RvPublicDeck,RvListDeckType;
+    private RecyclerView RvPublicDeck;
     private TextView tvUserName;
     private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
-    private CustomViewPager viewPager;
+    private ViewPager2 viewPager;
+    HomePageAdapter adapter;
+
     Context thiscontext;
     private boolean firstTime = true;
+    TabLayout tabDeckType;
 
     public HomeFragment(){
     }
@@ -109,11 +115,11 @@ public class HomeFragment extends Fragment {
         // init Ui
         viewPager = view.findViewById(R.id.viewPageHomePage);
         tvUserName = view.findViewById(R.id.tvHelloUserName);
-//        PbLoading =  view.findViewById(R.id.pbLoadingData);
+        tabDeckType =view.findViewById(R.id.tabDeckType);
 
-//        RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
-//        RvPublicDeck.setNestedScrollingEnabled(false);
-        RvListDeckType = view.findViewById(R.id.RvListDeckType);
+        tabDeckType.addTab(tabDeckType.newTab());
+        tabDeckType.addTab(tabDeckType.newTab());
+        tabDeckType.addTab(tabDeckType.newTab());
 
 
         String userName="Guest";
@@ -121,90 +127,48 @@ public class HomeFragment extends Fragment {
             userName =  user.getDisplayName();
         };
         tvUserName.setText(userName);
-//        PbLoading.setVisibility(ProgressBar.VISIBLE);
-
-        ArrayList<DeckListType> listIem = initDeckList();
-//        homeDeckAdap = new HomeDeckListAdapter(getActivity(),allDecks);
         // Set ViewPager
+        setupViewPager(viewPager);
 
-        ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(new PublicDeckFragment());
-        fragments.add(new RecentDeckFragment());
-        fragments.add(new RecomenDeckFragment());
-        HomePageAdapter homePageAdapter = new HomePageAdapter(getChildFragmentManager(),fragments);
-        viewPager.setAdapter(homePageAdapter);
+        new TabLayoutMediator( tabDeckType, viewPager,
+                (tab, position)-> {tab.setText(adapter.mFragmentTitleList.get(position));
+//                tab.setCustomView(R.layout.custom_tab);
+                }).attach();
 
-        deckListTypeAdaper = new DeckListTypeAdapter(listIem, new AdapterCallback() {
-            @Override
-            public void onResponse( int type) {
-                typeDeck = type;
-                viewPager.setCurrentItem(type);
+        for (int i = 0; i < tabDeckType.getTabCount(); i++){
 
-//                if(type == 0){
-////                        ArrayList<Deck>  allDeckArray = new ArrayList<>();
-////                        allDeckArray.addAll(originDeckHm.values());
-////                        changeRecle(allDecks,allDeckArray);
-//                };
-//                if(type == 1){
-////                        recentDeckKeys = currentUser.getRecentDecks();
-////                        Collections.sort(recentDeckKeys, (o1, o2) -> {
-////                            return (int) (o2.getTimeStamp() - o1.getTimeStamp());
-////                        });
-////                        ArrayList<Deck> recentDeck = new ArrayList<>();
-////                        recentDeck =  matchHashMapRecentDeck();
-////                        changeRecle(allDecks,recentDeck);
-//
-//                };
-//                if(type == 2){
-////                        RvPublicDeck.setVisibility(RecyclerView.GONE);
-////                        PbLoading.setVisibility(ProgressBar.VISIBLE);
-////                        ArrayList<Deck>  allDeckArray = new ArrayList<>();
-////                        ArrayList<User>  allUserArray = new ArrayList<>();
-////                        allDeckArray.addAll(originDeckHm.values());
-////                        allUserArray.addAll(UserDao.allUserHT.values());
-////
-////                        recomendSystem rs = new recomendSystem();
-////
-////                        rs.slopeOne(allDeckArray,allUserArray);
-////                        ArrayList<Deck> listReco = new ArrayList<>();
-////                        Log.i("RecoSize",UserDao.allUsers.size()+"");
-////                        HashMap<Deck, Double> listRecomend = rs.outputData.get(UserDao.getUser().getUid());
-////                        listReco.addAll(listRecomend.keySet());
-////
-////                        Collections.sort(listReco, (o1, o2) -> (listRecomend.get(o1) - listRecomend.get(o2)) > 0 ? 1 : -1);
-//////                        Toast.makeText(getActivity(),"You enter Popular",Toast.LENGTH_SHORT).show();\
-////                        changeRecle(allDecks,listReco);
-////                        rs.printData();
-//                };
-//                    homeDeckAdap.notifyDataSetChanged();
+            if(i == 1){
+                TextView tv = (TextView) LayoutInflater.from(getActivity())
+                        .inflate(R.layout.custom_tab2, null);
+                tabDeckType.getTabAt(i).setCustomView(tv);
             }
-        }, RvListDeckType);
-
-        RvListDeckType.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
-        RvListDeckType.setAdapter((deckListTypeAdaper));
-        viewPager.setPagingEnabled(false);
+            else if(i== 2) {
+                TextView tv = (TextView) LayoutInflater.from(getActivity())
+                        .inflate(R.layout.custom_tab3, null);
+                tabDeckType.getTabAt(i).setCustomView(tv);
+            }
+            else {
+                TextView tv = (TextView) LayoutInflater.from(getActivity())
+                        .inflate(R.layout.custom_tab, null);
+                tabDeckType.getTabAt(i).setCustomView(tv);
+            }
+        }
         return view;
     }
 
-    private ArrayList<DeckListType> initDeckList() {
-        ArrayList<DeckListType> listIem = new ArrayList<>();
-        listIem.add(new DeckListType(R.drawable.public_icon,"Public Deck"));
-        listIem.add(new DeckListType(R.drawable.rectnly_icon,"Recently Deck"));
-        listIem.add(new DeckListType(R.drawable.popular_deck,"Popular Deck"));
-return listIem;
-    }
-public void changeRecle(ArrayList<Deck> a , ArrayList<Deck> b){
+    private void setupViewPager(ViewPager2 viewPager) {
 
-    a.clear();
-    for(int i = 0; i<b.size();i++) {
-       a.add(b.get(i));
-    };
+        adapter =new HomePageAdapter(getActivity().getSupportFragmentManager(),
+                getActivity().getLifecycle()    );
+        adapter.addFragment(new  PublicDeckFragment(), "Public");
+        adapter.addFragment(new RecentDeckFragment(), "Recent");
+        adapter.addFragment(new RecomenDeckFragment(), "Popular");
 
-};
-    public FirebaseUser checkGuest(){
-        FirebaseUser user = mAuth.getCurrentUser();
-       return user;
+        viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(1);
+
     }
+
 
 
 }
