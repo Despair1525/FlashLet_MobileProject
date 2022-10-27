@@ -8,7 +8,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".Ui.Activity.ViewCardActivity">
+    tools:context=".Ui.Activity.ViewCardActivity"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

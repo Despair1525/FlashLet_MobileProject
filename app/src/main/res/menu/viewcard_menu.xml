@@ -15,11 +15,6 @@
             android:title="Copy this set"
             android:icon="@drawable/ic_baseline_content_copy_24"/>
         <item
-            android:id="@+id/shareSet"
-            android:title="Share this set"
-            android:icon="@drawable/ic_baseline_share_24"/>
-
-        <item
             android:id="@+id/editSet"
             android:title="Edit this set"
             android:icon="@drawable/ic_baseline_edit_24"/>

@@ -231,7 +231,9 @@ public class ViewCardActivity extends AppCompatActivity {
     }
 
     private void onReload() {
-        loadSlideFlash();
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 
     private void loadSlideFlash() {
@@ -279,12 +281,21 @@ public class ViewCardActivity extends AppCompatActivity {
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.viewcard_menu, menu);
-        if (menu instanceof MenuBuilder) {
-            MenuBuilder m = (MenuBuilder) menu;
-            m.setOptionalIconsVisible(true);
+        if (user.getUid().equalsIgnoreCase(deck.getUid())) {
+            getMenuInflater().inflate(R.menu.viewcard_menu, menu);
+            if (menu instanceof MenuBuilder) {
+                MenuBuilder m = (MenuBuilder) menu;
+                m.setOptionalIconsVisible(true);
+            }
+            return super.onCreateOptionsMenu(menu);
+        } else {
+            getMenuInflater().inflate(R.menu.viewcard_menu_not_author, menu);
+            if (menu instanceof MenuBuilder) {
+                MenuBuilder m = (MenuBuilder) menu;
+                m.setOptionalIconsVisible(true);
+            }
+            return super.onCreateOptionsMenu(menu);
         }
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -293,11 +304,9 @@ public class ViewCardActivity extends AppCompatActivity {
             case R.id.copySet:
                 Toast.makeText(this, "CopySet", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.shareSet:
-                Toast.makeText(this, "ShareSet", Toast.LENGTH_SHORT).show();
-                break;
+
             case R.id.editSet:
-                if (user.getDisplayName().equalsIgnoreCase(deck.getAuthor())) {
+                if (user.getUid().equalsIgnoreCase(deck.getUid())) {
                     Intent i = new Intent(this, EditDeckActivity.class);
                     i.putExtra("editDeck", deck);
                     startActivity(i);
@@ -306,7 +315,7 @@ public class ViewCardActivity extends AppCompatActivity {
                     Toast.makeText(this, "You must own this set to edit", Toast.LENGTH_SHORT).show();
                 }
             case R.id.deleteSet:
-                if (user.getDisplayName().equalsIgnoreCase(deck.getAuthor())) {
+                if (user.getUid().equalsIgnoreCase(deck.getUid())) {
                     Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(this, "You must own this set to delete", Toast.LENGTH_SHORT).show();
