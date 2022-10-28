@@ -2,10 +2,10 @@
     <!-- Base application theme. -->
     <style name="Theme.PRM_Final_Project" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/toolBarColor</item>
-        <item name="colorPrimaryDark">@color/toolBarColor</item>
+        <item name="colorPrimary">@color/theme_color</item>
+        <item name="colorPrimaryDark">@color/theme_color</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="colorAccent">@color/toolBarColor</item>
+        <item name="colorAccent">@color/theme_color</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:fontFamily">@font/maian</item>
         <item name="android:windowDisablePreview">true</item>
