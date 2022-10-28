@@ -5,9 +5,12 @@
 
 
     <item
-        android:id="@+id/SaveEditAction"
-        android:title="favorite"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_baseline_done_24"/>
+        android:id="@+id/AddEditAction"
+        android:title="Add card"
+      />
+    <item
+        android:id="@+id/DeleteEditAction"
+        android:title="Delete card"
+        />
 
 </menu>

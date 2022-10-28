@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.Activity.EditDeckActivity"
+    android:orientation="vertical"
     >
 <LinearLayout
     android:layout_width="match_parent"
@@ -14,47 +15,88 @@
     android:orientation="vertical"
     android:id="@+id/deckInfor"
     >
-    <TextView
-        android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Public"/>
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/SwitchCompatIsPublic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        android:layout_marginLeft="15dp"
+        <TextView
+            android:layout_marginTop="20dp"
+            android:id="@+id/tvImport"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:drawableLeft="@drawable/ic_baseline_document_scanner_24"
+            android:text="Import document"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <ImageButton
+            android:layout_margin="5dp"
+            android:id="@+id/imageButtonAdd"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/deck_shape"
+            android:elevation="5dp"
+            android:src="@drawable/ic_baseline_control_point_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+         />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/editTitle"
         android:maxLength="30"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Title"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:background="@drawable/edt_bg_selector"
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
+        />
+
     <EditText
+        android:layout_marginRight="15dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:id="@+id/editDes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Description"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        android:background="@drawable/edt_bg_selector"
+        />
 
+    <androidx.appcompat.widget.SwitchCompat
+
+        android:id="@+id/SwitchCompatIsPublic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Public"
+        android:textColor="@color/toolBarColor"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        />
 </LinearLayout>
 
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@xml/textview_border2"
         android:elevation="20dp"
         android:padding="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageButtonAdd"
-        app:layout_constraintTop_toBottomOf="@+id/deckInfor"
         app:layout_constraintVertical_bias="0.0"
         tools:layout_editor_absoluteX="0dp">
 
@@ -66,20 +108,6 @@
             />
     </ScrollView>
 
-    <ImageButton
-        android:id="@+id/imageButtonAdd"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:background="@drawable/deck_shape"
-        android:elevation="5dp"
-        android:src="@drawable/ic_baseline_control_point_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.975"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.939" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

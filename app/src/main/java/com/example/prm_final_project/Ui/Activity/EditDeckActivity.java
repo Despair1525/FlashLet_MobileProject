@@ -41,8 +41,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditDeckActivity extends AppCompatActivity {
+public class EditDeckActivity extends AppCompatActivity implements View.OnClickListener {
 private String title;
+private TextView tvImport;
 private EditText EdTitle, EdDes;
 private Deck editDeck;
 private RecyclerView   recyclerViewList;
@@ -68,7 +69,7 @@ private ProgressDialog dialog;
             String uid = user.getUid();
             String author = user.getDisplayName();
             Boolean Public = true;
-            int view =1;
+            int view = 1;
 
             editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);
         };
@@ -78,6 +79,10 @@ private ProgressDialog dialog;
         EdDes = findViewById(R.id.editDes);
         EdTitle.setText(title);
         isPublic = findViewById(R.id.SwitchCompatIsPublic);
+        tvImport = findViewById(R.id.tvImport);
+
+        isPublic.setChecked(editDeck.isPublic());
+
         // Set RV
         recyclerViewList = findViewById(R.id.rcListEdit);
         cardViewAdapter = new EditCardAdapt(this,editDeck);
@@ -85,17 +90,16 @@ private ProgressDialog dialog;
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
 
         IbAdd.setOnClickListener(view -> onAdd());
-
+        tvImport.setOnClickListener(this);
         getSupportActionBar().setTitle("Edit Flashcard");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
-
     }
 
     private void onSave() {
 
-        if(editDeck.getCards().size() <2){
-            Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 2 !",Toast.LENGTH_SHORT).show();
+        if(editDeck.getCards().size() < 4){
+            Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 4 !",Toast.LENGTH_SHORT).show();
             return;
         };
         String title = EdTitle.getText().toString();
@@ -171,6 +175,7 @@ private ProgressDialog dialog;
                 newCard.add(back);
                 editDeck.getCards().add(newCard);
                 cardViewAdapter.notifyDataSetChanged();
+                recyclerViewList.scrollToPosition( editDeck.getCards().size()-1);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -217,11 +222,7 @@ private ProgressDialog dialog;
                 onSave();
                 break;
 
-            case R.id.UploadAction:
-                Intent i = new Intent(this,ImportDataActivity.class);
-                i.putExtra("editDeck",editDeck);
-                startActivity(i);
-                break;
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -231,6 +232,14 @@ private ProgressDialog dialog;
         return true;
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v == tvImport) {
+            Intent i = new Intent(this,ImportDataActivity.class);
+            i.putExtra("editDeck",editDeck);
+            startActivity(i);
+        };
+    }
 };
 
 

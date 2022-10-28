@@ -78,7 +78,7 @@
         <activity
             android:name=".Ui.Activity.SplashActivity"
             android:exported="true"
-            android:theme="@style/Theme.PRM_Final_Project.NoActionBar"
+            android:theme="@style/Theme.PRM_Final_Project.NoActionBar2"
             >
 
              <intent-filter>

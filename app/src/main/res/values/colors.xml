@@ -15,7 +15,9 @@
     <color name="toolBarColorClick">#ffffcc</color>
     <color name="rippleEffect">#7544AF50</color>
     <color name="loading">#03A9F4</color>
-<color name="theme_color">#9DC49F</color>
+    <color name="theme_color">#9DC49F</color>
+    <color name="theme_color_bold">#64A46C</color>
+    <color name="theme_color_white">#EAF2F2</color>
     <color name="primary_color">#446d54</color>
     <color name="second_color">#ebf2f0</color>
     <color name="text_color">#1b4a2e</color>
