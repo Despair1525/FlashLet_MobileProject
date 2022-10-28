@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -95,13 +97,17 @@ public class RecomenDeckFragment extends Fragment {
         allDecks = new ArrayList<>();
         originDeckHt = DeckDao.HmAllDeck;
 
-        allDecks.addAll(originDeckHt.values());
-        popularDecks.addAll(allDecks.subList(0,12));
+        allDecks.addAll(getPublicCard());
+        if(allDecks.size() > 11) {
+            popularDecks.addAll(allDecks.subList(0, 10));
+        }
 
+        else{
+            popularDecks.addAll(allDecks);
+        };
         Collections.sort( popularDecks, (o1, o2) -> {
             return (int) (o2.getView() - o1.getView());
         });
-
 
         RvPublicDeck = view.findViewById(R.id.RvDecksPopular);
         RvPublicDeck.setNestedScrollingEnabled(false);
@@ -110,8 +116,10 @@ public class RecomenDeckFragment extends Fragment {
         RvPublicDeck.setAdapter( homeDeckAdap);
         RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
         homeDeckAdap.notifyDataSetChanged();
-
-
         return view;
     }
+
+    public List<Deck> getPublicCard(){
+        return originDeckHt.values().stream().filter(deck -> deck.isPublic()).collect(Collectors.toList());
+    };
 }

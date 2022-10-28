@@ -63,7 +63,13 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         Deck curentDeck = decks.get(position);
         holder.title.setText(curentDeck.getTitle());
         holder.totalNum.setText(curentDeck.getCards().size()+" cards");
-        holder.author.setText(curentDeck.getAuthor());
+        User u = UserDao.allUserHT.get(curentDeck.getUid());
+        if(u == null) {
+            holder.author.setText("");
+        }else{
+            holder.author.setText(u.getUsername());
+        };
+
 //        if(!curentDeck.isPublic()) {
 //            holder.itemView.setVisibility(View.GONE);
 //            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));

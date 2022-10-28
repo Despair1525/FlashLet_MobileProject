@@ -23,6 +23,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class PublicDeckFragment extends Fragment {
@@ -74,18 +77,21 @@ public class PublicDeckFragment extends Fragment {
         allDecks = new ArrayList<>();
         originDeckHt = DeckDao.HmAllDeck;
         Log.i("HmAllDeckSize",originDeckHt.size()+"");
-        allDecks.addAll(originDeckHt.values());
 
+        allDecks.addAll(getPublicCard());
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
         RvPublicDeck.setNestedScrollingEnabled(false);
         homeDeckAdap = new HomeDeckListAdapter(getActivity(),allDecks);
 
         RvPublicDeck.setAdapter( homeDeckAdap);
         RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
-
         homeDeckAdap.notifyDataSetChanged();
 
         pb.setVisibility(ProgressBar.GONE);
         return view;
     }
+
+    public List<Deck> getPublicCard(){
+    return originDeckHt.values().stream().filter(deck -> deck.isPublic()).collect(Collectors.toList());
+    };
 }

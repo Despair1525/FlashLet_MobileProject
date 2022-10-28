@@ -34,6 +34,7 @@ import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
+import com.example.prm_final_project.Util.Regex;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -84,8 +85,11 @@ private ProgressDialog dialog;
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
 
         IbAdd.setOnClickListener(view -> onAdd());
-//        IbSave.setOnClickListener(view -> onSave());
+
         getSupportActionBar().setTitle("Edit Flashcard");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+
     }
 
     private void onSave() {
@@ -111,7 +115,7 @@ private ProgressDialog dialog;
 
                 FirebaseUser user = UserDao.getUser();
                 editDeck.setAuthor(user.getDisplayName());
-                editDeck.setTitle(EdTitle.getText().toString());
+                editDeck.setTitle(Regex.textNormalization(EdTitle.getText().toString()));
                 editDeck.setDescriptions(EdDes.getText().toString());
                 editDeck.setPublic(isPublic.isChecked());
 
@@ -130,8 +134,8 @@ private ProgressDialog dialog;
                 RecentDeck recentDeck= new RecentDeck(editDeck.getDeckId(),Methods.getTimeLong());
                 curentUser.getMyDeck().add(recentDeck);
                 UserDao.addUser(curentUser);
-//                Toast.makeText(EditDeckActivity.this, editDeck.getCards().size()+"|"+ Methods.generateFlashCardId()
-//                        +"|"+Methods.getTime()+"|"+userName+"|"+Public, Toast.LENGTH_SHORT).show();
+
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -221,7 +225,11 @@ private ProgressDialog dialog;
         }
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
+    }
 
 };
 

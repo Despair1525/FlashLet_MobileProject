@@ -66,20 +66,20 @@ public class HomeFragment extends Fragment {
     private ArrayList<Deck> newestDecks = new ArrayList<>();
     private ArrayList<Deck> recentDecks = new ArrayList<>();
     private ArrayList<Deck> slopeOneDeck = new ArrayList<>();
-    public static Hashtable<String,Deck> originDeckHt = new Hashtable<>();
+    public static Hashtable<String, Deck> originDeckHt = new Hashtable<>();
 
     ArrayList<String> myDeckKeys = new ArrayList<>();
-    Map<String,Deck> keyedDecks = new HashMap<>();
+    Map<String, Deck> keyedDecks = new HashMap<>();
     ArrayList<Deck> personalDecks = new ArrayList<>();
-    int typeDeck =0;
+    int typeDeck = 0;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
-    FirebaseUser user ;
+    FirebaseUser user;
     User currentUser;
 
     private ListView lvDecks;
     private boolean inPublic = true;
-    HomeDeckListAdapter homeDeckAdap,homeDeckAdapNew ;
+    HomeDeckListAdapter homeDeckAdap, homeDeckAdapNew;
     DeckListTypeAdapter deckListTypeAdaper;
     private RecyclerView RvPublicDeck;
     private TextView tvUserName;
@@ -93,8 +93,9 @@ public class HomeFragment extends Fragment {
     private boolean firstTime = true;
     TabLayout tabDeckType;
 
-    public HomeFragment(){
+    public HomeFragment() {
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,52 +103,52 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
+                             ViewGroup container, Bundle savedInstanceState) {
 
         thiscontext = container.getContext();
-        View view =  inflater.inflate(R.layout.activity_homepage, container, false);
+        View view = inflater.inflate(R.layout.activity_homepage, container, false);
         rootRef = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
         // Data acccess
-        user  = UserDao.getUser();
-        Log.i("currentUser",   currentUser+"");
+        user = UserDao.getUser();
+        User currentUser = UserDao.allUserHT.get(user.getUid());
+        Log.i("currentUser", currentUser + "");
         // init Ui
         viewPager = view.findViewById(R.id.viewPageHomePage);
         tvUserName = view.findViewById(R.id.tvHelloUserName);
-        tabDeckType =view.findViewById(R.id.tabDeckType);
+        tabDeckType = view.findViewById(R.id.tabDeckType);
 
         tabDeckType.addTab(tabDeckType.newTab());
         tabDeckType.addTab(tabDeckType.newTab());
         tabDeckType.addTab(tabDeckType.newTab());
 
 
-        String userName="Guest";
-        if(user != null){
-            userName =  user.getDisplayName();
-        };
+        String userName = "Guest";
+        if (currentUser != null) {
+            userName = currentUser.getUsername();
+        }
         tvUserName.setText(userName);
         // Set ViewPager
         setupViewPager(viewPager);
 
-        new TabLayoutMediator( tabDeckType, viewPager,
-                (tab, position)-> {tab.setText(adapter.mFragmentTitleList.get(position));
+        new TabLayoutMediator(tabDeckType, viewPager,
+                (tab, position) -> {
+                    tab.setText(adapter.mFragmentTitleList.get(position));
 //                tab.setCustomView(R.layout.custom_tab);
                 }).attach();
 
-        for (int i = 0; i < tabDeckType.getTabCount(); i++){
+        for (int i = 0; i < tabDeckType.getTabCount(); i++) {
 
-            if(i == 1){
+            if (i == 1) {
                 TextView tv = (TextView) LayoutInflater.from(getActivity())
                         .inflate(R.layout.custom_tab2, null);
                 tabDeckType.getTabAt(i).setCustomView(tv);
-            }
-            else if(i== 2) {
+            } else if (i == 2) {
                 TextView tv = (TextView) LayoutInflater.from(getActivity())
                         .inflate(R.layout.custom_tab3, null);
                 tabDeckType.getTabAt(i).setCustomView(tv);
-            }
-            else {
+            } else {
                 TextView tv = (TextView) LayoutInflater.from(getActivity())
                         .inflate(R.layout.custom_tab, null);
                 tabDeckType.getTabAt(i).setCustomView(tv);
@@ -158,9 +159,9 @@ public class HomeFragment extends Fragment {
 
     private void setupViewPager(ViewPager2 viewPager) {
 
-        adapter =new HomePageAdapter(getActivity().getSupportFragmentManager(),
-                getActivity().getLifecycle()    );
-        adapter.addFragment(new  PublicDeckFragment(), "Public");
+        adapter = new HomePageAdapter(getActivity().getSupportFragmentManager(),
+                getActivity().getLifecycle());
+        adapter.addFragment(new PublicDeckFragment(), "Public");
         adapter.addFragment(new RecentDeckFragment(), "Recent");
         adapter.addFragment(new RecomenDeckFragment(), "Popular");
 
@@ -168,7 +169,6 @@ public class HomeFragment extends Fragment {
         viewPager.setOffscreenPageLimit(1);
 
     }
-
 
 
 }

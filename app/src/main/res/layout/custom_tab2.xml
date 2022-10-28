@@ -2,15 +2,14 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:text="Recent"
     android:layout_height="wrap_content"
     android:layout_width="wrap_content"
-    android:textSize="20sp"
+    android:textSize="0dp"
     android:fontFamily="@font/maian"
     android:gravity="center"
     android:padding="10dp"
     android:background="@drawable/tab_selector"
-    android:drawableBottom="@drawable/ic_baseline_access_time_24"
+    android:drawableTop="@drawable/ic_baseline_access_time_24"
     android:textColor="@drawable/tab_text_color_selector"
     android:layout_margin="5dp"
     />

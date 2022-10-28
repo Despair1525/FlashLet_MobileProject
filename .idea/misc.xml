@@ -32,6 +32,7 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/layout/textview_border.xml" value="0.2375" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2325" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/drawable/bg.xml" value="0.2285" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/drawable/deck_shape.xml" value="0.1755" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/drawable/edt_bg_normal.xml" value="0.2285" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/drawable/edt_bg_selected.xml" value="0.2285" />
@@ -52,14 +53,21 @@
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/drawable/tab_selector.xml" value="0.116" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/drawable/tab_text_color_selector.xml" value="0.116" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/activity_change_password.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/activity_edit_deck.xml" value="0.25416666666666665" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/activity_homepage.xml" value="0.16666666666666666" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/activity_main.xml" value="0.536" />
-        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/custom_tab.xml" value="0.10364583333333334" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/custom_tab.xml" value="0.6" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/custom_tab2.xml" value="0.253125" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/custom_tab3.xml" value="0.146875" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/dialog_rating_deck.xml" value="0.1046875" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/item_deck_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/item_edit_card.xml" value="0.1046875" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/item_list_type.xml" value="0.16666666666666666" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/layout/splash_sceen.xml" value="0.2" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/menu/menu_not_user.xml" value="0.10364583333333334" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/menu/navigation_menu.xml" value="0.264" />
+        <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/menu/viewcard_menu.xml" value="0.1046875" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.116" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.116" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_project/FlashLet_MobileProject/app/src/main/res/mipmap-anydpi-v26/ic_public.xml" value="0.116" />
@@ -149,18 +157,6 @@
         <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer2/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.18432971014492755" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer2/FlashLet_MobileProject/app/src/main/res/layout/dialog_rating_deck.xml" value="0.18432971014492755" />
         <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer2/FlashLet_MobileProject/app/src/main/res/menu/viewcard_menu.xml" value="0.25416666666666665" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/drawable/ic_baseline_content_copy_24.xml" value="0.1855" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.1855" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.1855" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/drawable/ic_baseline_info_24.xml" value="0.1855" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/drawable/ic_baseline_share_24.xml" value="0.1855" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/layout/activity_choose_type_test_written.xml" value="0.14719202898550723" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/layout/activity_result_multiple_choice.xml" value="0.2210144927536232" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/layout/activity_test.xml" value="0.14719202898550723" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/layout/activity_view_card.xml" value="0.14719202898550723" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/layout/activity_written_quiz.xml" value="0.2210144927536232" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/layout/dialog_rating_deck.xml" value="0.2210144927536232" />
-        <entry key="..\:/On-classmaterials/Semester8/PRM392/New folder/ProjVer3/FlashLet_MobileProject/app/src/main/res/menu/viewcard_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/S8/PRM392/FinalProject/FlashLet_MobileProject/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
         <entry key="..\:/S8/PRM392/FinalProject/FlashLet_MobileProject/app/src/main/res/drawable/ic_email.xml" value="0.145" />
         <entry key="..\:/S8/PRM392/FinalProject/FlashLet_MobileProject/app/src/main/res/drawable/ic_facebook.xml" value="0.1" />

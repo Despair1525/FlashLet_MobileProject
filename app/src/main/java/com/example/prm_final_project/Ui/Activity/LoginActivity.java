@@ -163,7 +163,6 @@ public class LoginActivity extends AppCompatActivity {
                             if(mAuth.getCurrentUser().isEmailVerified()){
                                 Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.putExtra("allDecks", allDecks);
                                 startActivity(intent);
                                 finish();
                             }
@@ -186,30 +185,10 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-
                         }
                     }
-
                 });}
     };
-//<<<<<<< Updated upstream
-//    private void onGuest(){
-////        Intent i = new Intent(getApplicationContext(), HomeFragment.class);
-//=======
-////    private void onGuest(){
-////        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
-//>>>>>>> Stashed changes
-////        i.putExtra("allDecks", allDecks); // Send cac Decks Public sang
-////        startActivity(i);
-
-//        Fragment fragment = new HomeFragment();
-//
-//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-//        transaction.replace(R.id.frame_container, fragment);
-//        transaction.addToBackStack(null);
-//        transaction.commit();
-//
-//    };
 
     private void onSignUp(){
         Intent i = new Intent(this,RegisterActivity.class);
@@ -245,12 +224,10 @@ public class LoginActivity extends AppCompatActivity {
                         }, 1000);
                     }
                     LoginManager.getInstance().logOut();
-                    finish();
 
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("allDecks", allDecks);
-
                     startActivity(intent);
+                    finishAffinity();
 
                 }else{
                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT);
@@ -294,11 +271,10 @@ public class LoginActivity extends AppCompatActivity {
 
                                     }
                                     gsc.signOut();
-                                    finish();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     intent.putExtra("allDecks", allDecks);
-
                                     startActivity(intent);
+                                    finishAffinity();
                                 }else{
                                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT);
                                 }

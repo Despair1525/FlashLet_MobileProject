@@ -19,6 +19,7 @@ import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -99,11 +100,11 @@ public class RecentDeckFragment extends Fragment {
 
         if(currentUser == null) {
             Log.i("here","fuk");
-            Intent i = new Intent(getActivity(), NoInternetActivity.class);
+            Intent i = new Intent(getActivity(), LoginActivity.class);
             startActivity(i);
             getActivity().finish();
-
-        }else {
+        }
+        else {
             // Get RecentDeck;
             Log.i("eror", currentUser.getUserId());
             recentDeckKeys = currentUser.getRecentDecks();

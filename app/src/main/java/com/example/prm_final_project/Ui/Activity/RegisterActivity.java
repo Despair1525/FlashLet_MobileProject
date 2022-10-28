@@ -101,14 +101,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 edUserName.setError("Please enter valid user name!");
             return false;
         }
-//        boolean[] isDuplicate = Methods.isDuplicate(email, phone);
-//        if(isDuplicate[0] || isDuplicate[1]){
-//            if(isDuplicate[0])
-//                edEmail.setError("Email already exists!");
-//            if(isDuplicate[1])
-//                edPhone.setError("Phone number already exists!");
-//            return false;
-//        }
+
         if(!password1.equals(password2)){
             edPass2.setError("The password confirmation does not match!");
             return false;
@@ -154,8 +147,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 }catch(Exception e){
                                     Toast.makeText(RegisterActivity.this, e.toString(), Toast.LENGTH_SHORT).show();
                                 }
-
-
                             }
                         }
                     });

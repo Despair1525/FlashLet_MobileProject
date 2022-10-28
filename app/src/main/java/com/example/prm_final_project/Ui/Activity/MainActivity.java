@@ -1,5 +1,6 @@
 package com.example.prm_final_project.Ui.Activity;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,13 +57,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     Fragment fragmentHome = new HomeFragment();;
     Fragment fragmentProfile = new ProfileFragment() ;
     FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
+    private ProgressDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        dialog = new ProgressDialog(MainActivity.this);
+        dialog.setMessage("Loading");
+        dialog.show();
         if (InternetConnection.isConnectedToInternet(getApplicationContext())) {
 
             rootRef = FirebaseDatabase.getInstance();
@@ -80,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 Log.e("check guest", "true");
                                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                                 startActivity(i);
-
+                                finish();
                             } else {
                                 Log.e("check guest", "false");
                                 // set home fragment by default
@@ -88,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                 CURRENT_FRAGMENT = HOME_FRAGMENT;
                                 bottomNavigationView = findViewById(R.id.bottom_navigation);
                                 bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
+                                dialog.dismiss();
                             }
                         };
 

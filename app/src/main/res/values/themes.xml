@@ -8,6 +8,8 @@
         <item name="colorAccent">@color/toolBarColor</item>
         <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:fontFamily">@font/maian</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
 
         <!-- Customize your theme here. -->
     </style>
@@ -33,6 +35,8 @@
     <style name="Theme.PRM_Final_Project.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
     <style name="TabLayout" parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
         <item name="android:textSize">10sp</item>

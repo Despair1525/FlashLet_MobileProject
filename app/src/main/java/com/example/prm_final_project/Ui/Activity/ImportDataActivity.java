@@ -120,6 +120,8 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
                 };
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
     }
 
@@ -333,7 +335,6 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
                 i.putExtra("editDeck",editDeck);
                 startActivity(i);
                 finish();
-//
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -343,5 +344,11 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
             }
         });
         builder.show();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 }
