@@ -1,9 +1,7 @@
 package com.example.prm_final_project.Ui.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,51 +12,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.prm_final_project.Adapter.CustomViewPager;
-import com.example.prm_final_project.Adapter.DeckListTypeAdapter;
+import com.example.prm_final_project.Adapter.DailyAdapter;
 import com.example.prm_final_project.Adapter.HomePageAdapter;
 import com.example.prm_final_project.Dao.UserDao;
-import com.example.prm_final_project.Model.DeckListType;
-import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
-import com.example.prm_final_project.Services.InternetConnection;
-import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
-import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.Ui.Activity.MainActivity;
-import com.example.prm_final_project.Ui.Activity.NoInternetActivity;
-import com.example.prm_final_project.Ui.Activity.ViewAllActivity;
-import com.example.prm_final_project.Util.Methods;
-import com.example.prm_final_project.Util.recomendSystem;
-import com.example.prm_final_project.callbackInterface.AdapterCallback;
-import com.example.prm_final_project.callbackInterface.FirebaseCallback;
-import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
 
     private ArrayList<Deck> allDecks = new ArrayList<>();
 
@@ -80,13 +57,16 @@ public class HomeFragment extends Fragment {
     private ListView lvDecks;
     private boolean inPublic = true;
     HomeDeckListAdapter homeDeckAdap, homeDeckAdapNew;
-    DeckListTypeAdapter deckListTypeAdaper;
-    private RecyclerView RvPublicDeck;
+    DailyAdapter deckListTypeAdaper;
+    private RecyclerView RvPublicDeck,RvTimetable;
     private TextView tvUserName;
+    private TextView tvActivity;
     private TextView myDecks, publicDecks;
     private String m_Text = "";
     private ProgressBar PbLoading;
     private ViewPager2 viewPager;
+
+    DailyAdapter dailyAdapter;
     HomePageAdapter adapter;
 
     Context thiscontext;
@@ -115,14 +95,22 @@ public class HomeFragment extends Fragment {
         User currentUser = UserDao.allUserHT.get(user.getUid());
         Log.i("currentUser", currentUser + "");
         // init Ui
+        tvActivity = view.findViewById(R.id.tvActivity);
         viewPager = view.findViewById(R.id.viewPageHomePage);
         tvUserName = view.findViewById(R.id.tvHelloUserName);
         tabDeckType = view.findViewById(R.id.tabDeckType);
+        RvTimetable = view.findViewById(R.id.Rvtimetable);
 
         tabDeckType.addTab(tabDeckType.newTab());
         tabDeckType.addTab(tabDeckType.newTab());
         tabDeckType.addTab(tabDeckType.newTab());
 
+        tvActivity.setOnClickListener(this);
+        // set time table adapter
+        dailyAdapter = new DailyAdapter(RvTimetable);
+        RvTimetable.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        RvTimetable.setAdapter(dailyAdapter);
+        RvTimetable.scrollToPosition(2);
 
         String userName = "Guest";
         if (currentUser != null) {
@@ -131,7 +119,6 @@ public class HomeFragment extends Fragment {
         tvUserName.setText(userName);
         // Set ViewPager
         setupViewPager(viewPager);
-
         new TabLayoutMediator(tabDeckType, viewPager,
                 (tab, position) -> {
                     tab.setText(adapter.mFragmentTitleList.get(position));
@@ -171,4 +158,10 @@ public class HomeFragment extends Fragment {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        if(v == tvActivity){
+            Toast.makeText(getActivity(), "YOUR ACTIVITY", Toast.LENGTH_SHORT).show();
+        };
+    }
 }

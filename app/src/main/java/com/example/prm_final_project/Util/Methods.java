@@ -7,6 +7,8 @@ import com.example.prm_final_project.Model.User;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
@@ -41,6 +43,12 @@ public class Methods {
                 return i;
         };
         return -1;
+    };
+    public static  LocalDateTime caculateCalender(int x){
+        Date in = new Date();
+        LocalDateTime ldt = LocalDateTime.ofInstant(in.toInstant(), ZoneId.systemDefault()).plusDays(x);
+//        Date out = Date.from(ldt.atZone(ZoneId.systemDefault()).toInstant());
+        return ldt;
     };
 
 }
