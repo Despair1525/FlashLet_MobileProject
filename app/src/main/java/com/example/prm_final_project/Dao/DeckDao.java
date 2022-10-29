@@ -254,6 +254,11 @@ public class DeckDao {
         FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId()).child("view").setValue(currentView +1);
     };
 
+    public static void deleteDeck(Deck deck){
+        FirebaseDatabase.getInstance().getReference("Decks").child(deck.getDeckId()).removeValue();
+    }
+
+
     public static ArrayList<Deck> searchDeckByTitle(ArrayList<Deck> allDecks, String keywords){
         ArrayList<Deck> decks = new ArrayList<>();
         for (int i = 0; i < allDecks.size(); i++) {
