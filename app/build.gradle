@@ -68,4 +68,9 @@ dependencies {
     // 3rd party login
     implementation 'com.google.android.gms:play-services-auth:20.3.0'
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
+
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
+
 }

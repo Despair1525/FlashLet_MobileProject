@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreference
+        android:id="@+id/sp_switch_noti"
+        android:defaultValue="false"
+        android:key="noti_switch_preference"
+        android:title="Notifications"
+        android:disableDependentsState="false"
+        app:iconSpaceReserved="false"
+        />
+
+    <Preference
+        android:allowClickWhenDisabled="false"
+        android:key="btn_choose_time"
+        android:title="Study reminder time"
+        android:dependency="noti_switch_preference"
+        android:summary="20:00"
+        app:iconSpaceReserved="false"
+        app:useSimpleSummaryProvider="true"
+        />
+
+    <EditTextPreference
+        android:key="notification_message"
+        android:title="Send a message to yourself"
+        android:summary="A quote to motivate you every day"
+        android:dependency="noti_switch_preference"
+        app:iconSpaceReserved="false"
+        android:dialogTitle="Enter your message!"
+        />
+
+</PreferenceScreen>

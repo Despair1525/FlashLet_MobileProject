@@ -2,9 +2,12 @@ package com.example.prm_final_project.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -41,10 +44,19 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User u = users.get(position);
         int deckSize = 0;
+        Uri imgUri;
         if(u.getMyDeck() == null){
             deckSize = 0;
         } else{
             deckSize = u.getMyDeck().size();
+        }
+        if(u.getAvatar() != null && u.getAvatar().startsWith("content")) {
+            imgUri = Uri.parse(u.getAvatar());
+            try {
+                holder.imageView.setImageURI(imgUri);
+            } catch (Exception e){
+                holder.imageView.setImageResource(R.drawable.default_avatar);
+            }
         }
         holder.userNameTextView.setText(u.getUsername());
         holder.totalDeckTextView.setText(deckSize + " decks");
@@ -69,6 +81,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     public class UserViewHolder extends RecyclerView.ViewHolder {
         private UserListAdapter userListAdapter;
         private TextView userNameTextView, totalDeckTextView;
+        private ImageView imageView;
         private LinearLayout userItemLayout;
         public UserViewHolder(@NonNull View itemView, UserListAdapter userListAdapter) {
             super(itemView);
@@ -76,6 +89,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             userNameTextView = itemView.findViewById(R.id.tv_user_name);
             totalDeckTextView = itemView.findViewById(R.id.tv_user_no_deck);
             userItemLayout = itemView.findViewById(R.id.layout_user_item);
+            imageView = itemView.findViewById(R.id.iv_avt_img);
         }
     }
 }

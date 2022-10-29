@@ -28,12 +28,15 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.ChangePasswordActivity;
@@ -44,6 +47,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.example.prm_final_project.Ui.Activity.NotificationSettingsActivity;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -236,7 +240,8 @@ public class ProfileFragment extends Fragment {
         cvNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getActivity(), NotificationSettingsActivity.class);
+                startActivity(intent);
             }
         });
         cvLogout.setOnClickListener(new View.OnClickListener() {

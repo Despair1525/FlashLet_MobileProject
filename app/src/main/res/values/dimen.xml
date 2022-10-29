@@ -3,5 +3,12 @@
     <dimen name="marginLeft">10dp</dimen>
     <dimen name="deck_height">120dp</dimen>
     <dimen name="title_font_size">25sp</dimen>
+    <dimen name="text_size">18sp</dimen>
+    <dimen name="greetings_text_size">20sp</dimen>
+    <dimen name="greetings_margin">50dp</dimen>
+    <dimen name="quote_text_size">22sp</dimen>
     <dimen name="icon_size">40dp</dimen>
+    <dimen name="image_notification_size">300dp</dimen>
+    <dimen name="quote_height">200dp</dimen>
+    <dimen name="padding_notification">20dp</dimen>
 </resources>

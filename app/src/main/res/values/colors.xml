@@ -22,6 +22,8 @@
     <color name="second_color">#ebf2f0</color>
     <color name="text_color">#1b4a2e</color>
     <color name="text_color2">#b5b7b6</color>
+    <color name="background_noti">#f2f2f2</color>
+    <color name="notification_detail">#ecf9ec</color>
 <!--    primary_color : #446d54-->
 
 <!--    second_color : #ebf2f0-->

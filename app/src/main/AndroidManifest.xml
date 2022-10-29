@@ -137,6 +137,22 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".Ui.Activity.NotificationSettingsActivity"
+            android:exported="false"/>
+
+        <activity android:name=".Ui.Activity.NotificationDetailActivity"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".Services.ReminderBroadcast"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.RECEIVE_BOOT_COMPLETED" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

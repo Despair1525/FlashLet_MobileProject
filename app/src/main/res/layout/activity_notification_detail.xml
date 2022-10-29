@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/notification_detail"
+    tools:context=".Ui.Activity.NotificationDetailActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🌟 Thank you for coming back! 🌟"
+            android:layout_marginBottom="@dimen/greetings_margin"
+            android:gravity="center"
+            android:textSize="@dimen/greetings_text_size"
+           />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="@dimen/image_notification_size"
+            android:layout_height="@dimen/image_notification_size"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="10dip"
+            app:riv_oval="true"
+            android:src="@drawable/image_for_motivation"/>
+
+        <TextView
+            android:id="@+id/message_detail"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/quote_height"
+            android:gravity="center"
+            android:paddingLeft="@dimen/padding_notification"
+            android:paddingRight="@dimen/padding_notification"
+            android:layout_marginTop="@dimen/padding_notification"
+            android:layout_gravity="center"
+            android:text="Hello world!"
+            android:textStyle="bold"
+            android:textColor="@color/toolBarColor"
+            android:textSize="@dimen/greetings_text_size"
+            />
+
+        <Button
+            android:id="@+id/btn_back_to_study"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_gravity="center"
+            android:text="Study now"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_size"
+            android:background="?android:attr/selectableItemBackground"
+            android:textAllCaps="false"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
