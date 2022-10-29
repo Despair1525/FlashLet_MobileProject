@@ -315,11 +315,27 @@ public class ViewCardActivity extends AppCompatActivity {
                     Toast.makeText(this, "You must own this set to edit", Toast.LENGTH_SHORT).show();
                 }
             case R.id.deleteSet:
-                if (user.getUid().equalsIgnoreCase(deck.getUid())) {
-                    Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "You must own this set to delete", Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this);
+                builder.setTitle("Delete");
+                builder.setMessage("Do you want to delete this set");
+                builder.setCancelable(true);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        DeckDao.deleteDeck(deck);
+                        Toast.makeText(ViewCardActivity.this, "Delete successfully", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(ViewCardActivity.this, MainActivity.class);
+                        startActivity(i);
+                    }
+                });
+
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+                    }
+                });
+                AlertDialog alert = builder.create();
+                alert.show();
+
                 break;
             case R.id.saveSet:
                 String UserId = UserDao.getUser().getUid();
@@ -330,7 +346,7 @@ public class ViewCardActivity extends AppCompatActivity {
                 break;
 
             case R.id.infoSet:
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder = new AlertDialog.Builder(this);
                 builder.setTitle("Deck Informations");
                 LayoutInflater inflater = ViewCardActivity.this.getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog_deck_information   /*my layout here*/, null);
