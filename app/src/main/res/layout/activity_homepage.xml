@@ -26,7 +26,6 @@
             android:gravity="bottom"
             android:text="Hello,"
             android:textSize="36sp"
-            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

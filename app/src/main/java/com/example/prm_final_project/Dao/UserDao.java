@@ -288,4 +288,9 @@ public class UserDao {
                 child(userId).child("daily").child(currentDate).
                 setValue("");
     }
+
+    public static User getUserById(String id){
+        return allUserHT.get(id);
+    }
+
 }

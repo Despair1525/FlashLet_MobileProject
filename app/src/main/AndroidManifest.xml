@@ -32,6 +32,9 @@
             android:theme="@style/Theme.PRM_Final_Project.Custombar"
             />
         <activity
+            android:name=".Ui.Activity.ViewOthersProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".Ui.Activity.ViewAllCardsActivity"
             android:exported="false"
             android:theme="@style/Theme.PRM_Final_Project.Custombar" />
