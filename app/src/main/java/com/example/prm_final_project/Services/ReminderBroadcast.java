@@ -6,6 +6,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
@@ -25,6 +27,9 @@ public class ReminderBroadcast extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         String randomMessage = intent.getStringExtra("random_message");
 
+        Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),
+                R.drawable.icon);
+
         SharedPreferences sharedPreferences = context.getSharedPreferences(MY_PREFERENCE, Context.MODE_PRIVATE);
         String message = sharedPreferences.getString(NOTIFICATION_MESSAGE, null);
 
@@ -42,9 +47,11 @@ public class ReminderBroadcast extends BroadcastReceiver {
             intent1.putExtra("message_quote", message);
         }
 
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.mipmap.ic_stat_ic_app);
+        builder.setColor(context.getColor(R.color.theme_color));
         builder.setPriority(NotificationManager.IMPORTANCE_HIGH);
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
+        builder.setLargeIcon(largeIcon);
         builder.setOngoing(true);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 2, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent).setAutoCancel(true);

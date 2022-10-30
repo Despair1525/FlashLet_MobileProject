@@ -126,11 +126,11 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
 
     private void setAlarmNotification(int hour, int minute){
         String message = getDataFromFile();
-        Intent intent = new Intent(getActivity(), ReminderBroadcast.class);
+        Intent intent = new Intent(requireContext(), ReminderBroadcast.class);
         intent.putExtra("random_message", message);
         Log.i("random_message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getActivity(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                requireContext(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
@@ -146,9 +146,9 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
     }
 
     private void cancelAlarmNotification(){
-        Intent intent = new Intent(getActivity(), ReminderBroadcast.class);
+        Intent intent = new Intent(requireContext(), ReminderBroadcast.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                getActivity(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                requireContext(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
