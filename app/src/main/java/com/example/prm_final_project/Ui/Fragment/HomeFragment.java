@@ -1,6 +1,7 @@
 package com.example.prm_final_project.Ui.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+import com.example.prm_final_project.Ui.Activity.DailyActivity;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
@@ -161,7 +163,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(v == tvActivity){
-            Toast.makeText(getActivity(), "YOUR ACTIVITY", Toast.LENGTH_SHORT).show();
+           Intent i = new Intent(getActivity(), DailyActivity.class);
+           startActivity(i);
         };
     }
 }

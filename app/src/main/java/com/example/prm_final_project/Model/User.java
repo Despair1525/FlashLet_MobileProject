@@ -11,6 +11,8 @@ public class User {
     private String phone;
     private String email;
     private ArrayList<RecentDeck> myDeck;
+    private ArrayList<RecentDeck> favoriteDeck;
+    private ArrayList<String> daily;
     private ArrayList<RecentDeck> recentDecks;
     private Hashtable<String,Double> rate;
 
@@ -95,5 +97,21 @@ public class User {
 
     public void setRecentDecks(ArrayList<RecentDeck> recentDecks) {
         this.recentDecks = recentDecks;
+    }
+
+    public ArrayList<RecentDeck> getFavoriteDeck() {
+        return favoriteDeck;
+    }
+
+    public void setFavoriteDeck(ArrayList<RecentDeck> favoriteDeck) {
+        this.favoriteDeck = favoriteDeck;
+    }
+
+    public ArrayList<String> getDaily() {
+        return daily;
+    }
+
+    public void setDaily(ArrayList<String> daily) {
+        this.daily = daily;
     }
 }

@@ -11,6 +11,7 @@ import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
+import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.UserCallback;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInApi;
@@ -35,19 +36,19 @@ public class UserDao {
     public static FirebaseDatabase data = FirebaseDatabase.getInstance();
     public static DatabaseReference ref;
     public static ArrayList<User> allUsers = new ArrayList<>();
-    public static Hashtable<String,User> allUserHT = new Hashtable<>();
+    public static Hashtable<String, User> allUserHT = new Hashtable<>();
 
-    public static FirebaseUser getUser(){
+    public static FirebaseUser getUser() {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        if (user==null){
+        if (user == null) {
             return null;
         }
         return user;
     }
 
-    public static User getCurrentUser(){
+    public static User getCurrentUser() {
         return allUserHT.get(getUser().getUid());
     }
 
@@ -60,33 +61,50 @@ public class UserDao {
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("userId").setValue(user.getUserId());
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("username").setValue(user.getUsername());
 
-        if(user.getRate() != null ) {
+        if (user.getRate() != null) {
             for (String key : user.getRate().keySet()) {
                 Double score = user.getRate().get(key);
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("rate").child(key).setValue(score);
             }
             ;
-        };
-        if(user.getRecentDecks() != null) {
-            for(RecentDeck deck : user.getRecentDecks()) {
+        }
+        ;
+        if (user.getRecentDecks() != null) {
+            for (RecentDeck deck : user.getRecentDecks()) {
                 String key = deck.getDeckId();
                 Long value = deck.getTimeStamp();
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
                         child("recentDecks").child(key).setValue(value);
-            };
-        };
+            }
+            ;
+        }
+        ;
 
-        if(user.getMyDeck() != null) {
-            for(RecentDeck deck : user.getMyDeck()) {
+        if (user.getMyDeck() != null) {
+            for (RecentDeck deck : user.getMyDeck()) {
                 String key = deck.getDeckId();
                 Long value = deck.getTimeStamp();
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
                         child("myDeck").child(key).setValue(value);
-            };
-        };
-    };
+            }
+            ;
+        }
+        ;
+        if (user.getFavoriteDeck() != null) {
+            for (RecentDeck deck : user.getFavoriteDeck()) {
+                String key = deck.getDeckId();
+                Long value = deck.getTimeStamp();
+                FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
+                        child("favoriteDeck").child(key).setValue(value);
+            }
+            ;
+        }
+        ;
+    }
 
-    public static void logout(){
+    ;
+
+    public static void logout() {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -102,39 +120,63 @@ public class UserDao {
         // setMyDeck;
         ArrayList<RecentDeck> recentDecks = new ArrayList<>();
         ArrayList<RecentDeck> myDeck = new ArrayList<>();
+        ArrayList<RecentDeck> favoriteDeck = new ArrayList<>();
+        ArrayList<String> daily = new ArrayList<>();
 
-        for(DataSnapshot ds : snapshot.child("recentDecks").getChildren()) {
+        for (DataSnapshot ds : snapshot.child("recentDecks").getChildren()) {
             String deckId = ds.getKey();
             Long timeStamp = ds.getValue(Long.class);
-            RecentDeck newRecent = new RecentDeck(deckId,timeStamp);
+            RecentDeck newRecent = new RecentDeck(deckId, timeStamp);
             recentDecks.add(newRecent);
-        };
+        }
+        ;
         newUser.setRecentDecks(recentDecks);
 
-        for(DataSnapshot ds : snapshot.child("myDeck").getChildren()) {
+        for (DataSnapshot ds : snapshot.child("myDeck").getChildren()) {
             String deckId = ds.getKey();
             Long timeStamp = ds.getValue(Long.class);
-            RecentDeck newRecent = new RecentDeck(deckId,timeStamp);
+            RecentDeck newRecent = new RecentDeck(deckId, timeStamp);
             myDeck.add(newRecent);
-        };
+        }
+        ;
         newUser.setMyDeck(myDeck);
 
+        // set favorite Deck
+        for (DataSnapshot ds : snapshot.child("favoriteDeck").getChildren()) {
+            String deckId = ds.getKey();
+            Long timeStamp = ds.getValue(Long.class);
+            RecentDeck newRecent = new RecentDeck(deckId, timeStamp);
+            favoriteDeck.add(newRecent);
+        }
+        ;
+        newUser.setFavoriteDeck(favoriteDeck);
+        // set daily
+        for (DataSnapshot ds : snapshot.child("daily").getChildren()) {
+            String dailyDate = ds.getKey();
+            daily.add(dailyDate);
+        }
+        ;
+        newUser.setDaily(daily);
+
         // set Rate User;
-        Hashtable<String,Double> userRate = new Hashtable<String, Double>();
-        for(DataSnapshot ds : snapshot.child("rate").getChildren()) {
-            userRate.put(ds.getKey(),ds.getValue(Double.class));
-            Log.i("addUser",ds.getKey()+"|"+ds.getValue()+"");
-        };
+        Hashtable<String, Double> userRate = new Hashtable<String, Double>();
+        for (DataSnapshot ds : snapshot.child("rate").getChildren()) {
+            userRate.put(ds.getKey(), ds.getValue(Double.class));
+            Log.i("addUser", ds.getKey() + "|" + ds.getValue() + "");
+        }
+        ;
         newUser.setRate(userRate);
         return newUser;
-    };
+    }
 
-    public static void readAllUserFirst(UserCallback callback){
+    ;
+
+    public static void readAllUserFirst(UserCallback callback) {
         data.getReference("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                Log.d("USERDAO_childAdded", task.getException()+"-erre");
-                if(task.isSuccessful()) {
+                Log.d("USERDAO_childAdded", task.getException() + "-erre");
+                if (task.isSuccessful()) {
                     DataSnapshot snapshot = task.getResult();
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         User u = getSnapshotUser(ds);
@@ -142,16 +184,16 @@ public class UserDao {
                         if (u.getUserId() != null) {
                             allUserHT.put(u.getUserId(), u);
                             allUsers.add(u);
-                            Log.d("USERDAO_childAdded", "id: "+u.getUserId()+"-" + u.getUsername());
+                            Log.d("USERDAO_childAdded", "id: " + u.getUserId() + "-" + u.getUsername());
                         }
 
                     }
-                    callback.onResponse(null,null,0);      ;
+                    callback.onResponse(null, null, 0);
+                    ;
+                } else {
+                    callback.onResponse(null, null, 1);
                 }
-
-                else{
-                    callback.onResponse(null,null ,1);
-                };
+                ;
             }
         });
 
@@ -160,19 +202,20 @@ public class UserDao {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User u = getSnapshotUser(snapshot);
-                if(u.getUserId() != null) {
+                if (u.getUserId() != null) {
                     allUserHT.put(u.getUserId(), u);
                     allUsers.add(u);
-                };
+                }
+                ;
             }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User u = getSnapshotUser(snapshot);
-                allUserHT.put(u.getUserId(),u);
+                allUserHT.put(u.getUserId(), u);
 
                 Log.d("USERDAO_childChanged", "id " + u.getUsername());
-                Log.d("USERDAO_childChanged", "RecendDeck- " + u.getRecentDecks().size()+"");
+                Log.d("USERDAO_childChanged", "RecendDeck- " + u.getRecentDecks().size() + "");
             }
 
             @Override
@@ -195,13 +238,13 @@ public class UserDao {
         });
     }
 
-    public static ArrayList<User> searchByUserName(ArrayList<User> allUsers, String keyword){
+    public static ArrayList<User> searchByUserName(ArrayList<User> allUsers, String keyword) {
         ArrayList<User> results = new ArrayList<>();
         User u;
         for (int i = 0; i < allUsers.size(); i++) {
             u = allUsers.get(i);
-            if(u.getUsername() != null){
-                if(u.getUsername().toLowerCase().contains(keyword.toLowerCase())) {
+            if (u.getUsername() != null) {
+                if (u.getUsername().toLowerCase().contains(keyword.toLowerCase())) {
                     results.add(u);
                 }
             }
@@ -210,10 +253,10 @@ public class UserDao {
         return results;
     }
 
-    public static ArrayList<Deck> getDeckByUser (ArrayList<Deck> decks, String userId){
+    public static ArrayList<Deck> getDeckByUser(ArrayList<Deck> decks, String userId) {
         ArrayList<Deck> results = new ArrayList<>();
         for (int i = 0; i < decks.size(); i++) {
-            if(decks.get(i).getUid().equals(userId)){
+            if (decks.get(i).getUid().equals(userId)) {
                 results.add(decks.get(i));
             }
         }
@@ -221,11 +264,28 @@ public class UserDao {
     }
 
     public static User readUserById(String id) {
-        for(User u : allUsers) {
-            if(u.getUserId().equals(id) ) return u;
+        for (User u : allUsers) {
+            if (u.getUserId().equals(id)) return u;
 
-        };
-        return  null;
+        }
+        ;
+        return null;
     }
-    
+
+    public static void addFavoriteDeck(String deckId) {
+        User currentUser = allUserHT.get(UserDao.getUser().getUid());
+        if (currentUser != null) {
+            RecentDeck newRecent = new RecentDeck(deckId, Methods.getTimeLong());
+            currentUser.getFavoriteDeck().add(newRecent);
+            addUser(currentUser);
+        }
+    }
+
+    public static void addDaily(String userId) {
+        String currentDate = Methods.getDate();
+        Log.i("date-firebase",currentDate);
+        FirebaseDatabase.getInstance().getReference("Users").
+                child(userId).child("daily").child(currentDate).
+                setValue("");
+    }
 }

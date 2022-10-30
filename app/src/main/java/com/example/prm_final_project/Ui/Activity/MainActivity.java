@@ -41,7 +41,7 @@ import java.util.Hashtable;
 
 // Khởi động ban đầu sẽ vào loading screen để load Database
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private String m_Text;
     BottomNavigationView bottomNavigationView;
     private boolean isGuest = false;
@@ -53,9 +53,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private final static int PROFILE_FRAGMENT = 3;
     private int CURRENT_FRAGMENT;
 
-    private Hashtable<String,Deck> allDecks  = new Hashtable<>();
-    Fragment fragmentHome = new HomeFragment();;
-    Fragment fragmentProfile = new ProfileFragment() ;
+    private Hashtable<String, Deck> allDecks = new Hashtable<>();
+    Fragment fragmentHome = new HomeFragment();
+    ;
+    Fragment fragmentProfile = new ProfileFragment();
     FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
     private ProgressDialog dialog;
 
@@ -73,43 +74,46 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             rootRef = FirebaseDatabase.getInstance();
             mAuth = FirebaseAuth.getInstance();
             isGuest = checkGuest();
+            if (isGuest) {
+                Log.e("check guest", "true");
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
+            } else {
+                UserDao.addDaily(UserDao.getUser().getUid());
+                UserDao.readAllUserFirst(new UserCallback() {
+                    @Override
+                    public void onResponse(ArrayList<User> allUsers, User changeUser, int type) {
+                        if (type == 0) {
+                            DeckDao.readAllDecksOnce(new AllDataCallback() {
+                                @Override
+                                public void onResponse(Hashtable<String, Deck> allDecks) {
+                                    Log.e("check guest", "false");
+                                    // set home fragment by default
+                                    loadFragment(fragmentHome);
+                                    CURRENT_FRAGMENT = HOME_FRAGMENT;
+                                    bottomNavigationView = findViewById(R.id.bottom_navigation);
+                                    bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
+                                    dialog.dismiss();
+                                }
 
-            UserDao.readAllUserFirst(new UserCallback() {
-                @Override
-                public void onResponse(ArrayList<User> allUsers, User changeUser, int type) {
-                    if(type ==0){
-                    DeckDao.readAllDecksOnce(new AllDataCallback() {
-                        @Override
-                        public void onResponse(Hashtable<String, Deck> allDecks) {
-                            if (isGuest) {
-                                Log.e("check guest", "true");
-                                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                                startActivity(i);
-                                finish();
-                            } else {
-                                Log.e("check guest", "false");
-                                // set home fragment by default
-                                loadFragment(fragmentHome);
-                                CURRENT_FRAGMENT = HOME_FRAGMENT;
-                                bottomNavigationView = findViewById(R.id.bottom_navigation);
-                                bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
-                                dialog.dismiss();
-                            }
-                        };
+                                ;
 
-                    });}
-                    else{
-                        Log.i("here","Yolo");
-                        Intent i = new Intent(MainActivity.this,NoInternetActivity.class);
-                        startActivity(i);
-                        finish();
-                    };
-                }
-            });
+                            });
+                        } else {
+                            Log.i("here", "Yolo");
+                            Intent i = new Intent(MainActivity.this, NoInternetActivity.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        ;
+                    }
+                });
+            }
         } else {
             Toast.makeText(MainActivity.this, "Not connect to internet", Toast.LENGTH_SHORT).show();
             // Gửi sang trang Lỗi kết nối
-            Intent i = new Intent(this,NoInternetActivity.class);
+            Intent i = new Intent(this, NoInternetActivity.class);
             startActivity(i);
             finish();
         }
@@ -119,13 +123,13 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
-                if(CURRENT_FRAGMENT != HOME_FRAGMENT){
+                if (CURRENT_FRAGMENT != HOME_FRAGMENT) {
                     loadFragment(fragmentHome);
                     CURRENT_FRAGMENT = HOME_FRAGMENT;
                 }
                 return true;
             case R.id.nav_search:
-                if(CURRENT_FRAGMENT != SEARCH_FRAGMENT){
+                if (CURRENT_FRAGMENT != SEARCH_FRAGMENT) {
                     loadFragment(new SearchFragment());
                     CURRENT_FRAGMENT = SEARCH_FRAGMENT;
                 }
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 // do not set this fragment selected
                 return false;
             case R.id.nav_profile:
-                if(CURRENT_FRAGMENT != PROFILE_FRAGMENT){
+                if (CURRENT_FRAGMENT != PROFILE_FRAGMENT) {
                     loadFragment(fragmentProfile);
                     CURRENT_FRAGMENT = PROFILE_FRAGMENT;
                 }
@@ -161,27 +165,27 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         transaction.commit();
     }
 
-    public FirebaseAuth getmAuth(){
+    public FirebaseAuth getmAuth() {
         mAuth = FirebaseAuth.getInstance();
         return mAuth;
     }
 
-// create Deck
-    public void creatDeck(){
-        if(checkGuest()) {
-            Toast.makeText(MainActivity.this,"You have to login !",Toast.LENGTH_SHORT).show();
+    // create Deck
+    public void creatDeck() {
+        if (checkGuest()) {
+            Toast.makeText(MainActivity.this, "You have to login !", Toast.LENGTH_SHORT).show();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle("Title");
             final EditText input = new EditText(this);
-            input.setInputType(InputType.TYPE_CLASS_TEXT );
+            input.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(input);
             builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
-                    Intent i =  new Intent(MainActivity.this,EditDeckActivity.class);
-                    i.putExtra("editTitle",m_Text);
+                    Intent i = new Intent(MainActivity.this, EditDeckActivity.class);
+                    i.putExtra("editTitle", m_Text);
                     startActivity(i);
                 }
             });
@@ -192,18 +196,22 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 }
             });
             builder.show();
-        };
+        }
+        ;
 
-    };
-    public boolean checkGuest(){
+    }
+
+    ;
+
+    public boolean checkGuest() {
         FirebaseUser user = mAuth.getInstance().getCurrentUser();
-        if (user==null){
+        if (user == null) {
             return true;
         }
         return false;
     }
 
-    public FirebaseUser getCurrUser(){
+    public FirebaseUser getCurrUser() {
         mAuth = getmAuth();
         FirebaseUser user = mAuth.getCurrentUser();
         return user;
@@ -212,10 +220,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     public interface OnGetDataListener {
         //this is for callbacks
         void onSuccess(DataSnapshot dataSnapshot);
+
         void onFailure();
     }
-
-
 
 
 }

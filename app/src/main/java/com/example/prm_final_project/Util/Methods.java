@@ -25,10 +25,17 @@ public class Methods {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
         return sdf.format(timestamp)+"";
     };
+    public static String getDate(){
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+        return sdf.format(timestamp)+"";
+    };
     public static Long getTimeLong(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp.getTime();
     };
+
+
 
     public static int compareStringDate(String o1 , String o2) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");

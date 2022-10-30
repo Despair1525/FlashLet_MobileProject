@@ -338,11 +338,12 @@ public class ViewCardActivity extends AppCompatActivity {
 
                 break;
             case R.id.saveSet:
-                String UserId = UserDao.getUser().getUid();
-                String deckId = deck.getDeckId();
-                String id = UserId + "-" + deckId;
-                FavoriteDeck favoriteDeck = new FavoriteDeck(id, UserId, deckId, Methods.getTimeLong());
-                DeckDao.addFavoriteDeck(favoriteDeck);
+//                String UserId = UserDao.getUser().getUid();
+//                String deckId = deck.getDeckId();
+//                String id = UserId + "-" + deckId;
+//                FavoriteDeck favoriteDeck = new FavoriteDeck(id, UserId, deckId, Methods.getTimeLong());
+//                DeckDao.addFavoriteDeck(favoriteDeck);
+                UserDao.addFavoriteDeck(deck.getDeckId());
                 break;
 
             case R.id.infoSet:
@@ -406,5 +407,4 @@ public class ViewCardActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
