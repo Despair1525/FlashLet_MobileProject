@@ -8,8 +8,8 @@
         android:icon="@drawable/ic_baseline_info_24"/>
     <item
         android:id="@+id/saveSet"
-        android:title="Like this deck"
-        android:icon="@drawable/ic_baseline_save_24"/>
+        android:title="Add to favorite sets"
+        android:icon="@drawable/ic_baseline_favorite_24"/>
     <item
         android:id="@+id/copySet"
         android:title="Copy this set"
