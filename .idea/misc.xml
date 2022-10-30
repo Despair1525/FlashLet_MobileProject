@@ -5,16 +5,27 @@
       <map>
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/cursor.xml" value="0.1945" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/drawable/deck_shape.xml" value="0.1125" />
-        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_homepage.xml" value="0.15534420289855072" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_homepage.xml" value="0.2" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_my_flashcards.xml" value="0.1453125" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_notification_detail.xml" value="0.264" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_notification_settings.xml" value="0.1890625" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_view_card.xml" value="0.12291666666666666" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/activity_view_others_profile.xml" value="0.2" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/custom_tab.xml" value="0.16614583333333333" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_deck.xml" value="0.14947916666666666" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_result.xml" value="0.17552083333333332" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_all_user.xml" value="0.25416666666666665" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_my_flashcards.xml" value="0.16614583333333333" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_profile.xml" value="0.165625" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_public_deck.xml" value="0.16614583333333333" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/fragment_search.xml" value="0.14947916666666666" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_deck_view.xml" value="0.264" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_list_type.xml" value="0.15534420289855072" />
         <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/layout/item_user_view.xml" value="0.264" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.176" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/mipmap-anydpi-v26/ic_public.xml" value="0.176" />
+        <entry key="..\:/FA22/PRM/Final_Project/app/src/main/res/xml/setting_screen.xml" value="0.2" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2325" />
         <entry key="..\:/FPT/SEMESTER/FALL22/Mobile/Final_Project/app/src/main/res/layout/activity_add_cards.xml" value="0.25416666666666665" />

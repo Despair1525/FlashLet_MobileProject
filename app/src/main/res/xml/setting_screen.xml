@@ -8,6 +8,7 @@
         android:key="noti_switch_preference"
         android:title="Notifications"
         android:disableDependentsState="false"
+        android:summary="Switch to receive notification from us"
         app:iconSpaceReserved="false"
         />
 
@@ -17,6 +18,7 @@
         android:title="Study reminder time"
         android:dependency="noti_switch_preference"
         android:summary="20:00"
+
         app:iconSpaceReserved="false"
         app:useSimpleSummaryProvider="true"
         />

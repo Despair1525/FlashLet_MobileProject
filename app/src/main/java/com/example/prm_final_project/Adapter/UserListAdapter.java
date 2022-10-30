@@ -3,7 +3,6 @@ package com.example.prm_final_project.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.MyFlashcardsActivity;
+import com.example.prm_final_project.Ui.Activity.ViewOthersProfileActivity;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -64,8 +65,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     }
 
     private void onClick(User u) {
-        Intent intent = new Intent(context, MyFlashcardsActivity.class);
-//        intent.putExtra("currentUser", u);
+        FirebaseUser user = UserDao.getUser();
+        Intent intent;
+        if (user.getUid().equals(u.getUserId())){
+            intent = new Intent(context, MyFlashcardsActivity.class);
+        }
+        else {
+            intent = new Intent(context, ViewOthersProfileActivity.class);
+        }
+
+        intent.putExtra("currentUser", u.getUserId());
         context.startActivity(intent);
     }
 

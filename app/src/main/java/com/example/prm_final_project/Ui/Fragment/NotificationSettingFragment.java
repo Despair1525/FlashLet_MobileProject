@@ -189,6 +189,10 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
         String value = sharedPreferences.getString(TIME_CHOSEN, "20:00");
         editTimeChosen.setSummary(value);
 
+        String[] time = value.split(":");
+        hour = Integer.parseInt(time[0]);
+        minute = Integer.parseInt(time[1]);
+
         switchButton = findPreference("noti_switch_preference");
 
         message = findPreference("notification_message");

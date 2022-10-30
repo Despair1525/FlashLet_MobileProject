@@ -299,4 +299,9 @@ public class UserDao {
 
 
     }
+
+    public static User getUserById(String id){
+        return allUserHT.get(id);
+    }
+
 }

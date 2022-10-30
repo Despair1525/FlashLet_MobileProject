@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -270,13 +271,28 @@ public class DeckDao {
         return decks;
     }
 
-    public static Deck getDeckById(ArrayList<Deck> allDecks, String deckId){
-        for (int i = 0; i < allDecks.size(); i++) {
-            if(allDecks.get(i).getDeckId().equals(deckId)){
-                return allDecks.get(i);
+    public static Deck getDeckById(Hashtable<String,Deck> allDecks, String deckId, Boolean isPublic){
+        Deck d = allDecks.get(deckId);
+        if(d != null && isPublic){
+            if(d.isPublic()){
+                return d;
+            } else {
+                return null;
             }
         }
-        return null;
+        return d;
     }
 
+    public static ArrayList<Deck> getDecksByListIds(Hashtable<String, Deck> allDecks, ArrayList<String> deckIds, Boolean isPublic){
+        ArrayList<Deck> results = new ArrayList<>();
+        for (int i = 0; i < deckIds.size(); i++) {
+            Deck d = getDeckById(allDecks, deckIds.get(i), isPublic);
+            if(d != null){
+                results.add(d);
+            }
+        }
+
+        return results;
     }
+
+}
