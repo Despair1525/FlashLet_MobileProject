@@ -17,6 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constrainedHeight="true"
+        android:background="@drawable/rounded_corner_slide_card"
         android:fillViewport="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -58,6 +59,8 @@
                 android:id="@+id/Answer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="Enter your answer"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"

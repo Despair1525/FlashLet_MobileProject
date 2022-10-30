@@ -42,12 +42,14 @@ import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.FavoriteDeck;
+import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class ViewCardActivity extends AppCompatActivity {
@@ -60,7 +62,8 @@ public class ViewCardActivity extends AppCompatActivity {
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     private RatingBar bar;
-    FirebaseUser user;
+    FirebaseUser firebaseUser;
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +105,14 @@ public class ViewCardActivity extends AppCompatActivity {
         textViewTitle.setText(deck.getTitle());
         textViewView.setText(deck.getView() + "");
         textViewAuthor.setText(deck.getAuthor());
-        user = UserDao.getUser();
+        firebaseUser = UserDao.getUser();
         loadSlideFlash();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
     private void onTest2() {
@@ -281,7 +290,7 @@ public class ViewCardActivity extends AppCompatActivity {
     @SuppressLint("RestrictedApi")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if (user.getUid().equalsIgnoreCase(deck.getUid())) {
+        if (firebaseUser.getUid().equalsIgnoreCase(deck.getUid())) {
             getMenuInflater().inflate(R.menu.viewcard_menu, menu);
             if (menu instanceof MenuBuilder) {
                 MenuBuilder m = (MenuBuilder) menu;
@@ -306,7 +315,7 @@ public class ViewCardActivity extends AppCompatActivity {
                 break;
 
             case R.id.editSet:
-                if (user.getUid().equalsIgnoreCase(deck.getUid())) {
+                if (firebaseUser.getUid().equalsIgnoreCase(deck.getUid())) {
                     Intent i = new Intent(this, EditDeckActivity.class);
                     i.putExtra("editDeck", deck);
                     startActivity(i);
@@ -321,6 +330,36 @@ public class ViewCardActivity extends AppCompatActivity {
                 builder.setCancelable(true);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
+                        firebaseUser = UserDao.getUser();
+                        user = UserDao.getCurrentUser();
+                        ArrayList<RecentDeck> myDeck = user.getMyDeck();
+                        for (int i = 0; i < myDeck.size(); i++) {
+                            if(myDeck.get(i).getDeckId().equalsIgnoreCase(deck.getDeckId())){
+                                myDeck.remove(myDeck.get(i));
+                            }
+                        }
+                        user.setMyDeck(myDeck);
+
+                        ArrayList<RecentDeck> favoriteDeck =  user.getFavoriteDeck();
+                        for (int i = 0; i < favoriteDeck.size(); i++) {
+                            if(favoriteDeck.get(i).getDeckId().equalsIgnoreCase(deck.getDeckId())){
+                                favoriteDeck.remove(favoriteDeck.get(i));
+                            }
+                        }
+                        user.setFavoriteDeck(favoriteDeck);
+
+                        ArrayList<RecentDeck> recentDecks = user.getRecentDecks();
+                        for (int i = 0; i < recentDecks.size(); i++) {
+                            if(recentDecks.get(i).getDeckId().equalsIgnoreCase(deck.getDeckId())){
+                                recentDecks.remove(recentDecks.get(i));
+                            }
+                        }
+                        user.setRecentDecks(recentDecks);
+
+                        Hashtable<String,Double> rate = user.getRate();
+                        rate.remove(deck.getDeckId());
+                        user.setRate(rate);
+
                         DeckDao.deleteDeck(deck);
                         Toast.makeText(ViewCardActivity.this, "Delete successfully", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(ViewCardActivity.this, MainActivity.class);
