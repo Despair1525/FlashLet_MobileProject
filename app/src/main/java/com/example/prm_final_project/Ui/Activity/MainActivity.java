@@ -28,6 +28,7 @@ import com.example.prm_final_project.Ui.Fragment.ProfileFragment;
 import com.example.prm_final_project.Ui.Fragment.SearchFragment;
 import com.example.prm_final_project.Services.InternetConnection;
 import com.example.prm_final_project.Ui.Fragment.SearchResultViewModel;
+import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.AllDataCallback;
 import com.example.prm_final_project.callbackInterface.UserCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,6 +38,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 
 // Khởi động ban đầu sẽ vào loading screen để load Database
@@ -85,10 +89,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     @Override
                     public void onResponse(ArrayList<User> allUsers, User changeUser, int type) {
                         if (type == 0) {
+                            // Check Streak
+                           addStreak();
                             DeckDao.readAllDecksOnce(new AllDataCallback() {
                                 @Override
                                 public void onResponse(Hashtable<String, Deck> allDecks) {
-                                    Log.e("check guest", "false");
                                     // set home fragment by default
                                     loadFragment(fragmentHome);
                                     CURRENT_FRAGMENT = HOME_FRAGMENT;
@@ -118,7 +123,29 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             finish();
         }
     }
+    public void addStreak(){
+        User user = UserDao.getCurrentUser();
+        ArrayList<String> userDaily = user.getDaily();
+        Collections.sort(userDaily, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return Methods.compareStringDateDay(o1,o2);
+            }
+        });
+        String lastLogin = userDaily.isEmpty() ? Methods.getDate() : userDaily.get(0);
+        int lastLoginNum = Methods.minusStringDate(Methods.getDate(),lastLogin);
+        user.setLongestStreak(Math.max(user.getLongestStreak(), user.getCurrentStreak()));
 
+        if(lastLoginNum > 1){
+            user.setCurrentStreak(1);
+        }else if (lastLoginNum == 1){
+            user.setCurrentStreak( user.getCurrentStreak() + 1 );
+        };
+        Log.i("main-date-after",user.getLongestStreak()+"");
+
+        UserDao.addUser(user);
+
+    };
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

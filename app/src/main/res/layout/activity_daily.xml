@@ -7,8 +7,97 @@
     android:orientation="vertical"
     android:textAlignment="center"
     tools:context=".Ui.Activity.MainActivity"
-    android:background="@drawable/home_page_shape_2">
+    android:background="@drawable/home_page_shape_2"
+    android:gravity="center">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/backButton"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        android:layout_gravity="left"
+        android:layout_margin="20dp"
+        app:tint="@color/theme_color_white"
+        />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="30dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/deck_shape"
+    android:orientation="vertical"
+    >
 
+    <TextView
+        android:id="@+id/tvMonthYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Feb-YEAR"
+        android:textSize="45dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        />
 
+    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
 
+        android:id="@+id/calendar_view"
+        android:layout_width="fill_parent"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_height="250dp"
+        app:compactCalendarTargetHeight="250dp"
+        app:compactCalendarTextSize="15dp"
+        app:compactCalendarBackgroundColor="@color/white"
+        app:compactCalendarTextColor="@color/theme_color"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="@color/theme_color_white"
+        app:compactCalendarCurrentDayBackgroundColor="@color/theme_color_bold"
+        app:compactCalendarMultiEventIndicatorColor="#fff"
+        />
+
+</LinearLayout>
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:textAlignment="center"
+        tools:context=".Ui.Activity.MainActivity"
+        android:background="@drawable/home_page_shape_2"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/deck_shape"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Current streak"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                />
+            <TextView
+                android:id="@+id/tvStreakNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="streak number"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                />
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_streak"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
+</LinearLayout>
 </LinearLayout>

@@ -10,6 +10,8 @@ public class User {
     private String avatar;
     private String phone;
     private String email;
+    private int currentStreak;
+    private int longestStreak;
     private ArrayList<RecentDeck> myDeck;
     private ArrayList<RecentDeck> favoriteDeck;
     private ArrayList<String> daily;
@@ -17,6 +19,8 @@ public class User {
     private Hashtable<String,Double> rate;
 
     public User() {
+        this.currentStreak = 1;
+        this.longestStreak = 1;
     }
     public User(String userId, String username, String avatar, String phone, String email) {
         this.userId = userId;
@@ -24,6 +28,9 @@ public class User {
         this.avatar = avatar;
         this.phone = phone;
         this.email = email;
+
+        this.currentStreak = 1;
+        this.longestStreak = 1;
     }
     public User(String userId, String username, String avatar, String phone, String email,ArrayList<RecentDeck> myDeck) {
         this.userId = userId;
@@ -32,6 +39,9 @@ public class User {
         this.phone = phone;
         this.email = email;
         this.myDeck = myDeck;
+
+        this.currentStreak = 1;
+        this.longestStreak = 1;
     }
 
 
@@ -113,5 +123,21 @@ public class User {
 
     public void setDaily(ArrayList<String> daily) {
         this.daily = daily;
+    }
+
+    public int getCurrentStreak() {
+        return currentStreak;
+    }
+
+    public void setCurrentStreak(int currentStreak) {
+        this.currentStreak = currentStreak;
+    }
+
+    public int getLongestStreak() {
+        return longestStreak;
+    }
+
+    public void setLongestStreak(int longestStreak) {
+        this.longestStreak = longestStreak;
     }
 }

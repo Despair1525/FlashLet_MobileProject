@@ -30,6 +30,10 @@ public class Methods {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
         return sdf.format(timestamp)+"";
     };
+    public static String convertMonthYear(Date date){
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM-yyyy");
+        return sdf.format(date);
+    };
     public static Long getTimeLong(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp.getTime();
@@ -37,11 +41,47 @@ public class Methods {
 
 
 
-    public static int compareStringDate(String o1 , String o2) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+    public static int compareStringDate(String o1 , String o2)  {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+            Date date1 = sdf.parse(o1);
+            Date date2 = sdf.parse(o2);
+            return date2.compareTo(date1);
+        }
+        catch (Exception e){
+        };
+       return 0;
+    };
+
+    public static int compareStringDateDay(String o1 , String o2)  {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+            Date date1 = sdf.parse(o1);
+            Date date2 = sdf.parse(o2);
+            return date2.compareTo(date1);
+        }
+        catch (Exception e){
+        };
+        return 0;
+    };
+    public static int minusStringDate(String o1 , String o2)  {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
+            Date date1 = sdf.parse(o1);
+            Date date2 = sdf.parse(o2);
+            return date1.getDate() - date2.getDate();
+        }
+        catch (Exception e){
+        };
+        return 0;
+    };
+
+
+
+    public static Long convertDateString(String o1 ) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
         Date date1 = sdf.parse(o1);
-        Date date2 = sdf.parse(o2);
-        return date2.compareTo(date1);
+        return date1.getTime();
     };
 
     public static int indexDeck (ArrayList<Deck> deckList , Deck findDeck) {

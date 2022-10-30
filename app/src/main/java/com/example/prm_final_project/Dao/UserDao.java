@@ -60,6 +60,9 @@ public class UserDao {
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("phone").setValue(user.getPhone());
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("userId").setValue(user.getUserId());
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("username").setValue(user.getUsername());
+        FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("longestStreak").setValue(user.getLongestStreak());
+        FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("currentStreak").setValue(user.getCurrentStreak());
+
 
         if (user.getRate() != null) {
             for (String key : user.getRate().keySet()) {
@@ -78,7 +81,6 @@ public class UserDao {
             }
             ;
         }
-        ;
 
         if (user.getMyDeck() != null) {
             for (RecentDeck deck : user.getMyDeck()) {
@@ -104,12 +106,6 @@ public class UserDao {
 
     ;
 
-    public static void logout() {
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
-    }
-
     public static User getSnapshotUser(DataSnapshot snapshot) {
         User newUser = new User();
         newUser.setUserId(snapshot.child("userId").getValue(String.class));
@@ -117,6 +113,14 @@ public class UserDao {
         newUser.setAvatar(snapshot.child("avatar").getValue(String.class));
         newUser.setPhone(snapshot.child("phone").getValue(String.class));
         newUser.setEmail(snapshot.child("email").getValue(String.class));
+
+
+
+        if(snapshot.child("longestStreak").getValue(Long.class) != null) newUser.setLongestStreak(snapshot.child("longestStreak").getValue(Integer.class));
+        if(snapshot.child("currentStreak").getValue(Long.class) != null) newUser.setCurrentStreak(snapshot.child("currentStreak").getValue(Integer.class));
+
+        Log.i("main-date-firebase",newUser.getLongestStreak()+"");
+
         // setMyDeck;
         ArrayList<RecentDeck> recentDecks = new ArrayList<>();
         ArrayList<RecentDeck> myDeck = new ArrayList<>();
@@ -169,8 +173,12 @@ public class UserDao {
         return newUser;
     }
 
-    ;
 
+    public static void logout() {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+    }
     public static void readAllUserFirst(UserCallback callback) {
         data.getReference("Users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -282,10 +290,13 @@ public class UserDao {
     }
 
     public static void addDaily(String userId) {
+
         String currentDate = Methods.getDate();
         Log.i("date-firebase",currentDate);
         FirebaseDatabase.getInstance().getReference("Users").
                 child(userId).child("daily").child(currentDate).
                 setValue("");
+
+
     }
 }

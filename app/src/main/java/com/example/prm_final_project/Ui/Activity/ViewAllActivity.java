@@ -7,6 +7,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActionBar;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.prm_final_project.Adapter.AllViewDeckAdapter;
 import com.example.prm_final_project.R;
@@ -48,4 +50,5 @@ public class ViewAllActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
 }

@@ -22,7 +22,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:text="Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
             android:textSize="20sp"
             />
 
