@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,13 @@ import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
+import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 
 public class FavouriteFragment extends Fragment {
@@ -31,8 +34,7 @@ public class FavouriteFragment extends Fragment {
     private LinearLayout recyclerLayout;
     private RecyclerView recycler_favourite;
     private SearchResultViewModel viewModel;
-    private ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<Deck> allDecks = new ArrayList<>();
+    private ArrayList<RecentDeck> decks = new ArrayList<>();
     public FavouriteFragment() {
         // Required empty public constructor
     }
@@ -51,21 +53,16 @@ public class FavouriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favourite, container, false);
         initUi(view);
 
-
-//        Set<String> keySet = DeckDao.originDeck.keySet();
-//        ArrayList<String> listOfKeys = new ArrayList<String>(keySet);
-
-
-        Collection<Deck> values = DeckDao.HmAllDeck.values();
-        allDecks = new ArrayList<Deck>(values);
-
         User user = UserDao.getCurrentUser();
 
+        decks = user.getFavoriteDeck();
 
-        decks = UserDao.getDeckByUser(allDecks, user.getUserId());
+        Collections.sort(decks, (o1, o2) -> {
+            return (int) (o2.getTimeStamp() - o1.getTimeStamp());
+        });
+        ArrayList<Deck> favoriteDeck = matchHashMapFavoriteDeck();
 
-//        allDecks.add(DeckDao.getDeckById("1665657495678"));
-        HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, decks);
+        HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, favoriteDeck);
         RecyclerView recyclerView = recycler_favourite;
         recyclerView.setAdapter(homeDeckListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
@@ -76,5 +73,16 @@ public class FavouriteFragment extends Fragment {
     public void initUi(View view){
         recyclerLayout = view.findViewById(R.id.layout_favourite);
         recycler_favourite = view.findViewById(R.id.recycler_favourite);
+    }
+
+    public  ArrayList<Deck> matchHashMapFavoriteDeck(){
+        ArrayList<Deck> favoriteDeck = new ArrayList<>();
+        for(RecentDeck key: decks) {
+            Deck temp = DeckDao.HmAllDeck.get(key.getDeckId());
+            if(temp != null) {
+                favoriteDeck.add(temp);
+            }
+        };
+        return favoriteDeck;
     }
 }

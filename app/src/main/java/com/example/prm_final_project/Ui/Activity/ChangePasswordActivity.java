@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm_final_project.Dao.UserDao;
@@ -40,6 +42,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
         initUi();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Change Password");
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         oldPassword = editTextOldPassword.getText().toString();
         newPassword = editTextNewPassword.getText().toString();
@@ -61,6 +67,18 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void onClickChangePassword() {
         if (validate()) {
             progressDialog.show();
@@ -72,30 +90,30 @@ public class ChangePasswordActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(ChangePasswordActivity.this, "Change password successfully!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
                             } else {
-                                Toast.makeText(ChangePasswordActivity.this, "Change password failed!", Toast.LENGTH_SHORT).show();
-                                //                                progressDialog.dismiss();
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(ChangePasswordActivity.this);
-//                                builder.setTitle("Re-authenticate needed");
-//                                builder.setMessage("You need to login again to change password!");
-//                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
-//                                        startActivity(intent);
-//                                        finish();
-//                                    }
-//                                });
-//                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialogInterface, int i) {
-//                                        Toast.makeText(getBaseContext(), "Change password failed", Toast.LENGTH_SHORT).show();
-//                                        onBackPressed();
-//                                    }
-//                                });
-//                                dialog = builder.create();
+//                                Toast.makeText(ChangePasswordActivity.this, "Change password failed!", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                                AlertDialog.Builder builder = new AlertDialog.Builder(ChangePasswordActivity.this);
+                                builder.setTitle("Re-authenticate needed");
+                                builder.setMessage("You need to login again to change password!");
+                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        UserDao.logout();
+                                        Intent intent = new Intent(ChangePasswordActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Toast.makeText(getBaseContext(), "Change password failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                dialog = builder.create();
                             }
-                            progressDialog.dismiss();
                             onBackPressed();
                         }
                     });

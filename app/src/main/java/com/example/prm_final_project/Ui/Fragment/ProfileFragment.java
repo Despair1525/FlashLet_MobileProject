@@ -3,6 +3,7 @@ package com.example.prm_final_project.Ui.Fragment;
 import static android.app.Activity.RESULT_OK;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,11 +44,17 @@ import com.example.prm_final_project.Ui.Activity.ChangePasswordActivity;
 import com.example.prm_final_project.Ui.Activity.EditProfileActivity;
 import com.example.prm_final_project.Ui.Activity.LoginActivity;
 import com.example.prm_final_project.Ui.Activity.MyFlashcardsActivity;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.example.prm_final_project.Ui.Activity.NotificationSettingsActivity;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -76,11 +83,15 @@ public class ProfileFragment extends Fragment {
 //    private Button btnEditProfile, btnMyFlashCards, btnChangePassword, btnNotification, btnLogout;
     private CardView cvEditUsername, cvEditEmail, cvEditPhone, cvMyFlashCards, cvChangePassword, cvNotification, cvLogout;
 
+    boolean isLoadImage = true;
+    ProgressDialog progressDialog;
+
     Context thisContext;
 
     Uri selectedImageUri;
     FirebaseUser firebaseUser;
     User user;
+    FirebaseStorage storage;
 
     private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -149,10 +160,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -165,18 +172,15 @@ public class ProfileFragment extends Fragment {
 
         firebaseUser = UserDao.getUser();
         user = UserDao.getCurrentUser();
-
-        Glide.with(getActivity()).load(user.getAvatar()).error(R.drawable.default_avatar).into(imageAvatar);
-//        Uri imageUri = firebaseUser.getPhotoUrl();
-//
-//        InputStream inputStream = null;
-//        try {
-//            inputStream = thisContext.getContentResolver().openInputStream(selectedImageUri);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-//        imageAvatar.setImageBitmap(bitmap);
+        storage = FirebaseStorage.getInstance();
+        if (selectedImageUri==null) {
+            Glide.with(ProfileFragment.this)
+                    .load(user.getAvatar())
+                    .error(R.drawable.default_avatar)
+                    .into(imageAvatar);
+        } else {
+            imageAvatar.setImageURI(selectedImageUri);
+        }
 
         imageAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -190,8 +194,12 @@ public class ProfileFragment extends Fragment {
                             REQUEST_CODE_STORAGE_PERMISSION
                     );
                 } else {
-                    selectImage();
-//                    openGallery();
+                    if (isLoadImage == true) {
+                        selectImage();
+//                        openGallery();
+                    } else {
+                        Toast.makeText(getActivity(), "Need to wait for previous process finished",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -207,14 +215,14 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        cvEditEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra("EditField","email");
-                startActivity(intent);
-            }
-        });
+//        cvEditEmail.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+//                intent.putExtra("EditField","email");
+//                startActivity(intent);
+//            }
+//        });
         cvEditPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -329,26 +337,74 @@ public class ProfileFragment extends Fragment {
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imageAvatar.setImageBitmap(bitmap);
 
-
-                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                .setDisplayName(user.getUsername())
-                                .setPhotoUri(selectedImageUri)
-                                .build();
-
-                        firebaseUser.updateProfile(profileUpdates)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            user.setAvatar(selectedImageUri.toString());
-                                            UserDao.addUser(user);
-                                            Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
+                        isLoadImage = false;
 
                         //Following is selected image file
                         File selectedImageFile = new File(getPathFromUri(selectedImageUri));
+//                        selectedImageFile.renameTo(new File(user.getUserId() + ".jpg"));
+//
+                        Uri file = Uri.fromFile(selectedImageFile);
+                        storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference().child("images");
+                        StorageReference riversRef = storageRef.child(user.getUserId() + ".jpg");
+//                        StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
+//                        riversRef.delete();
+                        UploadTask uploadTask = riversRef.putFile(file);
+
+                        // Register observers to listen for when the download is done or if it fails
+//                        uploadTask.addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception exception) {
+//                                Toast.makeText(getActivity(), "Upload image failed", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                            @Override
+//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                Toast.makeText(getActivity(), "Upload image successfully", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+                        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                            @Override
+                            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                                if (!task.isSuccessful()) {
+                                    throw task.getException();
+                                }
+
+                                // Continue with the task to get the download URL
+                                return riversRef.getDownloadUrl();
+                            }
+                        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if (task.isSuccessful()) {
+                                    Uri downloadUri = task.getResult();
+//                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+//                                            .setDisplayName(user.getUsername())
+//                                            .setPhotoUri(downloadUri)
+//                                            .build();
+//
+//                                    firebaseUser.updateProfile(profileUpdates)
+//                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                @Override
+//                                                public void onComplete(@NonNull Task<Void> task) {
+//                                                    if (task.isSuccessful()) {
+//                                                        user.setAvatar(downloadUri.toString());
+//                                                        UserDao.addUser(user);
+//                                                        Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
+//                                                    } else {
+//                                                        Toast.makeText(getActivity(), "Edit avatar failed", Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                }
+//                                            });
+                                    user.setAvatar(downloadUri.toString());
+                                    UserDao.addUser(user);
+                                    Toast.makeText(getContext(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
+                                    isLoadImage = true;
+                                } else {
+                                    Toast.makeText(getContext(), "Fail to get image URL", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                     } catch (Exception exception) {
                         Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_SHORT).show();

@@ -1,6 +1,9 @@
 package com.example.prm_final_project.Ui.Activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -13,6 +16,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +26,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -48,13 +53,14 @@ public class EditProfileActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_SELECT_IMAGE = 2;
 
     ImageView imageAvatar;
-    TextView textViewUserName, textViewEmail, textViewPhone;
+    TextView textViewUserName, textViewEmail, textViewPhone, textViewEditProfileTitle;
     EditText editTextUserName, editTextEmail, editTextPhone;
     Button btnSelectImage, btnEditProfile;
     Uri selectedImageUri;
 
     FirebaseUser firebaseUser;
     User user;
+    Dialog dialog;
 
 
 
@@ -63,6 +69,10 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         initUi();
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("Edit Profile");
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
         firebaseUser = UserDao.getUser();
         user = UserDao.getCurrentUser();
@@ -71,6 +81,7 @@ public class EditProfileActivity extends AppCompatActivity {
         String field = intent.getStringExtra("EditField");
         switch (field) {
             case "username":
+                textViewEditProfileTitle.setText("Edit user's name");
                 textViewUserName.setVisibility(View.VISIBLE);
                 editTextUserName.setVisibility(View.VISIBLE);
                 editTextUserName.setText(user.getUsername());
@@ -78,7 +89,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String userName = editTextUserName.getText().toString().trim();
-                        if (userName.length()>0) {
+                        if (!userName.isEmpty()) {
                             user.setUsername(userName);
                             UserDao.addUser(user);
                             Toast.makeText(EditProfileActivity.this, "Edit display name successfully", Toast.LENGTH_SHORT).show();
@@ -95,16 +106,50 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String email = editTextEmail.getText().toString().trim();
-                        if (email.length()>0) {
-                            user.setEmail(email);
-                            UserDao.addUser(user);
-                            Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
+                        if (!email.isEmpty()) {
+                            firebaseUser.updateEmail(email)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                user.setEmail(editTextEmail.getText().toString().trim());
+                                                UserDao.addUser(user);
+                                                Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+                                                builder.setTitle("Re-authenticate needed");
+                                                builder.setMessage("You need to login again to change email!");
+                                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        UserDao.logout();
+                                                        Intent intent = new Intent(EditProfileActivity.this, LoginActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                });
+                                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        Toast.makeText(getBaseContext(), "Change email failed", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                                dialog = builder.create();
+                                            }
+                                        }
+                                    });
                         }
+//                        if (email.length()>0) {
+//                            user.setEmail(email);
+//                            UserDao.addUser(user);
+//                            Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
+//                        }
                         onBackPressed();
                     }
                 });
                 break;
             case "phone":
+                textViewEditProfileTitle.setText("Edit phone");
                 textViewPhone.setVisibility(View.VISIBLE);
                 editTextPhone.setVisibility(View.VISIBLE);
                 editTextPhone.setText(user.getPhone());
@@ -112,7 +157,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String phone = editTextPhone.getText().toString().trim();
-                        if (phone.length()>0) {
+                        if (!phone.isEmpty()) {
                             user.setPhone(phone);
                             UserDao.addUser(user);
                             Toast.makeText(EditProfileActivity.this, "Edit phone number successfully", Toast.LENGTH_SHORT).show();
@@ -208,10 +253,23 @@ public class EditProfileActivity extends AppCompatActivity {
 //            }
 //        });
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void initUi(){
 //        imageAvatar = findViewById(R.id.imageAvatarEditProfile);
 //        btnSelectImage = findViewById(R.id.btnSelectImage);
+
+        textViewEditProfileTitle = findViewById(R.id.textViewEditProfileTitle);
 
         textViewUserName = findViewById(R.id.textViewUserName);
         textViewUserName.setVisibility(View.GONE);
