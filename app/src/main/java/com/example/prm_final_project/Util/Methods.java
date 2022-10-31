@@ -1,5 +1,7 @@
 package com.example.prm_final_project.Util;
 
+import android.util.Log;
+
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
@@ -11,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class Methods {
@@ -69,11 +72,15 @@ public class Methods {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy");
             Date date1 = sdf.parse(o1);
             Date date2 = sdf.parse(o2);
-            return date1.getDate() - date2.getDate();
+
+            long diffInMillies = Math.abs(date2.getTime() - date1.getTime());
+            int diff = (int) TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+            return diff;
         }
         catch (Exception e){
+            Log.i("main-date","errors");
         };
-        return 0;
+        return 1;
     };
 
 
