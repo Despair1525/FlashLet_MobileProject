@@ -84,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 startActivity(i);
                 finish();
             } else {
-                UserDao.addDaily(UserDao.getUser().getUid());
                 UserDao.readAllUserFirst(new UserCallback() {
                     @Override
                     public void onResponse(ArrayList<User> allUsers, User changeUser, int type) {
@@ -136,15 +135,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int lastLoginNum = Methods.minusStringDate(Methods.getDate(),lastLogin);
         user.setLongestStreak(Math.max(user.getLongestStreak(), user.getCurrentStreak()));
 
+        Log.i("main-date-lastLogin",lastLogin+"");
+        Log.i("main-date-lastLogin",lastLoginNum+"");
+
         if(lastLoginNum > 1){
             user.setCurrentStreak(1);
         }else if (lastLoginNum == 1){
             user.setCurrentStreak( user.getCurrentStreak() + 1 );
         };
-        Log.i("main-date-after",user.getLongestStreak()+"");
-
         UserDao.addUser(user);
-
+        UserDao.addDaily(UserDao.getUser().getUid());
     };
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
