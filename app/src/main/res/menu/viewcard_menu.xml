@@ -7,9 +7,13 @@
             android:title="Information"
             android:icon="@drawable/ic_baseline_info_24"/>
         <item
+            android:id="@+id/rateSet"
+            android:title="Rate this set"
+            android:icon="@drawable/ic_baseline_star_rate_24"/>
+        <item
             android:id="@+id/saveSet"
-            android:title="Like this deck"
-            android:icon="@drawable/ic_baseline_save_24"/>
+            android:title="Add to favorite"
+            android:icon="@drawable/ic_baseline_favorite_24"/>
         <item
             android:id="@+id/copySet"
             android:title="Copy this set"
@@ -22,10 +26,7 @@
             android:id="@+id/deleteSet"
             android:title="Delete this set"
             android:icon="@drawable/ic_baseline_delete_24"/>
-        <item
-            android:id="@+id/rateSet"
-            android:title="Rate this set"
-            android:icon="@drawable/ic_baseline_star_rate_24"/>
+
 
 
 </menu>

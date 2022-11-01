@@ -387,27 +387,21 @@ public class ViewCardActivity extends AppCompatActivity {
 
             case R.id.infoSet:
                 builder = new AlertDialog.Builder(this);
-                builder.setTitle("Deck Informations");
                 LayoutInflater inflater = ViewCardActivity.this.getLayoutInflater();
                 View layout = inflater.inflate(R.layout.dialog_deck_information   /*my layout here*/, null);
                 builder.setView(layout);
-                TextView deckIdInfo = layout.findViewById(R.id.tvDeckId);
-                TextView Author = layout.findViewById(R.id.tvAuthor);
-                TextView Uid = layout.findViewById(R.id.tvUid);
-                deckIdInfo.setText("DeckId" + deck.getDeckId());
-                Author.setText("Author:" + deck.getAuthor());
-                builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
 
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
+                TextView Author = layout.findViewById(R.id.tvAuthor);
+                TextView Date = layout.findViewById(R.id.tvDate);
+                TextView Description = layout.findViewById(R.id.tvDescription);
+                Author.setText(deck.getAuthor());
+                Date.setText(deck.getDate());
+                if(deck.getDescriptions()!=null){
+                    Description.setText(deck.getDescriptions());
+                }else{
+                    Description.setText("");
+                }
+
 
                 builder.show();
                 break;
