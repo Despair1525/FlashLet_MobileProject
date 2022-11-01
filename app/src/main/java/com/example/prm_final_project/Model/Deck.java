@@ -15,7 +15,15 @@ public class Deck implements Serializable {
 
     public Deck(){
         this.cards = new ArrayList<>();
+    }
 
+    public Deck(String title,String uid){
+        this.title = title;
+        this.cards = new ArrayList<>();
+        this.isPublic = true;
+        this.view = 0;
+
+        this.Uid = uid;
     }
 
     public Deck (String deckId, String Uid, String title, String descriptions ,String author,String date ,boolean isPublic ,int view,List<List<String>> cards){

@@ -310,8 +310,14 @@ public class ViewCardActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+
             case R.id.copySet:
-                Toast.makeText(this, "CopySet", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "CopySet", Toast.LENGTH_SHORT).show();
+                Intent iCopy = new Intent(this, EditDeckActivity.class);
+                Deck editDeck = deck;
+                editDeck.setUid(UserDao.getUser().getUid());
+                iCopy.putExtra("editDeck", editDeck);
+                startActivity(iCopy);
                 break;
 
             case R.id.editSet:

@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,10 +58,14 @@ private ProgressDialog dialog;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_deck);
         title = getIntent().getStringExtra("editTitle");
+
         if ((Deck) getIntent().getSerializableExtra("editDeck") != null){
            editDeck = (Deck) getIntent().getSerializableExtra("editDeck");
+
            title= editDeck.getTitle();
+
         }else{
+
             FirebaseUser user = UserDao.getUser();
             String date = Methods.getTime();
             String deckid = Methods.generateFlashCardId();
@@ -70,8 +75,8 @@ private ProgressDialog dialog;
             String author = user.getDisplayName();
             Boolean Public = true;
             int view = 1;
-
             editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);
+
         };
         // Set UI
         IbAdd = findViewById(R.id.imageButtonAdd);
@@ -91,7 +96,9 @@ private ProgressDialog dialog;
 
         IbAdd.setOnClickListener(view -> onAdd());
         tvImport.setOnClickListener(this);
-        getSupportActionBar().setTitle("Edit Flashcard");
+        User editUser = UserDao.allUserHT.get(editDeck.getUid());
+        String userName = editUser==null? "": (editUser.getUsername()+" ") ;
+        getSupportActionBar().setTitle("Edit "+userName+ "Flashcard");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
     }
@@ -155,6 +162,7 @@ private ProgressDialog dialog;
     private void onAdd(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add a card");
+
         // Set up Layout for dialog
 
         LayoutInflater inflater =EditDeckActivity.this.getLayoutInflater();
@@ -176,6 +184,7 @@ private ProgressDialog dialog;
                 editDeck.getCards().add(newCard);
                 cardViewAdapter.notifyDataSetChanged();
                 recyclerViewList.scrollToPosition( editDeck.getCards().size()-1);
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -234,6 +243,7 @@ private ProgressDialog dialog;
 
     @Override
     public void onClick(View v) {
+
         if(v == tvImport) {
             Intent i = new Intent(this,ImportDataActivity.class);
             i.putExtra("editDeck",editDeck);

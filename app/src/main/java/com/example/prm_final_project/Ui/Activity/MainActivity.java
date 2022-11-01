@@ -211,7 +211,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
+                    Deck newDeck = new Deck(m_Text,UserDao.getUser().getUid());
                     Intent i = new Intent(MainActivity.this, EditDeckActivity.class);
+
+                    // ad new Deck with (Uid and title )
+                    i.putExtra("editDeck",newDeck);
                     i.putExtra("editTitle", m_Text);
                     startActivity(i);
                 }
