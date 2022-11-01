@@ -34,7 +34,7 @@ public class Methods {
         return sdf.format(timestamp)+"";
     };
     public static String convertMonthYear(Date date){
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM - yyyy");
         return sdf.format(date);
     };
     public static Long getTimeLong(){
