@@ -55,4 +55,11 @@ public class ResultMultipleChoiceActivity extends AppCompatActivity {
         startActivity(in);
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
+        in.putExtra("viewDeck",deck);
+        startActivity(in);
+    }
 }

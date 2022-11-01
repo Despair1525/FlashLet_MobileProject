@@ -70,6 +70,11 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+    @Override
     public void onClick(View view) {
         if(view == buttonContinue){
             studyingCards.remove(0);
