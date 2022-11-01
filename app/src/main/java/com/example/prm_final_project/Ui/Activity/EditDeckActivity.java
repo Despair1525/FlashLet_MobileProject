@@ -58,7 +58,6 @@ private ProgressDialog dialog;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_deck);
         title = getIntent().getStringExtra("editTitle");
-
         if ((Deck) getIntent().getSerializableExtra("editDeck") != null){
            editDeck = (Deck) getIntent().getSerializableExtra("editDeck");
 
@@ -72,10 +71,9 @@ private ProgressDialog dialog;
             List<List<String>> cards = new ArrayList<>();
             String description = "";
             String uid = user.getUid();
-            String author = user.getDisplayName();
             Boolean Public = true;
             int view = 1;
-            editDeck = new Deck(deckid,uid,title,description,author,date,Public,view,cards);
+            editDeck = new Deck(deckid,uid,title,description,date,Public,view,cards);
 
         };
         // Set UI
@@ -87,6 +85,7 @@ private ProgressDialog dialog;
         tvImport = findViewById(R.id.tvImport);
 
         isPublic.setChecked(editDeck.isPublic());
+        EdDes.setText(editDeck.getDescriptions());
 
         // Set RV
         recyclerViewList = findViewById(R.id.rcListEdit);
@@ -125,17 +124,16 @@ private ProgressDialog dialog;
             public void onClick(DialogInterface dialog, int which) {
 
                 FirebaseUser user = UserDao.getUser();
-                editDeck.setAuthor(user.getDisplayName());
                 editDeck.setTitle(Regex.textNormalization(EdTitle.getText().toString()));
                 editDeck.setDescriptions(EdDes.getText().toString());
                 editDeck.setPublic(isPublic.isChecked());
 
                 if(editDeck.getDeckId() == null) editDeck.setDeckId(Methods.generateFlashCardId());
-//                Log.i("editDeck","user: "+editDeck.getUid()  +"- deckid " + editDeck.getDeckId() );
 
                 DeckDao.addDeck(editDeck, new FirebaseCallback() {
                     @Override
                     public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
+
                         Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
                         i.putExtra("viewDeck", changeDeck);
                         dialog.dismiss();
@@ -145,11 +143,13 @@ private ProgressDialog dialog;
                     }
                 });
                 User curentUser = UserDao.getCurrentUser();
+
+                String deckId = editDeck.getDeckId();
+                ArrayList<RecentDeck> recentDecks = DeckDao.createRecentDeck(deckId,curentUser.getRecentDecks());
+                curentUser.setRecentDecks(recentDecks);
                 RecentDeck recentDeck= new RecentDeck(editDeck.getDeckId(),Methods.getTimeLong());
                 curentUser.getMyDeck().add(recentDeck);
                 UserDao.addUser(curentUser);
-
-
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -233,8 +233,6 @@ private ProgressDialog dialog;
             case R.id.SaveEditAction:
                 onSave();
                 break;
-
-
         }
         return super.onOptionsItemSelected(item);
     }
@@ -246,7 +244,6 @@ private ProgressDialog dialog;
 
     @Override
     public void onClick(View v) {
-
         if(v == tvImport) {
             Intent i = new Intent(this,ImportDataActivity.class);
             i.putExtra("editDeck",editDeck);

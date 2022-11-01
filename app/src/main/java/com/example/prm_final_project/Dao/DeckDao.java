@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
+import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.AllDataCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.example.prm_final_project.callbackInterface.RecentDeckCallback;
@@ -130,7 +131,7 @@ public class DeckDao {
             @Override
             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String previousChildName) {
                 //0
-                Deck thisDeck = changeToDeck(ds);
+                Deck thisDeck = ds.getValue(Deck.class);
                 Log.i("numberDeckIncrease",thisDeck.getDeckId());
                 HmAllDeck.put(thisDeck.getDeckId(),thisDeck);
             }
@@ -163,7 +164,6 @@ public class DeckDao {
 
     public static Deck changeToDeck(@NonNull DataSnapshot ds){
         String uid = ds.child("uid").getValue(String.class);
-        String author = ds.child("author").getValue(String.class);
         String title = ds.child("title").getValue(String.class);
         List<List<String>> cards = (List<List<String>>) ds.child("cards").getValue();
         String did = ds.child("deckId").getValue(String.class);
@@ -171,7 +171,7 @@ public class DeckDao {
         String descriptions = ds.child("descriptions").getValue(String.class);
         int view = ds.child("view").getValue(Integer.class);
         boolean isPublic = ds.child("public").getValue(Boolean.class);
-        Deck thisDeck = new Deck(did, uid, title,descriptions, author,date,isPublic ,view,cards);
+        Deck thisDeck = new Deck(did, uid, title,descriptions, date,isPublic ,view,cards);
         return thisDeck;
     };
 
@@ -203,13 +203,6 @@ public class DeckDao {
                     };
                 };
 
-//                Deck thisDeck = changeToDeck(snapshot);
-//                for(int i =0;i<allDecks.size();i++) {
-//                    if(allDecks.get(i).getDeckId().equalsIgnoreCase(snapshot.getKey()) ) {
-//                        allDecks.set(i,thisDeck);
-//                        callback.onResponse(allDecks,thisDeck,1);
-//                    };
-//                };
             }
 
             @Override
@@ -244,11 +237,6 @@ public class DeckDao {
 
     };
 
-
-    public static void addFavoriteDeck(FavoriteDeck FvDeck) {
-        FirebaseDatabase.getInstance().getReference("FavoriteDeck").child(FvDeck.getId()).setValue(FvDeck);
-
-    };
 
     public static void addView(Deck deck) {
         int currentView = deck.getView();
@@ -291,8 +279,22 @@ public class DeckDao {
                 results.add(d);
             }
         }
-
         return results;
     }
+public static ArrayList<RecentDeck> createRecentDeck(String deckId,ArrayList<RecentDeck> userRecent){
+    RecentDeck newRecent = new RecentDeck(deckId, Methods.getTimeLong());
+    int lastRecent = 0;
+    for(int position = 0; position < userRecent.size() ; position++) {
+        if(userRecent.get(position).getTimeStamp()  < userRecent.get(lastRecent).getTimeStamp() ) {
+            lastRecent = position;
+        };
+        if(newRecent.getDeckId().equals(userRecent.get(position).getDeckId())) {
+            userRecent.set(position,newRecent );
+        };
+    };
+    userRecent.add(newRecent);
+    if(userRecent.size() > 10) userRecent.remove(lastRecent);
+        return userRecent;
+};
 
 }

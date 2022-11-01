@@ -101,20 +101,8 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         User currentUser = UserDao.allUserHT.get(UserDao.getUser().getUid());
         if(currentUser != null) {
             String deckId = currentDeck.getDeckId();
-            RecentDeck newRecent = new RecentDeck(deckId, Methods.getTimeLong());
-            ArrayList<RecentDeck> userRecent = currentUser.getRecentDecks();
-                int lastRecent = 0;
-                for(int position = 0; position < userRecent.size() ; position++) {
-                    if(userRecent.get(position).getTimeStamp()  < userRecent.get(lastRecent).getTimeStamp() ) {
-                        lastRecent = position;
-                    };
-                    if(newRecent.getDeckId().equals(userRecent.get(position).getDeckId())) {
-                        userRecent.set(position,newRecent );
-                    };
-                };
-                userRecent.add(newRecent);
-                if(userRecent.size() > 10) userRecent.remove(lastRecent);
-                currentUser.setRecentDecks(userRecent);
+            ArrayList<RecentDeck> recentDecks = DeckDao.createRecentDeck(deckId,currentUser.getRecentDecks());
+            currentUser.setRecentDecks(recentDecks);
        UserDao.addUser(currentUser);
 
         };

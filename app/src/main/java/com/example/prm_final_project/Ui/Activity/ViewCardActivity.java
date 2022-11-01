@@ -104,7 +104,7 @@ public class ViewCardActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         textViewTitle.setText(deck.getTitle());
         textViewView.setText(deck.getView() + "");
-        textViewAuthor.setText(deck.getAuthor());
+
         firebaseUser = UserDao.getUser();
         loadSlideFlash();
     }
@@ -118,9 +118,6 @@ public class ViewCardActivity extends AppCompatActivity {
         );
         builder.setView(layout);
 
-//        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
-//        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
-//        builder.setView(layout);
         EditText quesNum = layout.findViewById(R.id.numques_num);
         quesNum.setHint(" /" + deck.getCards().size());
         Button yesButton = layout.findViewById(R.id.buttonYes);
@@ -145,7 +142,6 @@ public class ViewCardActivity extends AppCompatActivity {
                 i.putExtra("numQues", numQues);
                 i.putExtra("TestDeck", deck);
                 startActivity(i);
-
             }
         });
 
@@ -155,10 +151,7 @@ public class ViewCardActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
-
         alertDialog.show();
-
-
     }
 
     private void onViewFlashCard() {
@@ -174,10 +167,6 @@ public class ViewCardActivity extends AppCompatActivity {
                 (ConstraintLayout) findViewById(R.id.layoutDialog)
         );
         builder.setView(layout);
-
-//        LayoutInflater inflater =ViewCardActivity.this.getLayoutInflater();
-//        View layout = inflater.inflate(R.layout.activity_choose_type_test    /*my layout here*/, null);
-//        builder.setView(layout);
         EditText quesNum = layout.findViewById(R.id.numques_num);
         quesNum.setHint(" /" + deck.getCards().size());
         RadioGroup radio_g = layout.findViewById(R.id.QuestionType);
@@ -221,7 +210,6 @@ public class ViewCardActivity extends AppCompatActivity {
                 ;
             }
         });
-
         noButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -230,8 +218,6 @@ public class ViewCardActivity extends AppCompatActivity {
         });
 
         alertDialog.show();
-
-
     }
 
     private void onReload() {
@@ -270,17 +256,12 @@ public class ViewCardActivity extends AppCompatActivity {
         viewPager2.setPageTransformer(compositePageTransformer);
     }
 
-    ;
-
-
     public void onLearn() {
         Bundle b = new Bundle();
         Intent i = new Intent(this, LearnCardActivity.class);
         i.putExtra("currentDeck", deck);
         startActivity(i);
     }
-
-    ;
 
     @SuppressLint("RestrictedApi")
     @Override
@@ -312,6 +293,7 @@ public class ViewCardActivity extends AppCompatActivity {
                 Deck editDeck = deck;
                 editDeck.setUid(UserDao.getUser().getUid());
                 editDeck.setDeckId(Methods.generateFlashCardId());
+                editDeck.setDate(Methods.getDate());
                 iCopy.putExtra("editDeck", editDeck);
                 startActivity(iCopy);
                 break;
@@ -379,11 +361,7 @@ public class ViewCardActivity extends AppCompatActivity {
 
                 break;
             case R.id.saveSet:
-//                String UserId = UserDao.getUser().getUid();
-//                String deckId = deck.getDeckId();
-//                String id = UserId + "-" + deckId;
-//                FavoriteDeck favoriteDeck = new FavoriteDeck(id, UserId, deckId, Methods.getTimeLong());
-//                DeckDao.addFavoriteDeck(favoriteDeck);
+
                 UserDao.addFavoriteDeck(deck.getDeckId());
                 break;
 
@@ -395,8 +373,14 @@ public class ViewCardActivity extends AppCompatActivity {
 
                 TextView Author = layout.findViewById(R.id.tvAuthor);
                 TextView Date = layout.findViewById(R.id.tvDate);
+                String userName="";
+                try {
+                    userName = UserDao.allUserHT.get(deck.getUid()).getUsername();
+                }catch (Exception e){
+                    Log.i("viewCardActivity",e.getLocalizedMessage());
+                };
+                Author.setText(userName);
                 TextView Description = layout.findViewById(R.id.tvDescription);
-                Author.setText(deck.getAuthor());
                 Date.setText(deck.getDate());
                 if(deck.getDescriptions()!=null){
                     Description.setText(deck.getDescriptions());
