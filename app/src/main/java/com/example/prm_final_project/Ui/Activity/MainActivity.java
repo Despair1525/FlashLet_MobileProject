@@ -121,28 +121,32 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
     }
     public void addStreak(){
+
         User user = UserDao.getCurrentUser();
-        ArrayList<String> userDaily = user.getDaily();
-        Collections.sort(userDaily, new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                return Methods.compareStringDateDay(o1,o2);
+        if(user != null) {
+            ArrayList<String> userDaily = user.getDaily();
+            Collections.sort(userDaily, new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    return Methods.compareStringDateDay(o1, o2);
+                }
+            });
+            String lastLogin = userDaily.isEmpty() ? Methods.getDate() : userDaily.get(0);
+            int lastLoginNum = Methods.minusStringDate(Methods.getDate(), lastLogin);
+            user.setLongestStreak(Math.max(user.getLongestStreak(), user.getCurrentStreak()));
+
+            Log.i("main-date-lastLogin", lastLogin + "");
+            Log.i("main-date-lastLogin", lastLoginNum + "");
+
+            if (lastLoginNum > 1) {
+                user.setCurrentStreak(1);
+            } else if (lastLoginNum == 1) {
+                user.setCurrentStreak(user.getCurrentStreak() + 1);
             }
-        });
-        String lastLogin = userDaily.isEmpty() ? Methods.getDate() : userDaily.get(0);
-        int lastLoginNum = Methods.minusStringDate(Methods.getDate(),lastLogin);
-        user.setLongestStreak(Math.max(user.getLongestStreak(), user.getCurrentStreak()));
-
-        Log.i("main-date-lastLogin",lastLogin+"");
-        Log.i("main-date-lastLogin",lastLoginNum+"");
-
-        if(lastLoginNum > 1){
-            user.setCurrentStreak(1);
-        }else if (lastLoginNum == 1){
-            user.setCurrentStreak( user.getCurrentStreak() + 1 );
+            ;
+            UserDao.addUser(user);
+            UserDao.addDaily(UserDao.getUser().getUid());
         };
-        UserDao.addUser(user);
-        UserDao.addDaily(UserDao.getUser().getUid());
     };
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

@@ -171,6 +171,7 @@ public class ProfileFragment extends Fragment {
         initUi(view);
 
         firebaseUser = UserDao.getUser();
+
         user = UserDao.getCurrentUser();
         storage = FirebaseStorage.getInstance();
         if (selectedImageUri==null) {
