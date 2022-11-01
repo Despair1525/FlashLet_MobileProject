@@ -109,4 +109,9 @@ public class WrittenQuizActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
 }
