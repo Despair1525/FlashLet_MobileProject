@@ -29,7 +29,7 @@ public class DailyActivity extends AppCompatActivity {
     CompactCalendarView compactCalendar;
     TextView month_year;
     ImageView backButton;
-    TextView tvStreak;
+    TextView tvStreak,tvLong;
 
     @RequiresApi(api = Build.VERSION_CODES.S)
     @Override
@@ -43,8 +43,10 @@ public class DailyActivity extends AppCompatActivity {
         month_year = findViewById(R.id.tvMonthYear);
         backButton = findViewById(R.id.backButton);
         tvStreak =findViewById(R.id.tvStreakNum);
-
-        tvStreak.setText(UserDao.getCurrentUser().getLongestStreak()+" Days");
+        tvLong = findViewById(R.id.tvLongestStreak);
+        tvStreak.setText(UserDao.getCurrentUser().getCurrentStreak()+" Days");
+        tvLong.setText(UserDao.getCurrentUser().getLongestStreak()+" Days");
+        
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
