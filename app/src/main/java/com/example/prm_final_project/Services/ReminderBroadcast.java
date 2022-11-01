@@ -8,14 +8,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.Ui.Activity.MainActivity;
 import com.example.prm_final_project.Ui.Activity.NotificationDetailActivity;
+
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
 
 public class ReminderBroadcast extends BroadcastReceiver {
 
@@ -25,7 +27,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        String randomMessage = intent.getStringExtra("random_message");
+//        String randomMessage = intent.getStringExtra("random_message");
 
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.icon);
@@ -38,6 +40,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         builder.setContentTitle("It's time to study!");
 
         if(message == null || message.trim().isEmpty()){
+            String randomMessage = getDataFromFile(context);
             builder.setContentText(randomMessage);
             intent1.removeExtra("message_quote");
             intent1.putExtra("message_quote", randomMessage);
@@ -53,11 +56,30 @@ public class ReminderBroadcast extends BroadcastReceiver {
         builder.setStyle(new NotificationCompat.BigTextStyle().bigText(message));
         builder.setLargeIcon(largeIcon);
         builder.setOngoing(true);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 2, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                context, 2, intent1, PendingIntent.FLAG_MUTABLE);
         builder.setContentIntent(pendingIntent).setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
         notificationManager.notify(200, builder.build());
 
     }
+
+    private String getDataFromFile(Context context){
+        StringBuffer buffer = new StringBuffer();
+        Scanner scanner = new Scanner(context.getResources().openRawResource(R.raw.sample_messages));
+
+        ArrayList<String> array = new ArrayList<>();
+        while(scanner.hasNext()){
+            String line = scanner.nextLine();
+            array.add(line);
+        }
+        scanner.close();
+
+        Random rand = new Random();
+
+        int randomIndex = rand.nextInt(array.size());
+        return array.get(randomIndex);
+    }
+
 }

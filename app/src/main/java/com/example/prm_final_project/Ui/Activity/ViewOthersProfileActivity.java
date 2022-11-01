@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Adapter.UserListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
@@ -43,10 +44,12 @@ public class ViewOthersProfileActivity extends AppCompatActivity {
 
         // set avatar
         Uri imgUri;
-        if(currentUser.getAvatar() != null && currentUser.getAvatar().startsWith("content")) {
+        if(currentUser.getAvatar() != null && !currentUser.getAvatar().equalsIgnoreCase("null"))  {
             imgUri = Uri.parse(currentUser.getAvatar());
             try {
-                avatarImg.setImageURI(imgUri);
+                Glide.with(this)
+                        .load(imgUri)
+                        .into(avatarImg);
             } catch (Exception e){
                 avatarImg.setImageResource(R.drawable.default_avatar);
             }

@@ -3,6 +3,7 @@ package com.example.prm_final_project.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
@@ -51,10 +53,13 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         } else{
             deckSize = u.getMyDeck().size();
         }
-        if(u.getAvatar() != null && u.getAvatar().startsWith("content")) {
+        Log.i("Check_avt", u.getAvatar()+""+u.getUsername());
+        if(u.getAvatar() != null && !u.getAvatar().equalsIgnoreCase("null")) {
             imgUri = Uri.parse(u.getAvatar());
             try {
-                holder.imageView.setImageURI(imgUri);
+                Glide.with(context)
+                        .load(imgUri)
+                        .into(holder.imageView);
             } catch (Exception e){
                 holder.imageView.setImageResource(R.drawable.default_avatar);
             }

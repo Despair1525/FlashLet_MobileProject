@@ -2,11 +2,13 @@ package com.example.prm_final_project.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,6 +17,7 @@ import androidx.appcompat.widget.ActionMenuView;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
@@ -68,16 +71,25 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
             holder.author.setText("");
         }else{
             holder.author.setText(u.getUsername());
+            Uri imgUri ;
+            if(u.getAvatar() != null && !u.getAvatar().equalsIgnoreCase("null")) {
+                imgUri = Uri.parse(u.getAvatar());
+                try {
+                    Glide.with(context)
+                            .load(imgUri)
+                            .into(holder.imgAvt);
+                } catch (Exception e){
+                    holder.imgAvt.setImageResource(R.drawable.default_avatar);
+                }
+            }
+             else {
+                 holder.imgAvt.setImageResource(R.drawable.default_avatar);
+            }
         };
 
-//        if(!curentDeck.isPublic()) {
-//            holder.itemView.setVisibility(View.GONE);
-//            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
-//        }
         holder.layoutItem.setOnClickListener(view -> onItem(curentDeck));
 
     }
-
 
     private void onItem(Deck currentDeck) {
         Intent i = new Intent(context, ViewCardActivity.class);
@@ -121,6 +133,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
         TextView title ;
         TextView totalNum;
         HomeDeckListAdapter homeDeckListAdapter;
+        ImageView imgAvt;
        TextView actionMenuView;
         private LinearLayout layoutItem;
         public DeckViewHolder(@NonNull View itemView, HomeDeckListAdapter homeDeckListAdapter) {
@@ -130,6 +143,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
             author = itemView.findViewById(R.id.tvDeckAuthor);
             totalNum = (TextView) itemView.findViewById(R.id.tvDeckTotal);
             title = itemView.findViewById(R.id.tvDeckName);
+            imgAvt = itemView.findViewById(R.id.card_avt);
 //            actionMenuView = itemView.findViewById(R.id.tvDeckOptions);
         }
     }

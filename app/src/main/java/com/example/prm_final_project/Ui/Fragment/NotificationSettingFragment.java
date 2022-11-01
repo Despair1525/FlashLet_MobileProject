@@ -1,7 +1,6 @@
 package com.example.prm_final_project.Ui.Fragment;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -66,7 +65,8 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
                         minute = selectedMinute;
                         String newValue = String.format(Locale.getDefault(), "%02d:%02d", hour, minute);
                         editTimeChosen.setSummary(newValue);
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(MY_PREFERENCE, Context.MODE_PRIVATE);
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(
+                                MY_PREFERENCE, Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString(TIME_CHOSEN, newValue);
                         editor.commit();
@@ -125,12 +125,12 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
     }
 
     private void setAlarmNotification(int hour, int minute){
-        String message = getDataFromFile();
+//        String message = getDataFromFile();
         Intent intent = new Intent(requireContext(), ReminderBroadcast.class);
-        intent.putExtra("random_message", message);
-        Log.i("random_message", message);
+//        intent.putExtra("random_message", message);
+//        Log.i("random_message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                requireContext(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                requireContext(), 2, intent, PendingIntent.FLAG_MUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
@@ -148,7 +148,7 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
     private void cancelAlarmNotification(){
         Intent intent = new Intent(requireContext(), ReminderBroadcast.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                requireContext(), 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                requireContext(), 2, intent, PendingIntent.FLAG_MUTABLE);
 
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
