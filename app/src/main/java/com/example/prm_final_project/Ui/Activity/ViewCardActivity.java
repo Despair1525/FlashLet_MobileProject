@@ -109,11 +109,6 @@ public class ViewCardActivity extends AppCompatActivity {
         loadSlideFlash();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        finish();
-        return true;
-    }
 
     private void onTest2() {
         AlertDialog.Builder builder = new AlertDialog.Builder(ViewCardActivity.this, R.style.AlertDialogTheme);

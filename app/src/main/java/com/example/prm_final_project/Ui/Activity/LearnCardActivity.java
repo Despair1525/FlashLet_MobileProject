@@ -98,6 +98,9 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
                     }
                 });
             }else {
+                if(flipViewCard.isBackSide()){
+                    flipViewCard.flipTheView();
+                }
                 addaptChange();
                 currentProgress++;
                 textViewProgress.setText(currentProgress+"/"+progressBar.getMax());
@@ -109,6 +112,9 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
             int addPosition = studyingCards.size() / 2;
             studyingCards.remove(0);
             studyingCards.add(addPosition, currentCard);
+            if(flipViewCard.isBackSide()){
+                flipViewCard.flipTheView();
+            }
             addaptChange();
         }
 
