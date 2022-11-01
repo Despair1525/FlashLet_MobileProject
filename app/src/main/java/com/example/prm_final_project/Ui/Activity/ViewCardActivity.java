@@ -316,6 +316,7 @@ public class ViewCardActivity extends AppCompatActivity {
                 Intent iCopy = new Intent(this, EditDeckActivity.class);
                 Deck editDeck = deck;
                 editDeck.setUid(UserDao.getUser().getUid());
+                editDeck.setDeckId(Methods.generateFlashCardId());
                 iCopy.putExtra("editDeck", editDeck);
                 startActivity(iCopy);
                 break;

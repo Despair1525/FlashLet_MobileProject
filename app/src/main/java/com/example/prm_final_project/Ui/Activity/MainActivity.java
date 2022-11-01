@@ -100,10 +100,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                     bottomNavigationView.setOnNavigationItemSelectedListener(MainActivity.this);
                                     dialog.dismiss();
                                 }
-
-                                ;
-
                             });
+
                         } else {
                             Log.i("here", "Yolo");
                             Intent i = new Intent(MainActivity.this, NoInternetActivity.class);

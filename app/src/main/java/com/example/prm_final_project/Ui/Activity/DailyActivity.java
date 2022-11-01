@@ -46,7 +46,7 @@ public class DailyActivity extends AppCompatActivity {
         tvLong = findViewById(R.id.tvLongestStreak);
         tvStreak.setText(UserDao.getCurrentUser().getCurrentStreak()+" Days");
         tvLong.setText(UserDao.getCurrentUser().getLongestStreak()+" Days");
-        
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

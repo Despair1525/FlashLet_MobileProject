@@ -105,7 +105,7 @@ private ProgressDialog dialog;
 
     private void onSave() {
 
-        if(editDeck.getCards().size() < 4){
+        if(editDeck.getCards().size() < 2){
             Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 4 !",Toast.LENGTH_SHORT).show();
             return;
         };
@@ -129,6 +129,9 @@ private ProgressDialog dialog;
                 editDeck.setTitle(Regex.textNormalization(EdTitle.getText().toString()));
                 editDeck.setDescriptions(EdDes.getText().toString());
                 editDeck.setPublic(isPublic.isChecked());
+
+                if(editDeck.getDeckId() == null) editDeck.setDeckId(Methods.generateFlashCardId());
+//                Log.i("editDeck","user: "+editDeck.getUid()  +"- deckid " + editDeck.getDeckId() );
 
                 DeckDao.addDeck(editDeck, new FirebaseCallback() {
                     @Override

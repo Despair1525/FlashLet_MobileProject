@@ -13,13 +13,20 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 public class Methods {
+    public static int generateNumber(int low,int high) {
+        Random r = new Random();
+        int result = r.nextInt(high-low) + low;
+        return result;
+    };
+
     public static String generateFlashCardId(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String id = timestamp.getTime()+"";
+        String id = timestamp.getTime()+"-"+generateNumber(0,10);
         return id;
     };
 
