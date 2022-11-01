@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
     private TextView textViewProgress;
     private List<List<String>> studyingCards;
     private int currentProgress = 1;
+    private EasyFlipView flipViewCard;
     private ProgressBar progressBar;
 
     private ViewPager2 viewPager2;
@@ -54,6 +56,7 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
         textViewCardFront = findViewById(R.id.SliderCardFront);
         progressBar = findViewById(R.id.progressBar);
         textViewProgress = findViewById(R.id.tv_progress);
+        flipViewCard = (EasyFlipView) findViewById(R.id.flipViewCard);
         progressBar.setMax(deck.getCards().size());
         progressBar.setProgress(1);
         textViewProgress.setText("0/"+progressBar.getMax());
