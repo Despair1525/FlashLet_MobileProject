@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:minHeight="10dp"
+        android:minHeight="@dimen/_8sdp"
         android:max="600"
         android:min="1"
         android:progress="0"
@@ -27,8 +27,8 @@
 
     <com.wajahatkarim3.easyflipview.EasyFlipView
         android:id="@+id/flipViewCard"
-        android:layout_width="300dp"
-        android:layout_height="650dp"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_470sdp"
         app:flipOnTouch="true"
         app:flipEnabled="true"
         app:flipDuration="400"
@@ -45,23 +45,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded_corner_slide_card_back"
-            android:textSize="20dp"
+            android:textSize="@dimen/_20sdp"
             android:text="Back"
             android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             />
 
         <TextView
             android:id="@+id/SliderCardFront"
             android:layout_width="match_parent"
-            android:layout_height="623dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
             android:background="@drawable/rounded_corner_slide_card"
             android:gravity="center"
             android:text="Front"
-            android:textSize="20dp" />
+            android:textSize="@dimen/_20sdp" />
     </com.wajahatkarim3.easyflipview.EasyFlipView>
 
     <TextView
@@ -72,32 +72,31 @@
         android:text="0/100"
         android:textColorHint="#7A8089"
         app:layout_constraintTop_toBottomOf="@+id/flipViewCard"
-        android:textSize="20dp" />
+        android:textSize="@dimen/_15sdp" />
 
 
     <Button
-        android:layout_width="150dp"
+        android:layout_width="@dimen/_100sdp"
         android:layout_height="wrap_content"
         android:id="@+id/buttonStudying"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flipViewCard"
         android:text="Studying"
         android:background="@drawable/button_alert_dialog_background"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginLeft="@dimen/_28sdp"
         />
 
     <Button
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
         android:id="@+id/buttonContinue"
-        app:layout_constraintStart_toEndOf="@id/buttonStudying"
-        app:layout_constraintTop_toBottomOf="@+id/flipViewCard"
-        android:text="Continue"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_28sdp"
+        android:layout_marginRight="@dimen/_28sdp"
         android:background="@drawable/button_alert_dialog_background"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="50dp"
-        />
+        android:text="Continue"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flipViewCard" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

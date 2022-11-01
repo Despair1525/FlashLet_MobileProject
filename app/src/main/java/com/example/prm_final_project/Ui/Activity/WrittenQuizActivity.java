@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -22,8 +24,6 @@ public class WrittenQuizActivity extends AppCompatActivity {
     private TextView Question;
     public ArrayList<Quiz> questionSet = new ArrayList<>();
     public ArrayList<String> AnswerSet = new ArrayList<>();
-
-    private Button SubmitQuestion, Quit;
     private EditText Answer;
     public static int marks=0,correct=0,wrong=0,numQuest = 0 ;
     public static String title  ="";
@@ -46,49 +46,53 @@ public class WrittenQuizActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
         Question.setText(questionSet.get(questnum).getQuestion());
-        SubmitQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(Answer.getText().toString().trim().equals(null))
-                {
-                    Toast.makeText(getApplicationContext(), "Please enter answer", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+        Answer.setOnEditorActionListener(actionListener);
+    }
 
-                String ansText = Answer.getText().toString();
+    private TextView.OnEditorActionListener actionListener  = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            switch (i) {
+                case EditorInfo.IME_ACTION_DONE:
+                    if(Answer.getText().toString().trim().equals(null))
+                    {
+                        Toast.makeText(getApplicationContext(), "Please enter answer", Toast.LENGTH_SHORT).show();
+                    }
+
+                    String ansText = Answer.getText().toString();
 //                Toast.makeText(getApplicationContext(), ansText, Toast.LENGTH_SHORT).
 //                show();
-                if(ansText.trim().equalsIgnoreCase(questionSet.get(questnum).getAnswer())) {
-                    correct++;
-                    Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    wrong++;
-                    Toast.makeText(getApplicationContext(), "Wrong", Toast.LENGTH_SHORT).show();
-                }
+                    if(ansText.trim().equalsIgnoreCase(questionSet.get(questnum).getAnswer())) {
+                        correct++;
+                        Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        wrong++;
+                        Toast.makeText(getApplicationContext(), "Wrong", Toast.LENGTH_SHORT).show();
+                    }
 
-                questnum++;
-                if(questnum < numQuest)
-                {
-                    Question.setText(questionSet.get(questnum).getQuestion());
+                    questnum++;
+                    if(questnum < numQuest)
+                    {
+                        Question.setText(questionSet.get(questnum).getQuestion());
 
-                }
-                else{
-                    marks=correct;
-                    Intent in = new Intent(getApplicationContext(),ResultWrittenChoiceActivity.class);
-                    in.putExtra("viewDeck",deck);
-                    startActivity(in);
-                }
-                Answer.setText("");
-
+                    }
+                    else{
+                        marks=correct;
+                        Intent in = new Intent(getApplicationContext(),ResultWrittenChoiceActivity.class);
+                        in.putExtra("viewDeck",deck);
+                        startActivity(in);
+                    }
+                    Answer.setText("");
+                    break;
             }
-        });
-    }
+            return true;
+        }
+    };
 
     public void init(){
         Answer = findViewById(R.id.Answer);
         Question = findViewById(R.id.Question);
-        SubmitQuestion = findViewById(R.id.NextQues);
     }
 
     public void initQuestionAnswerSet() {

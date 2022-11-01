@@ -74,6 +74,7 @@
         <activity
             android:name=".Ui.Activity.WrittenQuizActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden"
             android:theme="@style/Theme.PRM_Final_Project.Custombar" />
         <activity
             android:name=".Ui.Activity.ResultMultipleChoiceActivity"
