@@ -59,6 +59,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,17 +84,18 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
 
     private String rawString="";
     private List<List<String>> rawDeck = new ArrayList<>();
-    private Deck editDeck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_data);
-        if ((Deck) getIntent().getSerializableExtra("editDeck") != null) {
-            editDeck = (Deck) getIntent().getSerializableExtra("editDeck");
-        } else {
-            editDeck = new Deck();
-        };
+
+//        if ((Deck) getIntent().getSerializableExtra("editDeck") != null) {
+//            editDeck = (Deck) getIntent().getSerializableExtra("editDeck");
+//        } else {
+//            editDeck = new Deck();
+//        };
+
         btImportFile = findViewById(R.id.btImport);
         tvFileView = findViewById(R.id.tvFileView);
         tvRegexCard = findViewById(R.id.tvRegexCard);
@@ -330,10 +332,15 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
         builder.setPositiveButton("Import", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                editDeck.getCards().addAll(rawDeck);
-                Intent i = new Intent(ImportDataActivity.this, EditDeckActivity.class);
-                i.putExtra("editDeck",editDeck);
-                startActivity(i);
+
+//                editDeck.getCards().addAll(rawDeck);
+                Intent i = new Intent();
+                Bundle args = new Bundle();
+//                i.putExtras("importCard", rawDeck);
+                args.putSerializable("importCard",(Serializable) rawDeck);
+                i.putExtra("BUNDLE",args);
+                setResult(15, i);
+//                startActivity(i);
                 finish();
             }
         });

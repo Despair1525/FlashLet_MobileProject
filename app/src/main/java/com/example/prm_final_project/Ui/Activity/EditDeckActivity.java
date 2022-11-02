@@ -228,6 +228,17 @@ private ProgressDialog dialog;
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 15) {
+                Bundle args = data.getBundleExtra("BUNDLE");
+                List<List<String>> importCard = (List<List<String>>) args.getSerializable("importCard");
+//                Log.i("editdeckImport","Number of card"+importCard.size());
+                editDeck.getCards().addAll(importCard);
+                cardViewAdapter.notifyDataSetChanged();
+        }
+    }
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.SaveEditAction:
@@ -246,8 +257,9 @@ private ProgressDialog dialog;
     public void onClick(View v) {
         if(v == tvImport) {
             Intent i = new Intent(this,ImportDataActivity.class);
-            i.putExtra("editDeck",editDeck);
-            startActivity(i);
+//            i.putExtra("editDeck",editDeck);
+            startActivityForResult(i, 15);
+//            startActivity(i);
         };
     }
 };
