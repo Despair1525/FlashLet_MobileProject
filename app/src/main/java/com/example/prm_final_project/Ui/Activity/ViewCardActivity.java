@@ -1,13 +1,10 @@
 package com.example.prm_final_project.Ui.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
@@ -16,10 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +22,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -37,11 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.prm_final_project.Adapter.SliderFlashcardAdapter;
-import com.example.prm_final_project.Adapter.cardViewAdapter1;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
-import com.example.prm_final_project.Model.FavoriteDeck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
@@ -50,7 +41,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
 public class ViewCardActivity extends AppCompatActivity {
     private Deck deck;
@@ -62,6 +52,7 @@ public class ViewCardActivity extends AppCompatActivity {
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     private RatingBar bar;
+    private User author;
     FirebaseUser firebaseUser;
     User user;
 
@@ -105,6 +96,8 @@ public class ViewCardActivity extends AppCompatActivity {
         textViewTitle.setText(deck.getTitle());
         textViewView.setText(deck.getView() + "");
 
+        author = UserDao.allUserHT.get(deck.getUid());
+        textViewAuthor.setText(author.getUsername());
         firebaseUser = UserDao.getUser();
         loadSlideFlash();
     }
@@ -154,6 +147,13 @@ public class ViewCardActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent in = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(in);
+    }
     private void onViewFlashCard() {
         Intent i = new Intent(this, ViewAllCardsActivity.class);
         i.putExtra("currentDeck", deck);

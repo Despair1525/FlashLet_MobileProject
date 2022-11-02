@@ -62,6 +62,7 @@ public class ResultWrittenChoiceActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        finish();
         Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
         in.putExtra("viewDeck",deck);
         startActivity(in);

@@ -181,7 +181,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onBackPressed() {
         if (bottomNavigationView.getSelectedItemId() == R.id.nav_home) {
-            super.onBackPressed();
+//          super.onBackPressed();
+           moveTaskToBack(true);
         } else {
             bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
