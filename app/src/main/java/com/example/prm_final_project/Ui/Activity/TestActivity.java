@@ -63,7 +63,7 @@ public class TestActivity extends AppCompatActivity {
         Question.setText(questionSet.get(questnum).getQuestion());
         Log.i("numQues", questionSet.size() +"");
 
-        randAnswer(AnswerSet, questionSet.get(questnum).getAnswer());
+        randAnswer(questionSet.get(questnum).getAnswer());
         SubmitQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,7 +88,7 @@ public class TestActivity extends AppCompatActivity {
                 if(questnum < numQuest)
                 {
                     Question.setText(questionSet.get(questnum).getQuestion());
-                    randAnswer(AnswerSet, questionSet.get(questnum).getAnswer());
+                    randAnswer(questionSet.get(questnum).getAnswer());
                 }
                 else{
                     marks=correct;
@@ -112,17 +112,28 @@ public class TestActivity extends AppCompatActivity {
         SubmitQuestion = findViewById(R.id.NextQues);
     }
 
-    public void randAnswer(ArrayList<String> AnswerSet, String Answer){
-        for (int i = 0; i < AnswerSet.size(); i++) {
-            if(Answer.equalsIgnoreCase(AnswerSet.get(i))){
-                AnswerSet.remove(i);
+    public void randAnswer(String Answer){
+        List<List<String>> listString = deck.getCards();
+        ArrayList<String> AnswerSetRand = new ArrayList<>();
+        for (List<String> card: listString) {
+            if(card.get(1).equalsIgnoreCase(Answer)){
+                continue;
+            }else{
+                AnswerSetRand.add(card.get(1));
+            }
+
+        }
+        for (int i = 0; i < AnswerSetRand.size(); i++) {
+            if(Answer.equalsIgnoreCase(AnswerSetRand.get(i))){
+                AnswerSetRand.remove(i);
             }
         }
-        Collections.shuffle(AnswerSet);
+        Collections.shuffle(AnswerSetRand);
+        Log.i("AnswerSetSize",AnswerSetRand.size()+"");
         ArrayList<String> arrayListSetAswer = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            arrayListSetAswer.add(AnswerSet.get(i));
-        }
+        arrayListSetAswer.add(AnswerSetRand.get(0));
+        arrayListSetAswer.add(AnswerSetRand.get(1));
+        arrayListSetAswer.add(AnswerSetRand.get(2));
         arrayListSetAswer.add(Answer);
         Collections.shuffle(arrayListSetAswer);
         Log.i("AnswerSize",arrayListSetAswer.size()+"");
