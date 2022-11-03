@@ -38,6 +38,7 @@ import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.google.firebase.auth.FirebaseUser;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -48,10 +49,12 @@ public class ViewCardActivity extends AppCompatActivity {
     private ImageView imageViewLearn;
     private TextView tvTitile;
     private TextView tvView, textViewAuthor, textViewView, textViewTitle;
+    private SliderFlashcardAdapter sliderFlashcardAdapter;
     private ImageView imageReload, imageTest;
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
     private RatingBar bar;
+    private TextView textViewProgress;
     private User author;
     FirebaseUser firebaseUser;
     User user;
@@ -74,6 +77,7 @@ public class ViewCardActivity extends AppCompatActivity {
         textViewView = findViewById(R.id.textViewNumView);
         textViewAuthor = findViewById(R.id.textViewAuthor);
         viewRelativeLayout = findViewById(R.id.viewAllFlashCardItem);
+        textViewProgress = findViewById(R.id.tv_progress);
 
         reloadRelativeLayout.setOnClickListener(view -> onReload());
 
@@ -228,17 +232,13 @@ public class ViewCardActivity extends AppCompatActivity {
 
     private void loadSlideFlash() {
         initSlideCard(); // Set Slide Flash card
-//        cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
-//        recyclerViewList.setAdapter(cardViewAdapter);
-//        recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
-
     }
 
-    ;
-
     public void initSlideCard() {
+
+        sliderFlashcardAdapter  = new SliderFlashcardAdapter(this, deck, viewPager2);
         viewPager2 = findViewById(R.id.viewPagerImageSlider);
-        viewPager2.setAdapter(new SliderFlashcardAdapter(this, deck, viewPager2));
+        viewPager2.setAdapter(sliderFlashcardAdapter);
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(3);
@@ -254,6 +254,39 @@ public class ViewCardActivity extends AppCompatActivity {
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                int positionCard = position +1;
+                textViewProgress.setText(positionCard+"/"+deck.getCards().size());
+                RecyclerView rvNext = (RecyclerView) viewPager2.getChildAt(0);
+                // handel index out of range
+                if(position == 0){
+                    SliderFlashcardAdapter.SliderViewHolder holderNext= (SliderFlashcardAdapter.SliderViewHolder) rvNext.findViewHolderForAdapterPosition(position+1);
+                    if(holderNext.easyFlipView.isBackSide()){
+                        holderNext.easyFlipView.flipTheView();
+                    }
+                }
+                else if(position == deck.getCards().size()-1){
+                    SliderFlashcardAdapter.SliderViewHolder holderBack= (SliderFlashcardAdapter.SliderViewHolder) rvNext.findViewHolderForAdapterPosition(position-1);
+                    if(holderBack.easyFlipView.isBackSide()){
+                        holderBack.easyFlipView.flipTheView();
+                    }
+                }
+                else {
+                    SliderFlashcardAdapter.SliderViewHolder holderBack = (SliderFlashcardAdapter.SliderViewHolder) rvNext.findViewHolderForAdapterPosition(position - 1);
+                    if(holderBack.easyFlipView.isBackSide()){
+                        holderBack.easyFlipView.flipTheView();
+                    }
+                    SliderFlashcardAdapter.SliderViewHolder holderNext= (SliderFlashcardAdapter.SliderViewHolder) rvNext.findViewHolderForAdapterPosition(position+1);
+                    if(holderNext.easyFlipView.isBackSide()){
+                        holderNext.easyFlipView.flipTheView();
+                    }
+                }
+
+            }
+        });
     }
 
     public void onLearn() {

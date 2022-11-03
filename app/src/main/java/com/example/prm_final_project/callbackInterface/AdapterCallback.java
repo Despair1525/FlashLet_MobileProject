@@ -6,5 +6,4 @@ import java.util.ArrayList;
 
 public interface AdapterCallback {
     void onResponse( int type);
-
 }
