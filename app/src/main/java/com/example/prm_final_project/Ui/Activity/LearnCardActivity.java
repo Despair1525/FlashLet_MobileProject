@@ -113,14 +113,16 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
             }
         }
         if(view == buttonStudying){
-            List<String> currentCard  = studyingCards.get(0);
-            int addPosition = studyingCards.size() / 2;
-            studyingCards.remove(0);
-            studyingCards.add(addPosition, currentCard);
-            if(flipViewCard.isBackSide()){
-                flipViewCard.flipTheView();
+            if(studyingCards.size() > 0) {
+                List<String> currentCard = studyingCards.get(0);
+                int addPosition = studyingCards.size() / 2;
+                studyingCards.remove(0);
+                studyingCards.add(addPosition, currentCard);
+                if (flipViewCard.isBackSide()) {
+                    flipViewCard.flipTheView();
+                }
+                addaptChange();
             }
-            addaptChange();
         }
 
 
