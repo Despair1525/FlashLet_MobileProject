@@ -39,6 +39,7 @@ public class ResultMultipleChoiceActivity extends AppCompatActivity {
                 Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
                 in.putExtra("viewDeck",deck);
                 startActivity(in);
+                finish();
             }
         });
     }

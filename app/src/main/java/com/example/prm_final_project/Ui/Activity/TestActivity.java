@@ -93,6 +93,7 @@ public class TestActivity extends AppCompatActivity {
                     Intent in = new Intent(getApplicationContext(),ResultMultipleChoiceActivity.class);
                     in.putExtra("viewDeck",deck);
                     startActivity(in);
+                    finish();
                 }
                 radio_g.clearCheck();
             }

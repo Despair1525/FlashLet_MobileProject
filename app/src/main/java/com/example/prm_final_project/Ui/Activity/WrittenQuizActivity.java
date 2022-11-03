@@ -82,6 +82,7 @@ public class WrittenQuizActivity extends AppCompatActivity {
                         Intent in = new Intent(getApplicationContext(),ResultWrittenChoiceActivity.class);
                         in.putExtra("viewDeck",deck);
                         startActivity(in);
+                        finish();
                     }
                     Answer.setText("");
                     break;

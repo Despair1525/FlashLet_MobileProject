@@ -134,11 +134,11 @@ public class ViewCardActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                ;
                 Intent i = new Intent(ViewCardActivity.this, WrittenQuizActivity.class);
                 i.putExtra("numQues", numQues);
                 i.putExtra("TestDeck", deck);
                 startActivity(i);
+                alertDialog.dismiss();
             }
         });
 
@@ -155,8 +155,6 @@ public class ViewCardActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        Intent in = new Intent(getApplicationContext(),MainActivity.class);
-        startActivity(in);
     }
     private void onViewFlashCard() {
         Intent i = new Intent(this, ViewAllCardsActivity.class);
@@ -204,11 +202,13 @@ public class ViewCardActivity extends AppCompatActivity {
                     i.putExtra("numQues", numQues);
                     i.putExtra("TestDeck", deck);
                     startActivity(i);
+                    finish();
                 } else {
                     Intent i = new Intent(ViewCardActivity.this, WrittenQuizActivity.class);
                     i.putExtra("numQues", numQues);
                     i.putExtra("TestDeck", deck);
                     startActivity(i);
+                    finish();
 
                 }
                 ;
