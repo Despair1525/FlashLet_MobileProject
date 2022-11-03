@@ -129,7 +129,7 @@ public class ViewCardActivity extends AppCompatActivity {
                     quesNum.setError("Please fill out number of questions");
                     return;
                 }
-                int numQues = Integer.parseInt(quesNum.getText().toString().trim());
+                int numQues = Integer.parseInt(quesNum.getText().toString().trim()) - 1;
                 if (numQues > deck.getCards().size()) {
                     Toast.makeText(getApplicationContext(), "Please choose number test smaller", Toast.LENGTH_SHORT).show();
                     return;
