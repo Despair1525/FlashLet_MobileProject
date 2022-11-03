@@ -36,6 +36,7 @@ import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.Util.Regex;
+import com.example.prm_final_project.callbackInterface.AdapterCallback;
 import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -44,14 +45,13 @@ import java.util.List;
 
 public class EditDeckActivity extends AppCompatActivity implements View.OnClickListener {
 private String title;
-private TextView tvImport;
+private TextView tvImport, tvNum;
 private EditText EdTitle, EdDes;
 private Deck editDeck;
 private RecyclerView   recyclerViewList;
 private ImageButton IbAdd;
 public EditCardAdapt cardViewAdapter;
 private SwitchCompat isPublic;
-
 private ProgressDialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +83,19 @@ private ProgressDialog dialog;
         EdTitle.setText(title);
         isPublic = findViewById(R.id.SwitchCompatIsPublic);
         tvImport = findViewById(R.id.tvImport);
-
+        tvNum = findViewById(R.id.tvNumDeck);
+        notifyNum();
         isPublic.setChecked(editDeck.isPublic());
         EdDes.setText(editDeck.getDescriptions());
 
         // Set RV
         recyclerViewList = findViewById(R.id.rcListEdit);
-        cardViewAdapter = new EditCardAdapt(this,editDeck);
+        cardViewAdapter = new EditCardAdapt(this, editDeck, new AdapterCallback() {
+            @Override
+            public void onResponse(int type) {
+                if(type == 1) notifyNum();
+            }
+        });
         recyclerViewList.setAdapter( cardViewAdapter);
         recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
 
@@ -102,20 +108,24 @@ private ProgressDialog dialog;
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
     }
 
-    private void onSave() {
+    private void notifyNum() {
+        tvNum.setText(editDeck.getCards().size() +"");
+    }
 
+    private void onSave() {
+        // validate
         if(editDeck.getCards().size() < 2){
             Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 4 !",Toast.LENGTH_SHORT).show();
             return;
         };
         String title = EdTitle.getText().toString();
         if(title.trim().isEmpty()) {
-            Toast.makeText(EditDeckActivity.this,"Title can not be empty !",Toast.LENGTH_SHORT).show();
+            EdTitle.setError("Title can not be empty !");
             return;
         };
         dialog = new ProgressDialog(EditDeckActivity.this);
         dialog.setMessage("Loading");
-        dialog.show();
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Are you want to save Flashcard ?");
@@ -156,10 +166,10 @@ private ProgressDialog dialog;
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
-
             }
         });
         builder.show();
+        dialog.show();
     }
 
     private void onAdd(){
@@ -187,7 +197,7 @@ private ProgressDialog dialog;
                 editDeck.getCards().add(newCard);
                 cardViewAdapter.notifyDataSetChanged();
                 recyclerViewList.scrollToPosition( editDeck.getCards().size()-1);
-
+                notifyNum();
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -230,12 +240,13 @@ private ProgressDialog dialog;
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 15) {
+        if ( resultCode == 15) {
                 Bundle args = data.getBundleExtra("BUNDLE");
                 List<List<String>> importCard = (List<List<String>>) args.getSerializable("importCard");
 //                Log.i("editdeckImport","Number of card"+importCard.size());
                 editDeck.getCards().addAll(importCard);
                 cardViewAdapter.notifyDataSetChanged();
+                notifyNum();
         }
     }
     @Override

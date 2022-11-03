@@ -42,7 +42,6 @@
             android:background="@drawable/deck_shape"
             android:elevation="5dp"
             android:src="@drawable/ic_baseline_control_point_24"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
          />
@@ -73,19 +72,37 @@
         android:background="@drawable/edt_bg_selector"
         />
 
-    <androidx.appcompat.widget.SwitchCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tvNumDeck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:drawableRight="@drawable/ic_num_card"
+            android:text="num"
+            android:textSize="18dp"
+            android:drawableTint="@color/theme_color_bold"
+            android:drawablePadding="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+        <androidx.appcompat.widget.SwitchCompat
 
-        android:id="@+id/SwitchCompatIsPublic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Public"
-        android:textColor="@color/toolBarColor"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:layout_gravity="right"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        />
+            android:id="@+id/SwitchCompatIsPublic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Public"
+            android:textColor="@color/toolBarColor"
+            android:textStyle="bold"
+            android:textSize="18dp"
+            android:layout_gravity="right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
 
 

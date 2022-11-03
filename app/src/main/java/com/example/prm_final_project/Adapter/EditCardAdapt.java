@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.EditDeckActivity;
+import com.example.prm_final_project.callbackInterface.AdapterCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,14 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
     public void setCards(Deck cards) {
         this.cards = cards;
     }
-
-    public  EditCardAdapt(Context context, Deck cards) {
+    public AdapterCallback callback;
+    public  EditCardAdapt(Context context, Deck cards, AdapterCallback callback) {
         this.context = context;
         this.cards = cards;
+        this.callback = callback;
     };
+
+
     @NonNull
     @Override
     public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -48,6 +52,7 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
         View view = layoutInflater.inflate(R.layout.item_edit_card_view,parent,false);
         return  new AddressViewHolder(view,this);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull AddressViewHolder holder, @SuppressLint("RecyclerView") int position) {
@@ -82,11 +87,12 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
                                     cards.getCards().add(newPos, newCard);
                                 };
                                 notifyDataSetChanged();
-
+                                callback.onResponse(1);
                                 return true;
                             case R.id.DeleteEditAction:
                                 cards.getCards().remove(position);
                                 notifyDataSetChanged();
+                                callback.onResponse(1);
 
                                 return true;
                             default:
@@ -140,6 +146,7 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
 
         builder.show();
     }
+
 
     @Override
     public int getItemCount() {
