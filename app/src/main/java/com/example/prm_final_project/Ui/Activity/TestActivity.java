@@ -18,6 +18,8 @@ import com.example.prm_final_project.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -61,7 +63,7 @@ public class TestActivity extends AppCompatActivity {
         Question.setText(questionSet.get(questnum).getQuestion());
         Log.i("numQues", questionSet.size() +"");
 
-        randAnswer(AnswerSet, questionSet.get(questnum).getAnswer(), AnswerSet.size());
+        randAnswer(AnswerSet, questionSet.get(questnum).getAnswer());
         SubmitQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +88,7 @@ public class TestActivity extends AppCompatActivity {
                 if(questnum < numQuest)
                 {
                     Question.setText(questionSet.get(questnum).getQuestion());
-                    randAnswer(AnswerSet, questionSet.get(questnum).getAnswer(), AnswerSet.size());
+                    randAnswer(AnswerSet, questionSet.get(questnum).getAnswer());
                 }
                 else{
                     marks=correct;
@@ -110,34 +112,25 @@ public class TestActivity extends AppCompatActivity {
         SubmitQuestion = findViewById(R.id.NextQues);
     }
 
-    public void randAnswer(ArrayList<String> AnswerSet, String Answer, int AnswerSize){
-        rd = new Random();
-        Set<Integer> setSup = new LinkedHashSet<Integer>();
-        while (setSup.size() < 3) {
-            setSup.add(rd.nextInt(AnswerSize));
+    public void randAnswer(ArrayList<String> AnswerSet, String Answer){
+        for (int i = 0; i < AnswerSet.size(); i++) {
+            if(Answer.equalsIgnoreCase(AnswerSet.get(i))){
+                AnswerSet.remove(i);
+            }
         }
-        ArrayList<String> answers = new ArrayList<>();
-        Iterator itr = setSup.iterator();
-        while (itr.hasNext()){
-            answers.add(AnswerSet.get((Integer) itr.next()).toString());
+        Collections.shuffle(AnswerSet);
+        ArrayList<String> arrayListSetAswer = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            arrayListSetAswer.add(AnswerSet.get(i));
         }
-        answers.add(Answer);
+        arrayListSetAswer.add(Answer);
+        Collections.shuffle(arrayListSetAswer);
+        Log.i("AnswerSize",arrayListSetAswer.size()+"");
 
-
-        Set<Integer> setSup2 = new LinkedHashSet<Integer>();
-        while (setSup2.size() < 4) {
-            setSup2.add(rd.nextInt(4)+1);
-        }
-        Iterator itr2 = setSup2.iterator();
-        ArrayList<Integer> index = new ArrayList<>();
-        while (itr2.hasNext()){
-            index.add((Integer) itr2.next());
-        }
-
-        rb1.setText(answers.get(index.get(0) -1));
-        rb2.setText(answers.get(index.get(1) -1));
-        rb3.setText(answers.get(index.get(2)-1 ));
-        rb4.setText(answers.get(index.get(3)-1));
+        rb1.setText(arrayListSetAswer.get(0));
+        rb2.setText(arrayListSetAswer.get(1));
+        rb3.setText(arrayListSetAswer.get(2));
+        rb4.setText(arrayListSetAswer.get(3));
     }
 
     public void initQuestionAnswerSet() {
