@@ -80,6 +80,7 @@ dependencies {
 
     implementation 'androidx.preference:preference:1.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'androidx.core:core:1.6.0'
 
 
 

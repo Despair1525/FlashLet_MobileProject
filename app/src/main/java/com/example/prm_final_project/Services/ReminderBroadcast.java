@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -24,6 +25,8 @@ public class ReminderBroadcast extends BroadcastReceiver {
     private final static String NOTIFICATION_CHANNEL= "NC011";
     private final static String MY_PREFERENCE = "preference_notification";
     private static final String NOTIFICATION_MESSAGE = "message";
+    final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -57,7 +60,7 @@ public class ReminderBroadcast extends BroadcastReceiver {
         builder.setLargeIcon(largeIcon);
         builder.setOngoing(true);
         PendingIntent pendingIntent = PendingIntent.getActivity(
-                context, 2, intent1, PendingIntent.FLAG_MUTABLE);
+                context, 2, intent1, flag);
         builder.setContentIntent(pendingIntent).setAutoCancel(true);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);

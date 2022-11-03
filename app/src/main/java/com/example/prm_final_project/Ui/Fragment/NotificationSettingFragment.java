@@ -1,6 +1,8 @@
 package com.example.prm_final_project.Ui.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -123,6 +125,8 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
         minute = Integer.parseInt(time[1]);
         setAlarmNotification(hour, minute);
     }
+    final int flag =  Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE : PendingIntent.FLAG_UPDATE_CURRENT;
+
 
     private void setAlarmNotification(int hour, int minute){
 //        String message = getDataFromFile();
@@ -130,7 +134,7 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
 //        intent.putExtra("random_message", message);
 //        Log.i("random_message", message);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                requireContext(), 2, intent, PendingIntent.FLAG_MUTABLE);
+                requireContext(), 2, intent, flag);
 
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
         Calendar calendar = Calendar.getInstance();
@@ -148,7 +152,7 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
     private void cancelAlarmNotification(){
         Intent intent = new Intent(requireContext(), ReminderBroadcast.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                requireContext(), 2, intent, PendingIntent.FLAG_MUTABLE);
+                requireContext(), 2, intent, flag);
 
         AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(pendingIntent);
@@ -159,6 +163,9 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
             int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(
                     NOTIFICATION_CHANNEL, "Demo Channel", importance);
+            channel.enableVibration(true);
+            channel.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
+            channel.setVibrationPattern(new long[] { 1000, 1000, 1000, 1000, 1000 });
 
             NotificationManager notificationManager =
                     (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
