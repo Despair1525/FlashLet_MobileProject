@@ -87,17 +87,12 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
                         builder.setTitle("Congrats! You have just finished this set");
                         builder.setMessage("Do you want to reset this set");
                         builder.setCancelable(true);
-                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton("Return to deck", new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int id) {
                                         finish();
                                     }
                                 });
-
-                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        finish();
-                                    }
-                                });
+                        
                         AlertDialog alert = builder.create();
                         alert.show();
                     }
