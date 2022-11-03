@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
+import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.List;
 
@@ -42,25 +43,28 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
 //        holder.back.setText(card.get(1));
     }
 
-public List<String> getCard(int index){
+    public List<String> getCard(int index){
         return cards.getCards().get(index);
 };
+
 
     @Override
     public int getItemCount() {
         return cards==null?0:cards.getCards().size();
     }
 
-    class SliderViewHolder extends RecyclerView.ViewHolder {
+    public class SliderViewHolder extends RecyclerView.ViewHolder {
 
-        TextView front;
-        TextView back;
+        public TextView front;
+        public TextView back;
+        public EasyFlipView easyFlipView;
 
 
         public SliderViewHolder(@NonNull View itemView) {
             super(itemView);
             front = itemView.findViewById(R.id.SliderCardFront);
             back = itemView.findViewById(R.id.SliderCardBack);
+            easyFlipView = itemView.findViewById(R.id.easyFilpView);
 
         }
 
