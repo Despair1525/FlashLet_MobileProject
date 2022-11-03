@@ -1,9 +1,12 @@
 package com.example.prm_final_project.Ui.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,6 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     private Button btnSubmit;
     private ProgressDialog progressDialog;
     private String email;
+    private ImageView backImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +33,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         initUi();
         btnSubmit.setOnClickListener(view -> onSendVerificationEmail());
+        backImg.setOnClickListener(view -> onBack());
+    }
+
+    private void onBack() {
+        Intent i = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+        startActivity(i);
+        finish();
     }
 
     private void initUi(){
         edtEmail = findViewById(R.id.edtEmail);
         btnSubmit = findViewById(R.id.btnSubmit);
         progressDialog = new ProgressDialog(this);
+        backImg = findViewById(R.id.imageView2);
     }
 
     private boolean validate(){
