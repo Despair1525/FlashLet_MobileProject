@@ -48,6 +48,7 @@ public class ViewCardActivity extends AppCompatActivity {
     private ImageView imageViewLearn;
     private TextView tvTitile;
     private TextView tvView, textViewAuthor, textViewView, textViewTitle;
+    private SliderFlashcardAdapter sliderFlashcardAdapter;
     private ImageView imageReload, imageTest;
     private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
@@ -228,17 +229,13 @@ public class ViewCardActivity extends AppCompatActivity {
 
     private void loadSlideFlash() {
         initSlideCard(); // Set Slide Flash card
-//        cardViewAdapter1 cardViewAdapter = new cardViewAdapter1(this,deck);
-//        recyclerViewList.setAdapter(cardViewAdapter);
-//        recyclerViewList.setLayoutManager(new LinearLayoutManager((this)));
-
     }
 
-    ;
-
     public void initSlideCard() {
+
+        sliderFlashcardAdapter  = new SliderFlashcardAdapter(this, deck, viewPager2);
         viewPager2 = findViewById(R.id.viewPagerImageSlider);
-        viewPager2.setAdapter(new SliderFlashcardAdapter(this, deck, viewPager2));
+        viewPager2.setAdapter(sliderFlashcardAdapter);
         viewPager2.setClipToPadding(false);
         viewPager2.setClipChildren(false);
         viewPager2.setOffscreenPageLimit(3);
@@ -254,6 +251,13 @@ public class ViewCardActivity extends AppCompatActivity {
             }
         });
         viewPager2.setPageTransformer(compositePageTransformer);
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                Log.i("view-card-active",sliderFlashcardAdapter.getCard(position).get(0) +"");
+            }
+        });
     }
 
     public void onLearn() {

@@ -44,7 +44,6 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
         this.callback = callback;
     };
 
-
     @NonNull
     @Override
     public AddressViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

@@ -42,6 +42,9 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
 //        holder.back.setText(card.get(1));
     }
 
+public List<String> getCard(int index){
+        return cards.getCards().get(index);
+};
 
     @Override
     public int getItemCount() {
