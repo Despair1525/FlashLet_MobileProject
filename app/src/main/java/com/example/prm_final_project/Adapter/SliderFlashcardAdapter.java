@@ -2,6 +2,7 @@ package com.example.prm_final_project.Adapter;
 
 import android.app.slice.SliceItem;
 import android.content.Context;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +41,7 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
         List<String> card = cards.getCards().get(position);
         holder.front.setText(card.get(0));
         holder.back.setText(card.get(1));
-//        holder.back.setText(card.get(1));
+
     }
 
     public List<String> getCard(int index){
@@ -65,7 +66,6 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
             front = itemView.findViewById(R.id.SliderCardFront);
             back = itemView.findViewById(R.id.SliderCardBack);
             easyFlipView = itemView.findViewById(R.id.easyFilpView);
-
         }
 
         void setCardView(SliceItem sliceItem){

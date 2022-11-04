@@ -90,11 +90,7 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_data);
 
-//        if ((Deck) getIntent().getSerializableExtra("editDeck") != null) {
-//            editDeck = (Deck) getIntent().getSerializableExtra("editDeck");
-//        } else {
-//            editDeck = new Deck();
-//        };
+
 
         btImportFile = findViewById(R.id.btImport);
         tvFileView = findViewById(R.id.tvFileView);
@@ -333,14 +329,11 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-//                editDeck.getCards().addAll(rawDeck);
                 Intent i = new Intent();
                 Bundle args = new Bundle();
-//                i.putExtras("importCard", rawDeck);
                 args.putSerializable("importCard",(Serializable) rawDeck);
                 i.putExtra("BUNDLE",args);
                 setResult(15, i);
-//                startActivity(i);
                 finish();
             }
         });

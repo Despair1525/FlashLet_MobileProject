@@ -3,6 +3,7 @@ package com.example.prm_final_project.Adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.InputType;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +50,7 @@ public class cardViewAdapter1 extends RecyclerView.Adapter<cardViewAdapter1.Addr
     List<String> card = cards.getCards().get(position);
     holder.front.setText(card.get(0));
     holder.back.setText(card.get(1));
-//    holder.front.setOnClickListener(view -> changeCard(position));
-//    holder.back.setOnClickListener(view -> changeCard(position));
+
 
     }
 

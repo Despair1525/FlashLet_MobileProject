@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         dialog = new ProgressDialog(MainActivity.this);
         dialog.setMessage("Loading");
+        dialog.setCancelable(false);
         dialog.show();
         if (InternetConnection.isConnectedToInternet(getApplicationContext())) {
 
@@ -134,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             String lastLogin = userDaily.isEmpty() ? Methods.getDate() : userDaily.get(0);
             int lastLoginNum = Methods.minusStringDate(Methods.getDate(), lastLogin);
             user.setLongestStreak(Math.max(user.getLongestStreak(), user.getCurrentStreak()));
-
             Log.i("main-date-lastLogin", lastLogin + "");
             Log.i("main-date-lastLogin", lastLoginNum + "");
 

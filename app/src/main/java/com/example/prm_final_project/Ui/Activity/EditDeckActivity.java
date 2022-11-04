@@ -52,7 +52,7 @@ private RecyclerView   recyclerViewList;
 private ImageButton IbAdd;
 public EditCardAdapt cardViewAdapter;
 private SwitchCompat isPublic;
-private ProgressDialog dialog;
+private ProgressDialog dialogLoad;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,7 +115,7 @@ private ProgressDialog dialog;
     private void onSave() {
         // validate
         if(editDeck.getCards().size() < 2){
-            Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 4 !",Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditDeckActivity.this,"Number of cards must be more than 2 !",Toast.LENGTH_SHORT).show();
             return;
         };
         String title = EdTitle.getText().toString();
@@ -123,11 +123,12 @@ private ProgressDialog dialog;
             EdTitle.setError("Title can not be empty !");
             return;
         };
-        dialog = new ProgressDialog(EditDeckActivity.this);
-        dialog.setMessage("Loading");
-
-
+        dialogLoad = new ProgressDialog(EditDeckActivity.this);
+        dialogLoad.setMessage("Loading");
+        dialogLoad.setCancelable(false);
+        dialogLoad.show();
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
         builder.setTitle("Are you want to save Flashcard ?");
         builder.setPositiveButton("Save", new DialogInterface.OnClickListener() {
             @Override
@@ -146,7 +147,7 @@ private ProgressDialog dialog;
 
                         Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
                         i.putExtra("viewDeck", changeDeck);
-                        dialog.dismiss();
+                        dialogLoad.dismiss();
                         startActivity(i);
                         Toast.makeText(EditDeckActivity.this, "Upload flashcard success !", Toast.LENGTH_LONG).show();
                         finish();
@@ -165,11 +166,11 @@ private ProgressDialog dialog;
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
+                dialogLoad.dismiss();
             }
         });
         builder.show();
-        dialog.show();
+
     }
 
     private void onAdd(){
