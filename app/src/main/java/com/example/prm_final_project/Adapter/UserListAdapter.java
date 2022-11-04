@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
+import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Activity.MyFlashcardsActivity;
@@ -23,6 +25,8 @@ import com.example.prm_final_project.Ui.Activity.ViewOthersProfileActivity;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserViewHolder> {
 
@@ -48,10 +52,10 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         User u = users.get(position);
         int deckSize = 0;
         Uri imgUri;
-        if(u.getMyDeck() == null){
+        if(getCardByUser(u.getUserId()) == null){
             deckSize = 0;
         } else{
-            deckSize = u.getMyDeck().size();
+            deckSize = getCardByUser(u.getUserId()).size();
         }
         Log.i("Check_avt", u.getAvatar()+""+u.getUsername());
         if(u.getAvatar() != null && !u.getAvatar().equalsIgnoreCase("null")) {
@@ -106,4 +110,8 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
             imageView = itemView.findViewById(R.id.iv_avt_img);
         }
     }
+
+    private List<Deck> getCardByUser(String uid){
+        return DeckDao.HmAllDeck.values().stream().filter(deck -> deck.getUid().equals(uid)).collect(Collectors.toList());
+    };
 }

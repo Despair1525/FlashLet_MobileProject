@@ -51,6 +51,7 @@ public class ResultMultipleChoiceActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
+        finish();
         Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
         in.putExtra("viewDeck",deck);
         startActivity(in);

@@ -80,6 +80,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="10dp"
+                        android:theme="@style/Theme.PRM_Final_Project.CardUser"
                         >
                         <TextView
                             android:id="@+id/textViewTitle"

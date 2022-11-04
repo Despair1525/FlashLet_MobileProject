@@ -107,12 +107,18 @@ public class WrittenQuizActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         finish();
+        Intent i = new Intent(this, ViewCardActivity.class);
+        i.putExtra("viewDeck", deck);
+        startActivity(i);
         return true;
     }
 
     @Override
     public void onBackPressed() {
         finish();
+        Intent i = new Intent(this, ViewCardActivity.class);
+        i.putExtra("viewDeck", deck);
+        startActivity(i);
     }
 
 }

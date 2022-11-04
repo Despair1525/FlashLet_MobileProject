@@ -37,6 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
+        android:theme="@style/Theme.PRM_Final_Project.CardUser"
         >
 
 

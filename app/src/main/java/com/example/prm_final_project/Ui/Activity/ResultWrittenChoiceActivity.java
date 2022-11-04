@@ -44,6 +44,7 @@ public class ResultWrittenChoiceActivity extends AppCompatActivity {
                 Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
                 in.putExtra("viewDeck",deck);
                 startActivity(in);
+                finish();
             }
         });
     }
@@ -54,6 +55,7 @@ public class ResultWrittenChoiceActivity extends AppCompatActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
+        finish();
         Intent in = new Intent(getApplicationContext(),ViewCardActivity.class);
         in.putExtra("viewDeck",deck);
         startActivity(in);

@@ -10,5 +10,5 @@
     <dimen name="icon_size">40dp</dimen>
     <dimen name="image_notification_size">300dp</dimen>
     <dimen name="quote_height">200dp</dimen>
-    <dimen name="padding_notification">20dp</dimen>
+    <dimen name="padding_notification">25dp</dimen>
 </resources>

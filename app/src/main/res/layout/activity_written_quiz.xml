@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/_12sdp"
     android:paddingBottom="@dimen/_12sdp"
     android:orientation="vertical"
+    android:theme="@style/Theme.PRM_Final_Project.CardUser"
     >
 
     <ScrollView

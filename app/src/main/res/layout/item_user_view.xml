@@ -6,7 +6,8 @@
     android:descendantFocusability="blocksDescendants"
     android:layout_margin="10dp"
     android:background="@drawable/deck_shape"
-    android:elevation="2dp">
+    android:elevation="2dp"
+    android:theme="@style/Theme.PRM_Final_Project.CardUser">
 
     <LinearLayout
         android:id="@+id/layout_user_item"
@@ -34,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:text="maicth"
                 android:layout_gravity="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
                 android:textSize="20sp"
                 />
         </LinearLayout>

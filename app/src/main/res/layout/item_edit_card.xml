@@ -6,6 +6,7 @@
     android:id="@+id/linearEditItem"
     android:orientation="vertical"
     android:elevation="5dp"
+    android:theme="@style/Theme.PRM_Final_Project.CardUser"
     >
     <EditText
         android:text=""

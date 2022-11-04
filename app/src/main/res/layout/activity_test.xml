@@ -10,6 +10,7 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:orientation="vertical"
+    android:theme="@style/Theme.PRM_Final_Project.CardUser"
     >
 
 

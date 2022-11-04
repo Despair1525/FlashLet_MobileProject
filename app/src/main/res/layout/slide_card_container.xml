@@ -10,6 +10,7 @@
     app:flipType="horizontal"
     app:flipFrom="front"
     android:scrollbars="vertical"
+    android:theme="@style/Theme.PRM_Final_Project.CardUser"
   >
 
 

@@ -8,6 +8,7 @@
     android:background="@drawable/deck_shape_2"
     android:layout_margin="10dp"
     android:padding="15dp"
+    android:theme="@style/Theme.PRM_Final_Project.CardUser"
     >
 
     <TextView

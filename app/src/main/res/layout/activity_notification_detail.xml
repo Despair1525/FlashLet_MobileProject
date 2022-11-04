@@ -45,7 +45,8 @@
             android:text="Hello world!"
             android:textStyle="bold"
             android:textColor="@color/toolBarColor"
-            android:textSize="@dimen/greetings_text_size"
+            android:textSize="@dimen/text_size"
+            android:fontFamily="@font/nunito2"
             />
 
         <Button
