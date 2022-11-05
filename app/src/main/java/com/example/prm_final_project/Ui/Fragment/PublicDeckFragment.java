@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,8 +82,8 @@ public class PublicDeckFragment extends Fragment {
         allDecks.addAll(getPublicCard());
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
         RvPublicDeck.setNestedScrollingEnabled(false);
-        homeDeckAdap = new HomeDeckListAdapter(getActivity(),allDecks);
 
+        homeDeckAdap = new HomeDeckListAdapter(getActivity(),allDecks);
         RvPublicDeck.setAdapter( homeDeckAdap);
         RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
         homeDeckAdap.notifyDataSetChanged();
@@ -92,6 +93,9 @@ public class PublicDeckFragment extends Fragment {
     }
 
     public List<Deck> getPublicCard(){
-    return originDeckHt.values().stream().filter(deck -> deck.isPublic()).collect(Collectors.toList());
+        List<Deck> result =  originDeckHt.values().stream().filter(deck -> deck.isPublic()).collect(Collectors.toList());
+        Collections.shuffle(result);
+
+    return result ;
     };
 }

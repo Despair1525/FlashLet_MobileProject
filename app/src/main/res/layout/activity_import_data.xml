@@ -16,6 +16,8 @@
         android:text="Import File .txt"
         android:background="@drawable/deck_shape"
         android:padding="10dp"
+        android:textColor="@color/theme_color_bold"
+
         />
     <TextView
         android:padding="15dp"
@@ -45,6 +47,7 @@
             android:text="Between front and back: "
             android:textSize="20dp"
             android:textStyle="bold"
+            android:textColor="@color/theme_color"
             />
         <TextView
             android:id="@+id/tvRegexCard"
@@ -65,6 +68,8 @@
             android:text="Between cards:  "
             android:textSize="20dp"
             android:textStyle="bold"
+            android:textColor="@color/theme_color"
+
             />
         <TextView
             android:id="@+id/tvRegexCards"
@@ -72,6 +77,7 @@
             android:layout_height="wrap_content"
             android:text="||"
             android:textSize="15dp"
+
             />
     </LinearLayout>
 

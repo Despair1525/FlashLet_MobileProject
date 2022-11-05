@@ -63,15 +63,12 @@ public class UserDao {
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("longestStreak").setValue(user.getLongestStreak());
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("currentStreak").setValue(user.getCurrentStreak());
 
-
         if (user.getRate() != null) {
             for (String key : user.getRate().keySet()) {
                 Double score = user.getRate().get(key);
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("rate").child(key).setValue(score);
             }
-            ;
         }
-        ;
         if (user.getRecentDecks() != null) {
             for (RecentDeck deck : user.getRecentDecks()) {
                 String key = deck.getDeckId();
@@ -79,29 +76,23 @@ public class UserDao {
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
                         child("recentDecks").child(key).setValue(value);
             }
-            ;
         }
-
         if (user.getMyDeck() != null) {
             for (RecentDeck deck : user.getMyDeck()) {
                 String key = deck.getDeckId();
                 Long value = deck.getTimeStamp();
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
                         child("myDeck").child(key).setValue(value);
-            }
-            ;
+            };
         }
-        ;
         if (user.getFavoriteDeck() != null) {
             for (RecentDeck deck : user.getFavoriteDeck()) {
                 String key = deck.getDeckId();
                 Long value = deck.getTimeStamp();
                 FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).
                         child("favoriteDeck").child(key).setValue(value);
-            }
-            ;
+            };
         }
-        ;
     }
 
     ;
@@ -194,7 +185,6 @@ public class UserDao {
                             allUsers.add(u);
                             Log.d("USERDAO_childAdded", "id: " + u.getUserId() + "-" + u.getUsername());
                         }
-
                     }
                     callback.onResponse(null, null, 0);
                     ;

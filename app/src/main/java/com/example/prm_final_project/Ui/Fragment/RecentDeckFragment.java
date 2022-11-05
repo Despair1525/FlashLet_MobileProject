@@ -76,17 +76,18 @@ public class RecentDeckFragment extends Fragment {
         }
     }
 
-    private ArrayList<Deck> recentDecks ;
+    private ArrayList<Deck> recentDecks;
     private ArrayList<RecentDeck> recentDeckKeys = new ArrayList<>();
-    public static Hashtable<String,Deck> originDeckHt = new Hashtable<>();
+    public static Hashtable<String, Deck> originDeckHt = new Hashtable<>();
 
     RecyclerView RvPublicDeck;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
-    FirebaseUser user ;
+    FirebaseUser user;
     User currentUser;
 
     HomeDeckListAdapter homeDeckAdap;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,17 +95,17 @@ public class RecentDeckFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_recent_deck, container, false);
         recentDecks = new ArrayList<>();
         originDeckHt = DeckDao.HmAllDeck;
+
         // Get User
-        user  = UserDao.getUser();
+        user = UserDao.getUser();
         currentUser = UserDao.allUserHT.get(user.getUid());
 
-        if(currentUser == null) {
-            Log.i("here","fuk");
+        if (currentUser == null) {
+            Log.i("here", "fuk");
             Intent i = new Intent(getActivity(), LoginActivity.class);
             startActivity(i);
             getActivity().finish();
-        }
-        else {
+        } else {
             // Get RecentDeck;
             Log.i("eror", currentUser.getUserId());
             recentDeckKeys = currentUser.getRecentDecks();
@@ -118,25 +119,28 @@ public class RecentDeckFragment extends Fragment {
             RvPublicDeck = view.findViewById(R.id.RvDecksRecent);
             RvPublicDeck.setNestedScrollingEnabled(false);
             homeDeckAdap = new HomeDeckListAdapter(getActivity(), recentDecks);
-
             RvPublicDeck.setAdapter(homeDeckAdap);
             RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
             homeDeckAdap.notifyDataSetChanged();
-        };
-            return view;
+        }
+        ;
+        return view;
     }
 
 
-    public  ArrayList<Deck> matchHashMapRecentDeck(){
+    public ArrayList<Deck> matchHashMapRecentDeck() {
         ArrayList<Deck> recentDeck = new ArrayList<>();
-        Log.i("USERDAO_childChangedfound",recentDeckKeys.size()+"");
-        for(RecentDeck key: recentDeckKeys) {
+        Log.i("USERDAO_childChangedfound", recentDeckKeys.size() + "");
+        for (RecentDeck key : recentDeckKeys) {
             Deck temp = DeckDao.HmAllDeck.get(key.getDeckId());
-            if(temp != null) {
+            if (temp != null) {
                 recentDeck.add(temp);
-                Log.i("USERDAO_childChangedfound",temp.getTitle());
+                Log.i("USERDAO_childChangedfound", temp.getTitle());
             }
-        };
+        }
+        ;
         return recentDeck;
-    };
+    }
+
+    ;
 }
