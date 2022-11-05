@@ -18,26 +18,17 @@ import com.example.prm_final_project.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Random;
-import java.util.Set;
 
 public class TestActivity extends AppCompatActivity {
     private Deck deck;
 
     private TextView Question;
-
-    public ArrayList<Quiz> quizArrayList;
     public ArrayList<Quiz> questionSet = new ArrayList<>();
     public ArrayList<String> AnswerSet = new ArrayList<>();
-    public Random rd;
     public String show = "";
 
-    private Button SubmitQuestion, Quit;
+    private Button SubmitQuestion;
     private RadioGroup radio_g;
     private RadioButton rb1,rb2,rb3,rb4;
 
@@ -73,8 +64,6 @@ public class TestActivity extends AppCompatActivity {
                 }
                 RadioButton uans = (RadioButton) findViewById(radio_g.getCheckedRadioButtonId());
                 String ansText = uans.getText().toString();
-//                Toast.makeText(getApplicationContext(), ansText, Toast.LENGTH_SHORT).
-//                show();
                 if(ansText.equalsIgnoreCase(questionSet.get(questnum).getAnswer())) {
                     correct++;
                     Toast.makeText(getApplicationContext(), "Correct", Toast.LENGTH_SHORT).show();
@@ -112,6 +101,11 @@ public class TestActivity extends AppCompatActivity {
         SubmitQuestion = findViewById(R.id.NextQues);
     }
 
+    /**
+     *
+     * Random 4 option for user to choose, including 3 random answer, 1 right answer
+     * @param Answer
+     */
     public void randAnswer(String Answer){
         List<List<String>> listString = deck.getCards();
         ArrayList<String> AnswerSetRand = new ArrayList<>();

@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
@@ -38,7 +37,6 @@ import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Util.Methods;
 import com.google.firebase.auth.FirebaseUser;
-import com.wajahatkarim3.easyflipview.EasyFlipView;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -46,14 +44,10 @@ import java.util.Hashtable;
 public class ViewCardActivity extends AppCompatActivity {
     private Deck deck;
     private ViewPager2 viewPager2;
-    private ImageView imageViewLearn;
-    private TextView tvTitile;
-    private TextView tvView, textViewAuthor, textViewView, textViewTitle;
+    private TextView textViewAuthor, textViewView, textViewTitle;
     private SliderFlashcardAdapter sliderFlashcardAdapter;
-    private ImageView imageReload, imageTest;
-    private RecyclerView recyclerViewList;
     private RelativeLayout learnRelativeLayout, reloadRelativeLayout, testRelativeLayout, viewRelativeLayout;
-    private RatingBar bar;
+
     private TextView textViewProgress;
     private User author;
     FirebaseUser firebaseUser;
@@ -64,11 +58,6 @@ public class ViewCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Take all View in layout
         setContentView(R.layout.activity_view_card);
-
-        imageViewLearn = findViewById(R.id.imageViewLearn);
-
-        imageReload = findViewById(R.id.vc_Reload);
-        imageTest = findViewById(R.id.vc_Test);
         learnRelativeLayout = findViewById(R.id.learnItem);
         reloadRelativeLayout = findViewById(R.id.reloadItem);
         testRelativeLayout = findViewById(R.id.testItem);
@@ -185,7 +174,6 @@ public class ViewCardActivity extends AppCompatActivity {
                     return;
                 }
                 RadioButton uans = (RadioButton) layout.findViewById(radio_g.getCheckedRadioButtonId());
-//                String ansText = uans.getText().toString();
                 if (quesNum.getText().toString().isEmpty()) {
                     quesNum.setError("Please fill out number of questions");
                     return;
@@ -197,7 +185,6 @@ public class ViewCardActivity extends AppCompatActivity {
                 }
                 ;
                 if (uans == layout.findViewById(R.id.multiChoice)) {
-                    //ansText.equalsIgnoreCase("Multiple Choice")
                     Intent i = new Intent(ViewCardActivity.this, TestActivity.class);
                     i.putExtra("numQues", numQues);
                     i.putExtra("TestDeck", deck);
@@ -260,7 +247,6 @@ public class ViewCardActivity extends AppCompatActivity {
                 int positionCard = position +1;
                 textViewProgress.setText(positionCard+"/"+deck.getCards().size());
                 RecyclerView rvNext = (RecyclerView) viewPager2.getChildAt(0);
-                // handel index out of range
                 if(position == 0){
                     SliderFlashcardAdapter.SliderViewHolder holderNext= (SliderFlashcardAdapter.SliderViewHolder) rvNext.findViewHolderForAdapterPosition(position+1);
                     if(holderNext.easyFlipView.isBackSide()){
@@ -320,7 +306,6 @@ public class ViewCardActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.copySet:
-//                Toast.makeText(this, "CopySet", Toast.LENGTH_SHORT).show();
                 Intent iCopy = new Intent(this, EditDeckActivity.class);
                 Deck editDeck = deck;
                 editDeck.setUid(UserDao.getUser().getUid());
