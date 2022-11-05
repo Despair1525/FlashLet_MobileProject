@@ -92,9 +92,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(email.isEmpty())
                 edEmail.setError("Please enter valid email!");
             if(password1.isEmpty())
-                edPass1.setError("Please enter valid password!");
+                edPass1.setError("Valid password must contain eight characters, at least one letter and one number!");
             if(password2.isEmpty())
-                edPass2.setError("Please enter valid confirm password!");
+                edPass2.setError("Valid confirm password must contain at least eight characters, at least one letter and one number!");
             if(phone.isEmpty())
                 edPhone.setError("Please enter valid phone number!");
             if(username.isEmpty())

@@ -14,9 +14,9 @@ public class Regex {
      * Phone: https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number
      */
 
-    public final static String usernameRegex = "^[a-zA-Z0-9]([\\s._-](?![\\s._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$";
-    //    public final static String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
-    public final static String passwordRegex = "[\\s\\S]*";
+    public final static String usernameRegex = "^[a-zA-Z0-9]([\\s._-](?![\\s._-])|[a-zA-Z0-9]){3,28}[a-zA-Z0-9]$";
+    public final static String passwordRegex = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
+//    public final static String passwordRegex = "[\\s\\S]*";
     public final static String emailRegex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
     public final static String phoneRegex = "^(\\+\\d{1,2}\\s?)?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$";
 

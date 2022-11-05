@@ -144,7 +144,7 @@ public class LoginActivity extends AppCompatActivity {
             if(email.isEmpty())
                 edEmail.setError("Please enter valid email!");
             if(password.isEmpty())
-                edPassword.setError("Please enter valid password!");
+                edPassword.setError("Valid password must contain at least eight characters, at least one letter and one number!");
             return false;
         }
         return true;
