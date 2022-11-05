@@ -59,7 +59,7 @@ public class LearnCardActivity extends AppCompatActivity implements View.OnClick
         flipViewCard = (EasyFlipView) findViewById(R.id.flipViewCard);
         progressBar.setMax(deck.getCards().size());
         progressBar.setProgress(1);
-        textViewProgress.setText("0/"+progressBar.getMax());
+        textViewProgress.setText("1/"+progressBar.getMax());
         addaptChange();
     }
 
