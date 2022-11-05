@@ -3,7 +3,6 @@ package com.example.prm_final_project.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,7 +56,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         } else{
             deckSize = getCardByUser(u.getUserId()).size();
         }
-        Log.i("Check_avt", u.getAvatar()+""+u.getUsername());
         if(u.getAvatar() != null && !u.getAvatar().equalsIgnoreCase("null")) {
             imgUri = Uri.parse(u.getAvatar());
             try {

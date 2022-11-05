@@ -30,7 +30,6 @@ public class ReminderBroadcast extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-//        String randomMessage = intent.getStringExtra("random_message");
 
         Bitmap largeIcon = BitmapFactory.decodeResource(context.getResources(),
                 R.drawable.icon);

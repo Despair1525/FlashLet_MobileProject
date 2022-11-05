@@ -23,7 +23,6 @@ public class NotificationDetailActivity extends AppCompatActivity {
 
         init();
         Intent intent = getIntent();
-        Log.i("message_quote", intent.getStringExtra("message_quote"));
         message_detail.setText(intent.getStringExtra("message_quote"));
 
         bnt_home.setOnClickListener(new View.OnClickListener() {

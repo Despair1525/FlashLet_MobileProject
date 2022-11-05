@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,10 +53,8 @@ public class AllDeckFragment extends Fragment {
                 .get(SearchResultViewModel.class);
         allDecks = viewModel.getAllDecks().getValue();
         isSearch = viewModel.getIsSearch().getValue();
-        Log.i("filter all decks", allDecks.toString());
 
         if(allDecks.size() > 0 && isSearch){
-            Log.d("result ", "found");
             textView.setVisibility(View.GONE);
 
             FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(

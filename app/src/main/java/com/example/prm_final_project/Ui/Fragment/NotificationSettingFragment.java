@@ -1,6 +1,5 @@
 package com.example.prm_final_project.Ui.Fragment;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -12,7 +11,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -26,11 +24,8 @@ import androidx.preference.SwitchPreference;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Services.ReminderBroadcast;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Random;
-import java.util.Scanner;
 
 public class NotificationSettingFragment extends PreferenceFragmentCompat {
     private static Preference editTimeChosen;
@@ -53,7 +48,6 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
     private final static String TIME_CHOSEN = "time_chosen";
     private static final String NOTIFICATION_MESSAGE = "message";
     private final static String NOTIFICATION_CHANNEL= "NC011";
-
 
 
     private void onClickTimeSetting(){
@@ -129,10 +123,8 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
 
 
     private void setAlarmNotification(int hour, int minute){
-//        String message = getDataFromFile();
         Intent intent = new Intent(requireContext(), ReminderBroadcast.class);
-//        intent.putExtra("random_message", message);
-//        Log.i("random_message", message);
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 requireContext(), 2, intent, flag);
 
@@ -140,7 +132,6 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
-        Log.i("time_setup ", "" + hour + ":" + minute);
 
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);
@@ -171,23 +162,6 @@ public class NotificationSettingFragment extends PreferenceFragmentCompat {
                     (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }
-    }
-
-    private String getDataFromFile(){
-        StringBuffer buffer = new StringBuffer();
-        Scanner scanner = new Scanner(getResources().openRawResource(R.raw.sample_messages));
-
-        ArrayList<String> array = new ArrayList<>();
-        while(scanner.hasNext()){
-            String line = scanner.nextLine();
-            array.add(line);
-        }
-        scanner.close();
-
-        Random rand = new Random();
-
-        int randomIndex = rand.nextInt(array.size());
-        return array.get(randomIndex);
     }
 
     public void init(){

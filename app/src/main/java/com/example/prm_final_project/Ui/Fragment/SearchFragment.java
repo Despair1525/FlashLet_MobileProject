@@ -19,9 +19,7 @@ import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.Util.Regex;
-import com.example.prm_final_project.callbackInterface.FirebaseCallback;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -77,8 +75,6 @@ public class SearchFragment extends Fragment {
                 if(query != null) {
                     allDecks = DeckDao.searchDeckByTitle(decks, query);
                     allUsers = UserDao.searchByUserName(users, query);
-                    Log.i("search size result", allDecks.toString());
-                    Log.i("search user result", allUsers.toString());
 
                     // set results found into shared view model
                     viewModel.setIsSearch(true);
