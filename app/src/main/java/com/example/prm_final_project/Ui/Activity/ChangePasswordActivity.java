@@ -125,13 +125,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
         oldPassword = editTextOldPassword.getText().toString();
         newPassword = editTextNewPassword.getText().toString();
         rePassword = editTextRePassword.getText().toString();
-        if(oldPassword.length()<6 || newPassword.length()<6 || rePassword.length()<6){
-            if(oldPassword.length()<6)
-                editTextOldPassword.setError("Password must have at least 6 characters!");
-            if(newPassword.length()<6)
-                editTextNewPassword.setError("Password must have at least 6 characters!");
-            if(rePassword.length()<6)
-                editTextRePassword.setError("Password must have at least 6 characters!");
+        if(oldPassword.length()<8 || newPassword.length()<8 || rePassword.length()<8){
+            if(oldPassword.length()<8)
+                editTextOldPassword.setError("Password must have at least 8 characters!");
+            if(newPassword.length()<8)
+                editTextNewPassword.setError("Password must have at least 8 characters!");
+            if(rePassword.length()<8)
+                editTextRePassword.setError("Password must have at least 8 characters!");
             return false;
         }
         oldPassword = Regex.getPassword(oldPassword);
@@ -139,11 +139,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
         rePassword = Regex.getPassword(rePassword);
         if(oldPassword.isEmpty() || newPassword.isEmpty() || rePassword.isEmpty()){
             if(oldPassword.isEmpty())
-                editTextOldPassword.setError("Please enter valid password!");
+                editTextOldPassword.setError("Please enter valid password! (Must contain at least one letter and one number)");
             if(newPassword.isEmpty())
-                editTextNewPassword.setError("Please enter valid password!");
+                editTextNewPassword.setError("Please enter valid password! (Must contain at least one letter and one number)");
             if(rePassword.isEmpty())
-                editTextRePassword.setError("Please enter valid confirm password!");
+                editTextRePassword.setError("Please enter valid confirm password! (Must contain at least one letter and one number)");
             return false;
         }
 

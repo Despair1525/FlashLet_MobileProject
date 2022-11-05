@@ -347,6 +347,8 @@ public class ProfileFragment extends Fragment {
                 if(selectedImageUri != null) {
                     try {
                         progressDialog.show();
+                        progressDialog.setMessage("Loading image");
+                        progressDialog.setCancelable(false);
                         InputStream inputStream = thisContext.getContentResolver().openInputStream(selectedImageUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imageAvatar.setImageBitmap(bitmap);

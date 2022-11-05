@@ -35,6 +35,7 @@ import com.example.prm_final_project.Dao.UserDao;
 import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
 import com.example.prm_final_project.Ui.Fragment.ProfileFragment;
+import com.example.prm_final_project.Util.Regex;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
@@ -89,65 +90,68 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String userName = editTextUserName.getText().toString().trim();
+                        userName = Regex.getUsername(userName);
                         if (!userName.isEmpty()) {
                             user.setUsername(userName);
                             UserDao.addUser(user);
                             Toast.makeText(EditProfileActivity.this, "Edit display name successfully", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        } else {
+                            editTextUserName.setError("Please enter valid user name");
                         }
-                        onBackPressed();
                     }
                 });
                 break;
-            case "email":
-                textViewEmail.setVisibility(View.VISIBLE);
-                editTextEmail.setVisibility(View.VISIBLE);
-                editTextEmail.setText(user.getEmail());
-                btnEditProfile.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String email = editTextEmail.getText().toString().trim();
-                        if (!email.isEmpty()) {
-                            firebaseUser.updateEmail(email)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                user.setEmail(editTextEmail.getText().toString().trim());
-                                                UserDao.addUser(user);
-                                                Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
-                                            } else {
-                                                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
-                                                builder.setTitle("Re-authenticate needed");
-                                                builder.setMessage("You need to login again to change email!");
-                                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        UserDao.logout();
-                                                        Intent intent = new Intent(EditProfileActivity.this, LoginActivity.class);
-                                                        startActivity(intent);
-                                                        finish();
-                                                    }
-                                                });
-                                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                                        Toast.makeText(getBaseContext(), "Change email failed", Toast.LENGTH_SHORT).show();
-                                                    }
-                                                });
-                                                dialog = builder.create();
-                                            }
-                                        }
-                                    });
-                        }
-//                        if (email.length()>0) {
-//                            user.setEmail(email);
-//                            UserDao.addUser(user);
-//                            Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
+//            case "email":
+//                textViewEmail.setVisibility(View.VISIBLE);
+//                editTextEmail.setVisibility(View.VISIBLE);
+//                editTextEmail.setText(user.getEmail());
+//                btnEditProfile.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        String email = editTextEmail.getText().toString().trim();
+//                        if (!email.isEmpty()) {
+//                            firebaseUser.updateEmail(email)
+//                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                        @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            if (task.isSuccessful()) {
+//                                                user.setEmail(editTextEmail.getText().toString().trim());
+//                                                UserDao.addUser(user);
+//                                                Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
+//                                            } else {
+//                                                AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+//                                                builder.setTitle("Re-authenticate needed");
+//                                                builder.setMessage("You need to login again to change email!");
+//                                                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                                    @Override
+//                                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                                        UserDao.logout();
+//                                                        Intent intent = new Intent(EditProfileActivity.this, LoginActivity.class);
+//                                                        startActivity(intent);
+//                                                        finish();
+//                                                    }
+//                                                });
+//                                                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                                                    @Override
+//                                                    public void onClick(DialogInterface dialogInterface, int i) {
+//                                                        Toast.makeText(getBaseContext(), "Change email failed", Toast.LENGTH_SHORT).show();
+//                                                    }
+//                                                });
+//                                                dialog = builder.create();
+//                                            }
+//                                        }
+//                                    });
 //                        }
-                        onBackPressed();
-                    }
-                });
-                break;
+////                        if (email.length()>0) {
+////                            user.setEmail(email);
+////                            UserDao.addUser(user);
+////                            Toast.makeText(EditProfileActivity.this, "Edit email successfully", Toast.LENGTH_SHORT).show();
+////                        }
+//                        onBackPressed();
+//                    }
+//                });
+//                break;
             case "phone":
                 textViewEditProfileTitle.setText("Edit phone");
                 textViewPhone.setVisibility(View.VISIBLE);
@@ -157,102 +161,21 @@ public class EditProfileActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         String phone = editTextPhone.getText().toString().trim();
+                        phone = Regex.getPhone(phone);
                         if (!phone.isEmpty()) {
                             user.setPhone(phone);
                             UserDao.addUser(user);
                             Toast.makeText(EditProfileActivity.this, "Edit phone number successfully", Toast.LENGTH_SHORT).show();
+                            onBackPressed();
+                        } else {
+                            editTextPhone.setError("Please enter valid phone number");
                         }
-                        onBackPressed();
                     }
                 });
                 break;
         }
-
-//        btnSelectImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if(ContextCompat.checkSelfPermission(
-//                        getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE
-//                ) != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(
-//                            EditProfileActivity.this,
-//                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-//                            REQUEST_CODE_STORAGE_PERMISSION
-//                    );
-//                } else {
-//                    selectImage();
-//                }
-//            }
-//        });
-
-
-//        String email = editTextEmail.getText().toString().trim();
-//        String phone = editTextPhone.getText().toString().trim();
-
-
-
-//        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                FirebaseUser user = UserDao.getUser();
-//                User u = UserDao.getCurrentUser();
-//                if (!userName.isEmpty()) {
-//                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                            .setDisplayName(userName)
-//                            .build();
-//
-//                    user.updateProfile(profileUpdates)
-//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()) {
-//                                        u.setUsername(userName);
-//                                    }
-//                                }
-//                            });
-//                }
-//                if (selectedImageUri != null){
-//                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                            .setPhotoUri(selectedImageUri)
-//                            .build();
-//
-//                    user.updateProfile(profileUpdates)
-//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()) {
-//                                        u.setAvatar(selectedImageUri.toString());
-//                                    }
-//                                }
-//                            });
-//                }
-//                if (!email.isEmpty()) {
-//                    user.updateEmail(email)
-//                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                @Override
-//                                public void onComplete(@NonNull Task<Void> task) {
-//                                    if (task.isSuccessful()) {
-//                                        u.setEmail(email);
-//                                    }
-//                                }
-//                            });
-//                }
-//                if (!phone.isEmpty()) {
-//                    u.setPhone(phone);
-//                }
-//
-//                u.setPhone("thanh26042001@gmail.com");
-//                UserDao.addUser(u);
-//                Toast.makeText(EditProfileActivity.this, "Edit profile successfully", Toast.LENGTH_SHORT).show();
-//
-//                onBackPressed();
-//
-////                Intent intent = new Intent(EditProfileActivity.this, ProfileFragment.class);
-////                startActivity(intent);
-////                finish();
-//            }
-//        });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
