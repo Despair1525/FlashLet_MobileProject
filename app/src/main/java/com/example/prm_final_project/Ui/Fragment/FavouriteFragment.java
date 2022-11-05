@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.prm_final_project.Adapter.FavoriteDeckListAdapter;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Dao.UserDao;
@@ -31,7 +32,7 @@ public class FavouriteFragment extends Fragment {
 
     private Context thiscontext;
     private TextView textView;
-    private LinearLayout recyclerLayout;
+//    private LinearLayout recyclerLayout;
     private RecyclerView recycler_favourite;
     private SearchResultViewModel viewModel;
     private ArrayList<RecentDeck> decks = new ArrayList<>();
@@ -62,16 +63,16 @@ public class FavouriteFragment extends Fragment {
         });
         ArrayList<Deck> favoriteDeck = matchHashMapFavoriteDeck();
 
-        HomeDeckListAdapter homeDeckListAdapter = new HomeDeckListAdapter(thiscontext, favoriteDeck);
+        FavoriteDeckListAdapter favoriteDeckListAdapter = new FavoriteDeckListAdapter(thiscontext, favoriteDeck);
         RecyclerView recyclerView = recycler_favourite;
-        recyclerView.setAdapter(homeDeckListAdapter);
+        recyclerView.setAdapter(favoriteDeckListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(thiscontext));
 
         return view;
     }
 
     public void initUi(View view){
-        recyclerLayout = view.findViewById(R.id.layout_favourite);
+//        recyclerLayout = view.findViewById(R.id.layout_favourite);
         recycler_favourite = view.findViewById(R.id.recycler_favourite);
     }
 

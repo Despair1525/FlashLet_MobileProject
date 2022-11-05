@@ -4,17 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     android:fillViewport="true"
     tools:context=".Ui.Fragment.FavouriteFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <LinearLayout
-        android:id="@+id/layout_favourite"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_favourite"
@@ -22,5 +13,4 @@
             android:layout_height="wrap_content"
             android:scrollbars="none"
             />
-    </LinearLayout>
 </androidx.core.widget.NestedScrollView>

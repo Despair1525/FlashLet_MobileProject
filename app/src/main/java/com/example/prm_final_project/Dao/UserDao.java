@@ -289,6 +289,26 @@ public class UserDao {
         }
     }
 
+    public static void deleteFavoriteDeck(String deckId) {
+        User currentUser = allUserHT.get(UserDao.getUser().getUid());
+        if (currentUser != null) {
+            int position = -1;
+            ArrayList<RecentDeck> deckArrayList = currentUser.getFavoriteDeck();
+            for (RecentDeck deck : deckArrayList) {
+                if (deck.getDeckId() == deckId) {
+                    position = deckArrayList.indexOf(deck);
+                    break;
+                }
+            }
+            if (position >= 0) {
+                deckArrayList.remove(position);
+            }
+            currentUser.setFavoriteDeck(deckArrayList);
+            FirebaseDatabase.getInstance().getReference("Users").child(currentUser.getUserId()).
+                    child("favoriteDeck").child(deckId).removeValue();
+        }
+    }
+
     public static void addDaily(String userId) {
 
         String currentDate = Methods.getDate();

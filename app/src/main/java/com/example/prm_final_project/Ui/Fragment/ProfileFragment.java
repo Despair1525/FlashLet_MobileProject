@@ -26,6 +26,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,15 +171,26 @@ public class ProfileFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
         initUi(view);
 
+        progressDialog = new ProgressDialog(thisContext);
+
         firebaseUser = UserDao.getUser();
 
         user = UserDao.getCurrentUser();
         storage = FirebaseStorage.getInstance();
         if (selectedImageUri==null) {
-            Glide.with(ProfileFragment.this)
-                    .load(user.getAvatar())
-                    .error(R.drawable.default_avatar)
-                    .into(imageAvatar);
+            if(user.getAvatar() != null && !user.getAvatar().equalsIgnoreCase("null")) {
+                Uri imgUri = Uri.parse(user.getAvatar());
+                try {
+                    Glide.with(thisContext)
+                            .load(imgUri)
+                            .into(imageAvatar);
+                } catch (Exception e){
+                    imageAvatar.setImageResource(R.drawable.default_avatar);
+                }
+            } else {
+                imageAvatar.setImageResource(R.drawable.default_avatar);
+            }
+
         } else {
             imageAvatar.setImageURI(selectedImageUri);
         }
@@ -334,6 +346,7 @@ public class ProfileFragment extends Fragment {
                 selectedImageUri = data.getData();
                 if(selectedImageUri != null) {
                     try {
+                        progressDialog.show();
                         InputStream inputStream = thisContext.getContentResolver().openInputStream(selectedImageUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                         imageAvatar.setImageBitmap(bitmap);
@@ -350,6 +363,9 @@ public class ProfileFragment extends Fragment {
                         StorageReference riversRef = storageRef.child(user.getUserId() + ".jpg");
 //                        StorageReference riversRef = storageRef.child("images/"+file.getLastPathSegment());
 //                        riversRef.delete();
+                        if (user.getAvatar() != null){
+                            riversRef.delete();
+                        }
                         UploadTask uploadTask = riversRef.putFile(file);
 
                         // Register observers to listen for when the download is done or if it fails
@@ -399,11 +415,26 @@ public class ProfileFragment extends Fragment {
 //                                            });
                                     user.setAvatar(downloadUri.toString());
                                     UserDao.addUser(user);
-                                    Toast.makeText(getContext(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        Toast.makeText(getContext(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
+                                    } catch (Exception e) {
+                                        Log.d("Profile Fragment toast","error");
+//                                        Log.e("toast","error", e);
+//                                        try {
+//                                            Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
+//                                        } catch (Exception exception) {
+//                                            Log.e("toast 2", "error", exception);
+//                                        }
+                                    }
                                     isLoadImage = true;
                                 } else {
-                                    Toast.makeText(getContext(), "Fail to get image URL", Toast.LENGTH_SHORT).show();
+                                    try {
+                                        Toast.makeText(getContext(), "Fail to get image URL", Toast.LENGTH_SHORT).show();
+                                    } catch (Exception e) {
+                                        Log.d("Profile Fragment toast","error");
+                                    }
                                 }
+                                progressDialog.dismiss();
                             }
                         });
 

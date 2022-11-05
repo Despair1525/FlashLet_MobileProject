@@ -34,7 +34,7 @@ public class MyFlashcardsFragment extends Fragment {
 
     private Context thiscontext;
     private TextView textView;
-    private LinearLayout recyclerLayout;
+//    private LinearLayout recyclerLayout;
     private RecyclerView recycler_my_flashcard;
     private SearchResultViewModel viewModel;
     private ArrayList<Deck> decks = new ArrayList<>();
@@ -78,7 +78,7 @@ public class MyFlashcardsFragment extends Fragment {
     }
 
     public void initUi(View view){
-        recyclerLayout = view.findViewById(R.id.layout_my_flashcards);
+//        recyclerLayout = view.findViewById(R.id.layout_my_flashcards);
         recycler_my_flashcard = view.findViewById(R.id.recycler_my_flashcards);
     }
 }

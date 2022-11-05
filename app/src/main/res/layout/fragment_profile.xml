@@ -23,7 +23,7 @@
             android:layout_height="100dp"
             android:scaleType="centerCrop"
             android:src="@drawable/default_avatar"
-            app:riv_border_color="@color/colorPrimary"
+            app:riv_border_color="@color/theme_color"
             app:riv_border_width="3dip"
             app:riv_corner_radius="30dip"
             app:riv_mutate_background="true"
@@ -40,213 +40,55 @@
             android:textStyle="bold"
             android:textSize="25sp" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvEmail"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:text="Email"-->
-<!--            android:textSize="20sp" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tvPhone"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="16dp"-->
-<!--            android:text="Phone"-->
-<!--            android:textSize="20sp" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btnEditProfile"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:text="Edit profile" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btnMyFlashCards"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:text="My Flashcards" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btnChangePassword"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:text="Change password" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btnNotification"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:text="Notification" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btnLogout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="32dp"-->
-<!--            android:text="Logout" />-->
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:padding="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             >
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardViewEditUsername"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:elevation="5dp"
                 app:cardMaxElevation="5dp"
                 app:cardCornerRadius="10dp"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     >
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_person"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_person_24"
                         />
-                    <androidx.constraintlayout.widget.ConstraintLayout
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical">
+
                         <TextView
                             android:id="@+id/tvEditUsernameTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="20dp"
                             android:layout_marginStart="16dp"
                             android:text="Username"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            />
+                            android:textSize="20dp" />
+
                         <TextView
                             android:id="@+id/tvUsernameProfile"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tvEditUsernameTitle"
                             android:layout_marginStart="16dp"
-                            app:layout_constraintStart_toStartOf="parent"
                             android:text="Username"
-                            android:textColor="@color/colorPrimary"
-                            />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </RelativeLayout>
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:padding="10dp"
-            >
-            <androidx.cardview.widget.CardView
-                android:id="@+id/CardViewEditEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="5dp"
-                app:cardMaxElevation="5dp"
-                app:cardCornerRadius="10dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    >
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_email"
-                        />
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/tvEditEmailTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:layout_marginStart="16dp"
-                            android:text="Email"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            />
-                        <TextView
-                            android:id="@+id/tvEmailProfile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tvEditEmailTitle"
-                            android:layout_marginStart="16dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="Email"
-                            android:textColor="@color/colorPrimary"
-                            />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </RelativeLayout>
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:padding="10dp"
-            >
-            <androidx.cardview.widget.CardView
-                android:id="@+id/CardViewEditPhone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:elevation="5dp"
-                app:cardMaxElevation="5dp"
-                app:cardCornerRadius="10dp"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    >
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_phone"
-                        />
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent">
-                        <TextView
-                            android:id="@+id/tvEditPhoneTitle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="20dp"
-                            android:layout_marginStart="16dp"
-                            android:text="Phone number"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            />
-                        <TextView
-                            android:id="@+id/tvPhoneProfile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:layout_constraintTop_toBottomOf="@id/tvEditPhoneTitle"
-                            android:layout_marginStart="16dp"
-                            app:layout_constraintStart_toStartOf="parent"
-                            android:text="Phone number"
-                            android:textColor="@color/colorPrimary"
-                            />
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -255,27 +97,137 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             >
             <androidx.cardview.widget.CardView
-                android:id="@+id/CardViewChangePassword"
+                android:id="@+id/CardViewEditEmail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:elevation="5dp"
                 app:cardMaxElevation="5dp"
                 app:cardCornerRadius="10dp"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_baseline_email_24"
+                        android:layout_gravity="center_vertical"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvEditEmailTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Email"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/tvEmailProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Email"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewEditPhone"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    >
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_baseline_phone_24"
+                        />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/tvEditPhoneTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Phone number"
+                            android:textSize="20dp" />
+
+                        <TextView
+                            android:id="@+id/tvPhoneProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Phone number"
+                            android:textColor="@color/colorPrimary" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            >
+            <androidx.cardview.widget.CardView
+                android:id="@+id/CardViewChangePassword"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:elevation="5dp"
+                app:cardMaxElevation="5dp"
+                app:cardCornerRadius="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     >
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/ic_edit" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/ic_edit"
+                        android:layout_gravity="center_vertical"/>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
@@ -305,21 +257,22 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardViewMyFlashcards"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:elevation="5dp"
                 app:cardMaxElevation="5dp"
                 app:cardCornerRadius="10dp"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     >
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/ic_deck"
+                        android:layout_gravity="center_vertical"
                         />
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
@@ -344,27 +297,31 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             >
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardViewNotification"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:elevation="5dp"
                 app:cardMaxElevation="5dp"
                 app:cardCornerRadius="10dp"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     >
+
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/ic_notification"
+                        android:layout_gravity="center_vertical"
                         />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent">
@@ -388,26 +345,29 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
+            android:layout_marginTop="100dp"
             >
             <androidx.cardview.widget.CardView
                 android:id="@+id/CardViewLogout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="70dp"
                 android:elevation="5dp"
                 app:cardMaxElevation="5dp"
                 app:cardCornerRadius="10dp"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     >
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/ic_logout"
+                        android:layout_gravity="center_vertical"
                         />
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
