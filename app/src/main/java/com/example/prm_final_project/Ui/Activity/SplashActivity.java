@@ -5,14 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
-
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.Util.Methods;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import java.lang.reflect.Method;
 
 public class SplashActivity extends AppCompatActivity {
 

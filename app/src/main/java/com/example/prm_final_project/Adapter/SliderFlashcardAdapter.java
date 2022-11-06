@@ -2,16 +2,13 @@ package com.example.prm_final_project.Adapter;
 
 import android.app.slice.SliceItem;
 import android.content.Context;
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
-
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
@@ -41,13 +38,7 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
         List<String> card = cards.getCards().get(position);
         holder.front.setText(card.get(0));
         holder.back.setText(card.get(1));
-
     }
-
-    public List<String> getCard(int index){
-        return cards.getCards().get(index);
-};
-
 
     @Override
     public int getItemCount() {
@@ -67,9 +58,5 @@ public class SliderFlashcardAdapter extends RecyclerView.Adapter<SliderFlashcard
             back = itemView.findViewById(R.id.SliderCardBack);
             easyFlipView = itemView.findViewById(R.id.easyFilpView);
         }
-
-        void setCardView(SliceItem sliceItem){
-
-        };
     }
 }

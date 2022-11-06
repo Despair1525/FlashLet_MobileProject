@@ -77,14 +77,8 @@ public class RecomenDeckFragment extends Fragment {
     }
     private ArrayList<Deck> popularDecks ;
     private ArrayList<Deck> allDecks = new ArrayList<>();
-
     public static Hashtable<String,Deck> originDeckHt = new Hashtable<>();
-
     RecyclerView RvPublicDeck;
-    FirebaseDatabase rootRef;
-    FirebaseAuth mAuth;
-    FirebaseUser user ;
-    User currentUser;
 
     HomeDeckListAdapter homeDeckAdap;
     @Override
@@ -96,8 +90,11 @@ public class RecomenDeckFragment extends Fragment {
         popularDecks = new ArrayList<>();
         allDecks = new ArrayList<>();
         originDeckHt = DeckDao.HmAllDeck;
-
         allDecks.addAll(getPublicCard());
+
+        Collections.sort( allDecks, (o1, o2) -> {
+            return (int) (o2.getView() - o1.getView());
+        });
         if(allDecks.size() > 11) {
             popularDecks.addAll(allDecks.subList(0, 10));
         }
@@ -105,10 +102,6 @@ public class RecomenDeckFragment extends Fragment {
         else{
             popularDecks.addAll(allDecks);
         };
-        Collections.sort( popularDecks, (o1, o2) -> {
-            return (int) (o2.getView() - o1.getView());
-        });
-
         RvPublicDeck = view.findViewById(R.id.RvDecksPopular);
         RvPublicDeck.setNestedScrollingEnabled(false);
         homeDeckAdap = new HomeDeckListAdapter(getActivity(),popularDecks);

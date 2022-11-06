@@ -86,9 +86,7 @@ public class HomeDeckListAdapter extends RecyclerView.Adapter<HomeDeckListAdapte
                  holder.imgAvt.setImageResource(R.drawable.default_avatar);
             }
         };
-
         holder.layoutItem.setOnClickListener(view -> onItem(curentDeck));
-
     }
 
     private void onItem(Deck currentDeck) {

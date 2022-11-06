@@ -64,32 +64,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ImportDataActivity extends AppCompatActivity implements View.OnClickListener {
-    private static int PERMISSION_REQUEST_CODE= 25;
-    private static int RESULT_REQUEST_CODE= 15;
-    private String regex="[\\n]+";
+    private static int PERMISSION_REQUEST_CODE = 25;
+    private static int RESULT_REQUEST_CODE = 15;
+    private String regex = "[\\n]+";
 
-    String[] permission={READ_EXTERNAL_STORAGE,WRITE_EXTERNAL_STORAGE};
+    String[] permission = {READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE};
     ActivityResultLauncher<Intent> activityResultLauncher;
-
     Button btImportFile;
     ImageView IvSetting;
-    TextView tvFileView,tvRegexCard,tvRegexCards;
+    TextView tvFileView, tvRegexCard, tvRegexCards;
     RecyclerView rvList;
 
     ViewCardImportAdapter adapter;
     private ProgressDialog dialog;
 
-    private String regex1_default="[\\n]+";
-    private String regex2_default="[|]+";
-
-    private String rawString="";
+    private String regex1_default = "[\\n]+";
+    private String regex2_default = "[|]+";
+    private String rawString = "";
     private List<List<String>> rawDeck = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_import_data);
-
 
 
         btImportFile = findViewById(R.id.btImport);
@@ -105,106 +102,112 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
 
         activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode() == Activity.RESULT_OK) {
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                        if(Environment.isExternalStorageManager()) {
-                            Toast.makeText(getApplicationContext(),"PerMission Granted",Toast.LENGTH_SHORT).show();
-                        }else {
-                            Toast.makeText(getApplicationContext(),"PerMission Denied",Toast.LENGTH_SHORT).show();
-                        };
-                    };
-                };
-            }
-        });
+                    @Override
+                    public void onActivityResult(ActivityResult result) {
+                        if (result.getResultCode() == Activity.RESULT_OK) {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                                if (Environment.isExternalStorageManager()) {
+                                    Toast.makeText(getApplicationContext(), "PerMission Granted", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "PerMission Denied", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    }
+                });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
     }
 
 
-    boolean checkPermission(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    boolean checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             return Environment.isExternalStorageManager();
-        }
-        else{
-            int readCheck = ContextCompat.checkSelfPermission(getApplicationContext(),READ_EXTERNAL_STORAGE);
-            int writeCheck = ContextCompat.checkSelfPermission(getApplicationContext(),WRITE_EXTERNAL_STORAGE);
-            return readCheck == PackageManager.PERMISSION_GRANTED  && writeCheck== PackageManager.PERMISSION_GRANTED;
+        } else {
+            int readCheck = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+            int writeCheck = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+            return readCheck == PackageManager.PERMISSION_GRANTED && writeCheck == PackageManager.PERMISSION_GRANTED;
         }
     }
 
-    void requestPermisson(){
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    void requestPermisson() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             try {
                 Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
                 intent.addCategory("android.intent.category.DEFAULT");
                 intent.setData(Uri.parse(String.format("package:%s", new Object[]{getApplicationContext().getPackageName()})));
                 activityResultLauncher.launch(intent);
-            }catch (Exception e) {
+            } catch (Exception e) {
 
                 Intent intent = new Intent();
                 intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
                 activityResultLauncher.launch(intent);
-            };
+            }
         } else {
-            ActivityCompat.requestPermissions(ImportDataActivity.this,permission,PERMISSION_REQUEST_CODE);
-        };
-    };
-
-    private void performFileSearh() {
-        Intent intent  = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("text/*");
-        startActivityForResult(intent,RESULT_REQUEST_CODE);
+            ActivityCompat.requestPermissions(ImportDataActivity.this, permission, PERMISSION_REQUEST_CODE);
+        }
     }
 
-    private String readText(String path){
-        File file= new File(Environment.getExternalStorageDirectory(),path);
+    private void performFileSearh() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/*");
+        startActivityForResult(intent, RESULT_REQUEST_CODE);
+    }
+
+    private String readText(String path) {
+        File file = new File(Environment.getExternalStorageDirectory(), path);
         StringBuilder text = new StringBuilder();
         try {
             InputStreamReader input = new InputStreamReader(new FileInputStream(file));
             BufferedReader br = new BufferedReader(input);
             String line = br.readLine();
-            while( line != null) {
+            while (line != null) {
 
                 text.append(line);
                 text.append("\n");
                 line = br.readLine();
-            };
+            }
+            ;
             input.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            Log.i("String-file",e.getMessage());
+            Log.i("String-file", e.getMessage());
         } catch (IOException e) {
-            Log.i("String-file",e.getMessage());
+            Log.i("String-file", e.getMessage());
             e.printStackTrace();
         }
         return text.toString();
-    };
-    private void setRycleView(List<List<String>> list){
+    }
+
+    ;
+
+    private void setRycleView(List<List<String>> list) {
         dialog = new ProgressDialog(ImportDataActivity.this);
         dialog.setMessage("Loading");
         dialog.show();
-        adapter = new ViewCardImportAdapter(this,list);
-        rvList.setAdapter( adapter);
+        adapter = new ViewCardImportAdapter(this, list);
+        rvList.setAdapter(adapter);
         rvList.setLayoutManager(new LinearLayoutManager((this)));
         dialog.dismiss();
-    };
-    private void onSettingRegex(){
+    }
+
+    ;
+
+    private void onSettingRegex() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter your Regex");
         // Set up Layout for dialog
 
         LayoutInflater inflater = ImportDataActivity.this.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.item_edit_card,null);
+        View layout = inflater.inflate(R.layout.item_edit_card, null);
         builder.setView(layout);
 
         TextView tv1 = layout.findViewById(R.id.tv1);
         TextView tv2 = layout.findViewById(R.id.tv2);
-        EditText inputFront =layout.findViewById(R.id.Editfront);
-        EditText inputBack =layout.findViewById(R.id.Editback);
+        EditText inputFront = layout.findViewById(R.id.Editfront);
+        EditText inputBack = layout.findViewById(R.id.Editback);
 
         tv1.setText("Enter betwwen front and back card");
         tv2.setText("Enter betwwen cards");
@@ -216,17 +219,18 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
                 String regex2;
                 regex1 = inputFront.getText().toString().trim();
                 regex2 = inputBack.getText().toString().trim();
-                if(regex1.isEmpty() ) regex1 = regex1_default;
-                if(regex2.isEmpty() ) regex2 = regex2_default;
+                if (regex1.isEmpty()) regex1 = regex1_default;
+                if (regex2.isEmpty()) regex2 = regex2_default;
 
-                if(rawString != null) {
+                if (rawString != null) {
                     tvRegexCard.setText(regex1);
                     tvRegexCards.setText(regex2);
-            Log.i("Regex","["+regex1+"]+");
-                   List<List<String>> newList = Regex.transformStringToDeck(rawString,"["+regex1+"]+", "["+regex2+"]+");
-                   rawDeck = newList;
-                   setRycleView(newList);
-                };
+                    Log.i("Regex", "[" + regex1 + "]+");
+                    List<List<String>> newList = Regex.transformStringToDeck(rawString, "[" + regex1 + "]+", "[" + regex2 + "]+");
+                    rawDeck = newList;
+                    setRycleView(newList);
+                }
+                ;
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -238,47 +242,52 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
 
         builder.show();
     }
+
     @Override
     public void onClick(View v) {
-        if(v == btImportFile){
-            if(checkPermission()){
-                performFileSearh();}
-            else {
+        if (v == btImportFile) {
+            if (checkPermission()) {
+                performFileSearh();
+            } else {
                 requestPermisson();
-            };
+            }
+            ;
         }
-        if(v == IvSetting){
+        if (v == IvSetting) {
             onSettingRegex();
-        };
+        }
+        ;
     }
+
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == RESULT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            if(data != null){
+        if (requestCode == RESULT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            if (data != null) {
                 Uri uri = data.getData();
                 String path = uri.getPath();
-                path =path.substring(path.indexOf(":")+1);
-                if(path.contains("emulated")) {
-                    path=path.substring(path.indexOf("0")+1);
-                };
-                Toast.makeText(this, ""+path, Toast.LENGTH_SHORT).show();
-
-
+                path = path.substring(path.indexOf(":") + 1);
+                if (path.contains("emulated")) {
+                    path = path.substring(path.indexOf("0") + 1);
+                }
+                ;
+                Toast.makeText(this, "" + path, Toast.LENGTH_SHORT).show();
                 String dataRaw = readText(path);
                 tvFileView.setText(dataRaw);
-                List<List<String>> arrList = Regex.transformStringToDeck(dataRaw,regex1_default,regex2_default);
+                List<List<String>> arrList = Regex.transformStringToDeck(dataRaw, regex1_default, regex2_default);
                 rawDeck = arrList;
                 rawString = dataRaw;
                 setRycleView(arrList);
-            };
-        };
+            }
+            ;
+        }
+        ;
     }
 
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == PERMISSION_REQUEST_CODE) {
+        if (requestCode == PERMISSION_REQUEST_CODE) {
             boolean readper = grantResults[0] == PackageManager.PERMISSION_GRANTED;
             boolean writer = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
@@ -288,35 +297,15 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
                 } else {
                     Toast.makeText(this, "Permission Deny", Toast.LENGTH_SHORT).show();
                 }
-            }
-            else{
+            } else {
                 Toast.makeText(this, "You Deny", Toast.LENGTH_SHORT).show();
-            };
+            }
+            ;
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    };
-
-    @SuppressLint("RestrictedApi")
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.import_data_menu,menu);
-        if(menu instanceof MenuBuilder){
-            MenuBuilder m = (MenuBuilder) menu;
-            m.setOptionalIconsVisible(true);
-        }
-        return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.SaveEditAction:
-                onSave();
-                break;
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    ;
 
     private void onSave() {
         dialog = new ProgressDialog(ImportDataActivity.this);
@@ -331,8 +320,8 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
 
                 Intent i = new Intent();
                 Bundle args = new Bundle();
-                args.putSerializable("importCard",(Serializable) rawDeck);
-                i.putExtra("BUNDLE",args);
+                args.putSerializable("importCard", (Serializable) rawDeck);
+                i.putExtra("BUNDLE", args);
                 setResult(15, i);
                 finish();
             }
@@ -344,6 +333,27 @@ public class ImportDataActivity extends AppCompatActivity implements View.OnClic
             }
         });
         builder.show();
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.import_data_menu, menu);
+        if (menu instanceof MenuBuilder) {
+            MenuBuilder m = (MenuBuilder) menu;
+            m.setOptionalIconsVisible(true);
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.SaveEditAction:
+                onSave();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

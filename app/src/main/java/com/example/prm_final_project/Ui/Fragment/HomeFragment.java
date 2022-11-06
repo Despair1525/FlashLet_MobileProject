@@ -39,33 +39,14 @@ import java.util.Map;
 
 public class HomeFragment extends Fragment implements View.OnClickListener {
 
-    private ArrayList<Deck> allDecks = new ArrayList<>();
-
-    private ArrayList<Deck> originDecks = new ArrayList<>();
-    private ArrayList<Deck> newestDecks = new ArrayList<>();
-    private ArrayList<Deck> recentDecks = new ArrayList<>();
-    private ArrayList<Deck> slopeOneDeck = new ArrayList<>();
-    public static Hashtable<String, Deck> originDeckHt = new Hashtable<>();
-
-    ArrayList<String> myDeckKeys = new ArrayList<>();
-    Map<String, Deck> keyedDecks = new HashMap<>();
-    ArrayList<Deck> personalDecks = new ArrayList<>();
-    int typeDeck = 0;
     FirebaseDatabase rootRef;
     FirebaseAuth mAuth;
     FirebaseUser user;
-    User currentUser;
-
     private ListView lvDecks;
     private boolean inPublic = true;
-    HomeDeckListAdapter homeDeckAdap, homeDeckAdapNew;
-    DailyAdapter deckListTypeAdaper;
-    private RecyclerView RvPublicDeck,RvTimetable;
+    private RecyclerView RvTimetable;
     private TextView tvUserName;
     private TextView tvActivity;
-    private TextView myDecks, publicDecks;
-    private String m_Text = "";
-    private ProgressBar PbLoading;
     private ViewPager2 viewPager;
 
     DailyAdapter dailyAdapter;
@@ -156,9 +137,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(1);
-
     }
-
 
     @Override
     public void onClick(View v) {

@@ -48,20 +48,15 @@ import java.util.Hashtable;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private String m_Text;
     BottomNavigationView bottomNavigationView;
-    private boolean isGuest = false;
-    private boolean firstTime = true;
-    private FirebaseAuth mAuth;
     private final static int HOME_FRAGMENT = 0;
     private final static int SEARCH_FRAGMENT = 1;
-    private final static int CREATE_FRAGMENT = 2;
-    private final static int PROFILE_FRAGMENT = 3;
+    private final static int PROFILE_FRAGMENT = 2;
     private int CURRENT_FRAGMENT;
 
     private Hashtable<String, Deck> allDecks = new Hashtable<>();
     Fragment fragmentHome = new HomeFragment();
     ;
     Fragment fragmentProfile = new ProfileFragment();
-    FirebaseDatabase rootRef;// Hiện tại đại để mặc định là Guest
     private ProgressDialog dialog;
 
 
@@ -76,10 +71,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         dialog.show();
         if (InternetConnection.isConnectedToInternet(getApplicationContext())) {
 
-            rootRef = FirebaseDatabase.getInstance();
-            mAuth = FirebaseAuth.getInstance();
-            isGuest = checkGuest();
-            if (isGuest) {
+            if (UserDao.getUser() == null) {
                 Log.e("check guest", "true");
                 Intent i = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(i);
@@ -90,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     public void onResponse(ArrayList<User> allUsers, User changeUser, int type) {
                         if (type == 0) {
                             // Check Streak
-                           addStreak();
+                            addStreak();
                             DeckDao.readAllDecksOnce(new AllDataCallback() {
                                 @Override
                                 public void onResponse(Hashtable<String, Deck> allDecks) {
@@ -102,14 +94,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                                     dialog.dismiss();
                                 }
                             });
-
                         } else {
                             Log.i("here", "Yolo");
                             Intent i = new Intent(MainActivity.this, NoInternetActivity.class);
                             startActivity(i);
                             finish();
                         }
-                        ;
                     }
                 });
             }
@@ -121,10 +111,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             finish();
         }
     }
-    public void addStreak(){
+
+    public void addStreak() {
 
         User user = UserDao.getCurrentUser();
-        if(user != null) {
+        if (user != null) {
             ArrayList<String> userDaily = user.getDaily();
             Collections.sort(userDaily, new Comparator<String>() {
                 @Override
@@ -143,11 +134,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             } else if (lastLoginNum == 1) {
                 user.setCurrentStreak(user.getCurrentStreak() + 1);
             }
-            ;
             UserDao.addUser(user);
             UserDao.addDaily(UserDao.getUser().getUid());
-        };
-    };
+        }
+    }
+
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -181,8 +173,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     public void onBackPressed() {
         if (bottomNavigationView.getSelectedItemId() == R.id.nav_home) {
-//          super.onBackPressed();
-           moveTaskToBack(true);
+            moveTaskToBack(true);
         } else {
             bottomNavigationView.setSelectedItemId(R.id.nav_home);
         }
@@ -195,14 +186,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         transaction.commit();
     }
 
-    public FirebaseAuth getmAuth() {
-        mAuth = FirebaseAuth.getInstance();
-        return mAuth;
-    }
-
     // create Deck
     public void creatDeck() {
-        if (checkGuest()) {
+        if (UserDao.getUser() == null) {
             Toast.makeText(MainActivity.this, "You have to login !", Toast.LENGTH_SHORT).show();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -214,11 +200,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     m_Text = input.getText().toString();
-                    Deck newDeck = new Deck(m_Text,UserDao.getUser().getUid());
+                    Deck newDeck = new Deck(m_Text, UserDao.getUser().getUid());
                     Intent i = new Intent(MainActivity.this, EditDeckActivity.class);
-
                     // ad new Deck with (Uid and title )
-                    i.putExtra("editDeck",newDeck);
+                    i.putExtra("editDeck", newDeck);
                     i.putExtra("editTitle", m_Text);
                     startActivity(i);
                 }
@@ -231,32 +216,5 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             });
             builder.show();
         }
-        ;
-
     }
-
-    ;
-
-    public boolean checkGuest() {
-        FirebaseUser user = mAuth.getInstance().getCurrentUser();
-        if (user == null) {
-            return true;
-        }
-        return false;
-    }
-
-    public FirebaseUser getCurrUser() {
-        mAuth = getmAuth();
-        FirebaseUser user = mAuth.getCurrentUser();
-        return user;
-    }
-
-    public interface OnGetDataListener {
-        //this is for callbacks
-        void onSuccess(DataSnapshot dataSnapshot);
-
-        void onFailure();
-    }
-
-
 }

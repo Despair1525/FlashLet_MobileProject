@@ -4,7 +4,6 @@ package com.example.prm_final_project.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
-import com.example.prm_final_project.Ui.Activity.EditDeckActivity;
 import com.example.prm_final_project.callbackInterface.AdapterCallback;
 
 import java.util.ArrayList;
@@ -92,7 +90,6 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
                                 cards.getCards().remove(position);
                                 notifyDataSetChanged();
                                 callback.onResponse(1);
-
                                 return true;
                             default:
                                 return false;
@@ -101,7 +98,6 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
                 });
                 //displaying the popup
                 popup.show();
-
             }
         });
 
@@ -121,7 +117,7 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
         inputFront.setText(card.get(0));
         inputBack.setText(card.get(1));
         builder.setView(layout);
-// Set up the buttons
+        // Set up the buttons
         builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -142,7 +138,6 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
                 dialog.cancel();
             }
         });
-
         builder.show();
     }
 
@@ -151,7 +146,6 @@ public class EditCardAdapt extends RecyclerView.Adapter< EditCardAdapt.AddressVi
     public int getItemCount() {
         return cards==null?0:cards.getCards().size();
     }
-
     public class AddressViewHolder extends RecyclerView.ViewHolder {
         TextView front;
         TextView back;

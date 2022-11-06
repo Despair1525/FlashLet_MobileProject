@@ -15,30 +15,21 @@ import android.widget.ProgressBar;
 import com.example.prm_final_project.Adapter.HomeDeckListAdapter;
 import com.example.prm_final_project.Dao.DeckDao;
 import com.example.prm_final_project.Model.Deck;
-import com.example.prm_final_project.Model.User;
 import com.example.prm_final_project.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class PublicDeckFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+
 
     public PublicDeckFragment() {
         // Required empty public constructor
@@ -48,21 +39,15 @@ public class PublicDeckFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-
      * @return A new instance of fragment PublicDeckFragment.
      */
     // TODO: Rename and change types and number of parameters
 
 
-    private ArrayList<Deck> allDecks ;
-    public static Hashtable<String,Deck> originDeckHt = new Hashtable<>();
+    private ArrayList<Deck> allDecks;
+    public static Hashtable<String, Deck> originDeckHt = new Hashtable<>();
 
     RecyclerView RvPublicDeck;
-    FirebaseDatabase rootRef;
-    FirebaseAuth mAuth;
-    FirebaseUser user ;
-    User currentUser;
-
     ProgressBar pb;
     HomeDeckListAdapter homeDeckAdap;
 
@@ -77,14 +62,14 @@ public class PublicDeckFragment extends Fragment {
         pb.setVisibility(ProgressBar.VISIBLE);
         allDecks = new ArrayList<>();
         originDeckHt = DeckDao.HmAllDeck;
-        Log.i("HmAllDeckSize",originDeckHt.size()+"");
+        Log.i("HmAllDeckSize", originDeckHt.size() + "");
 
         allDecks.addAll(getPublicCard());
         RvPublicDeck = view.findViewById(R.id.RvDecksPublic);
         RvPublicDeck.setNestedScrollingEnabled(false);
 
-        homeDeckAdap = new HomeDeckListAdapter(getActivity(),allDecks);
-        RvPublicDeck.setAdapter( homeDeckAdap);
+        homeDeckAdap = new HomeDeckListAdapter(getActivity(), allDecks);
+        RvPublicDeck.setAdapter(homeDeckAdap);
         RvPublicDeck.setLayoutManager(new LinearLayoutManager((getActivity())));
         homeDeckAdap.notifyDataSetChanged();
 
@@ -92,10 +77,9 @@ public class PublicDeckFragment extends Fragment {
         return view;
     }
 
-    public List<Deck> getPublicCard(){
-        List<Deck> result =  originDeckHt.values().stream().filter(deck -> deck.isPublic()).collect(Collectors.toList());
+    public List<Deck> getPublicCard() {
+        List<Deck> result = originDeckHt.values().stream().filter(deck -> deck.isPublic()).collect(Collectors.toList());
         Collections.shuffle(result);
-
-    return result ;
-    };
+        return result;
+    }
 }

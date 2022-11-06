@@ -21,10 +21,6 @@ public class MyFlashcardsPageAdapter extends FragmentPagerAdapter {
         fragmentManager = fm;
     }
 
-    public MyFlashcardsPageAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
-    }
-
     @NonNull
     @Override
     public Fragment getItem(int position) {
@@ -56,7 +52,6 @@ public class MyFlashcardsPageAdapter extends FragmentPagerAdapter {
         }
         return null;
     }
-
     // restore
     @Override
     public void restoreState(final Parcelable state, final ClassLoader loader) {

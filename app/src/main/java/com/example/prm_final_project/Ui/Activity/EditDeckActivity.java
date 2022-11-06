@@ -144,7 +144,6 @@ private ProgressDialog dialogLoad;
                 DeckDao.addDeck(editDeck, new FirebaseCallback() {
                     @Override
                     public void onResponse(ArrayList<Deck> allDecks, Deck changeDeck, int type) {
-
                         Intent i = new Intent(EditDeckActivity.this, ViewCardActivity.class);
                         i.putExtra("viewDeck", changeDeck);
                         dialogLoad.dismiss();
@@ -275,5 +274,3 @@ private ProgressDialog dialogLoad;
         };
     }
 };
-
-

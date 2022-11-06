@@ -4,19 +4,14 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.Model.RecentDeck;
 import com.example.prm_final_project.Model.User;
-import com.example.prm_final_project.R;
-import com.example.prm_final_project.Ui.Activity.LoginActivity;
+
 import com.example.prm_final_project.Util.Methods;
 import com.example.prm_final_project.callbackInterface.UserCallback;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInApi;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,7 +21,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -53,8 +47,6 @@ public class UserDao {
     }
 
     public static void addUser(User user) {
-        FirebaseAuth mAuth;
-        mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("avatar").setValue(user.getAvatar());
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("email").setValue(user.getEmail());
         FirebaseDatabase.getInstance().getReference("Users").child(user.getUserId()).child("phone").setValue(user.getPhone());
@@ -150,7 +142,6 @@ public class UserDao {
             String dailyDate = ds.getKey();
             daily.add(dailyDate);
         }
-        ;
         newUser.setDaily(daily);
 
         // set Rate User;
@@ -159,7 +150,6 @@ public class UserDao {
             userRate.put(ds.getKey(), ds.getValue(Double.class));
             Log.i("addUser", ds.getKey() + "|" + ds.getValue() + "");
         }
-        ;
         newUser.setRate(userRate);
         return newUser;
     }
@@ -300,14 +290,11 @@ public class UserDao {
     }
 
     public static void addDaily(String userId) {
-
         String currentDate = Methods.getDate();
         Log.i("date-firebase",currentDate);
         FirebaseDatabase.getInstance().getReference("Users").
                 child(userId).child("daily").child(currentDate).
                 setValue("");
-
-
     }
 
     public static User getUserById(String id){

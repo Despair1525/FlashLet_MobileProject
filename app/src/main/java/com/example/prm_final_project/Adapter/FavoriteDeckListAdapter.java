@@ -129,7 +129,6 @@ public class FavoriteDeckListAdapter extends RecyclerView.Adapter<FavoriteDeckLi
             ArrayList<RecentDeck> recentDecks = DeckDao.createRecentDeck(deckId,currentUser.getRecentDecks());
             currentUser.setRecentDecks(recentDecks);
        UserDao.addUser(currentUser);
-
         };
         //
         context.startActivity(i);

@@ -1,19 +1,14 @@
 package com.example.prm_final_project.Adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.prm_final_project.Model.Deck;
 import com.example.prm_final_project.R;
 
 import java.util.ArrayList;

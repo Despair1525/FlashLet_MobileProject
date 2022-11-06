@@ -71,12 +71,9 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.AddressViewH
         LinearLayout item;
         public AddressViewHolder(@NonNull View itemView) {
             super(itemView);
-
             item = itemView.findViewById(R.id.itemListType);
-
             day = itemView.findViewById(R.id.tv_time_text);
             date = itemView.findViewById(R.id.tv_time_date_num);
-
         }
     }
 }

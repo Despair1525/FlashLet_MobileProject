@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,10 +19,8 @@ import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 public class DailyActivity extends AppCompatActivity {
     CompactCalendarView compactCalendar;
@@ -70,7 +67,6 @@ public class DailyActivity extends AppCompatActivity {
 
 
         initDaily();
-//        enableDisableView(compactCalendar,false);
         // define a listener to receive callbacks when certain events happen.
 
     }

@@ -60,12 +60,6 @@ public class recomendSystem {
             newUser = new HashMap<>();
             newRecommendationSet = new HashSet<>();
 
-            // Add all or  all sub random
-//            while(!(newRecommendationSet.size() == 10)) {
-//                Random random = new Random();
-//                int number = random.nextInt(songList.size());
-//                newRecommendationSet.add(songList.get(number));
-//            }
 
             newRecommendationSet.addAll(deckList) ;
             for (Deck deck : newRecommendationSet) {
