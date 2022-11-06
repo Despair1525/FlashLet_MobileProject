@@ -94,47 +94,7 @@ public class ProfileFragment extends Fragment {
     User user;
     FirebaseStorage storage;
 
-    private ActivityResultLauncher<Intent> mActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-        @Override
-        public void onActivityResult(ActivityResult result) {
-            if (result.getResultCode() == RESULT_OK) {
-                Intent intent = result.getData();
-                if (intent == null) return;
-                selectedImageUri = intent.getData();
-                try {
-                    InputStream inputStream = thisContext.getContentResolver().openInputStream(selectedImageUri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                    imageAvatar.setImageBitmap(bitmap);
-//                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(thisContext.getContentResolver(), selectedImageUri);
-//                    imageAvatar.setImageBitmap(bitmap);
-                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(user.getUsername())
-                            .setPhotoUri(selectedImageUri)
-                            .build();
 
-                    firebaseUser.updateProfile(profileUpdates)
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        user.setAvatar(selectedImageUri.toString());
-                                        UserDao.addUser(user);
-                                        Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-
-//                    user.setAvatar(selectedImageUri.toString());
-//                    UserDao.addUser(user);
-//                    Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    });
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -303,11 +263,6 @@ public class ProfileFragment extends Fragment {
         cvMyFlashCards = view.findViewById(R.id.CardViewMyFlashcards);
         cvNotification = view.findViewById(R.id.CardViewNotification);
         cvLogout = view.findViewById(R.id.CardViewLogout);
-//        btnEditProfile = view.findViewById(R.id.btnEditProfile);
-//        btnMyFlashCards = view.findViewById(R.id.btnMyFlashCards);
-//        btnChangePassword = view.findViewById(R.id.btnChangePassword);
-//        btnNotification = view.findViewById(R.id.btnNotification);
-//        btnLogout = view.findViewById(R.id.btnLogout);
     }
 
     private void selectImage() {
@@ -315,14 +270,6 @@ public class ProfileFragment extends Fragment {
         if(intent.resolveActivity(thisContext.getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
         }
-    }
-
-    private void openGallery() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        mActivityResultLauncher.launch(Intent.createChooser(intent,"Select Picture"));
-
     }
 
     @Override
@@ -369,19 +316,6 @@ public class ProfileFragment extends Fragment {
                             riversRef.delete();
                         }
                         UploadTask uploadTask = riversRef.putFile(file);
-
-                        // Register observers to listen for when the download is done or if it fails
-//                        uploadTask.addOnFailureListener(new OnFailureListener() {
-//                            @Override
-//                            public void onFailure(@NonNull Exception exception) {
-//                                Toast.makeText(getActivity(), "Upload image failed", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                            @Override
-//                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                                Toast.makeText(getActivity(), "Upload image successfully", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
                         Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                             @Override
                             public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -397,36 +331,12 @@ public class ProfileFragment extends Fragment {
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if (task.isSuccessful()) {
                                     Uri downloadUri = task.getResult();
-//                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-//                                            .setDisplayName(user.getUsername())
-//                                            .setPhotoUri(downloadUri)
-//                                            .build();
-//
-//                                    firebaseUser.updateProfile(profileUpdates)
-//                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                                @Override
-//                                                public void onComplete(@NonNull Task<Void> task) {
-//                                                    if (task.isSuccessful()) {
-//                                                        user.setAvatar(downloadUri.toString());
-//                                                        UserDao.addUser(user);
-//                                                        Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
-//                                                    } else {
-//                                                        Toast.makeText(getActivity(), "Edit avatar failed", Toast.LENGTH_SHORT).show();
-//                                                    }
-//                                                }
-//                                            });
                                     user.setAvatar(downloadUri.toString());
                                     UserDao.addUser(user);
                                     try {
                                         Toast.makeText(getContext(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
                                     } catch (Exception e) {
                                         Log.d("Profile Fragment toast","error");
-//                                        Log.e("toast","error", e);
-//                                        try {
-//                                            Toast.makeText(getActivity(), "Edit avatar successfully", Toast.LENGTH_SHORT).show();
-//                                        } catch (Exception exception) {
-//                                            Log.e("toast 2", "error", exception);
-//                                        }
                                     }
                                     isLoadImage = true;
                                 } else {
